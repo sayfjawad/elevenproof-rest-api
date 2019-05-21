@@ -11,6 +11,7 @@ Dit project maakt gebruik van:
 
 ```
 Java 8
+Maven
 ```
 
 
