@@ -129,14 +129,23 @@
                 <groupId>org.pitest</groupId>
                 <artifactId>pitest-maven</artifactId>
                 <version>1.4.10</version>
+                <executions>
+                    <execution>
+                        <id>pit-report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>mutationCoverage</goal>
+                        </goals>
+                    </execution>
+                </executions>
                 <configuration>
                     <targetClasses>
-                        <param>nl.multicode.bsn.service*</param>
-                        <param>nl.multicode.bsn.validation*</param>
+                        <param>nl.multicode.bsn.service.*</param>
+                        <param>nl.multicode.bsn.validation.*</param>
                     </targetClasses>
                     <targetTests>
-                        <param>nl.multicode.bsn.service*</param>
-                        <param>nl.multicode.bsn.validation*</param>
+                        <param>nl.multicode.bsn.service.*</param>
+                        <param>nl.multicode.bsn.validation.*</param>
                     </targetTests>
                 </configuration>
             </plugin>
