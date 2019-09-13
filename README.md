@@ -1,5 +1,5 @@
 # bsn-generator
-Java BSN Generator (Burger Service Nummer, Sofinummer) 
+Burger Service Nummer Generator (Burger Service Nummer, Sofinummer) 
 
 #### Applicatie informatie
 
@@ -32,7 +32,7 @@ mvn clean install -Djava.version=11
 De applicatie kan lokaal gestart worden met:
 
 ```
-java -jar bsn-generator-1.0-SNAPSHOT.jar <aantal gewenste bsn nummers>
+java -jar bsn-generator-1.0-SNAPSHOT.jar 
 ```
 
-Of door gebruik te maken van een IDE met Spring integratie (zoals IntelliJ).
+Of door gebruik te maken van een IDE (zoals eclipse of IntelliJ).
