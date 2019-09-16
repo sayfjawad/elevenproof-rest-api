@@ -26,6 +26,7 @@
     <properties>
         <java.version>1.8</java.version>
         <lombok.version>1.16.16</lombok.version>
+        <pitest.threshold>90</pitest.threshold>
     </properties>
 
     <dependencies>
@@ -50,6 +51,49 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
+
+    <profiles>
+        <profile>
+            <id>pitest</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.pitest</groupId>
+                        <artifactId>pitest-maven</artifactId>
+                        <version>1.4.10</version>
+                        <executions>
+                            <execution>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>mutationCoverage</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <timeoutConstant>5000</timeoutConstant>
+                            <timestampedReports>false</timestampedReports>
+                            <mutationThreshold>${pitest.threshold}</mutationThreshold>
+                            <coverageThreshold>${pitest.threshold}</coverageThreshold>
+                            <failWhenNoMutations>true</failWhenNoMutations>
+                            <targetClasses>
+                                <param>nl.multicode.rest.*</param>
+                                <param>nl.multicode.bsn.service.*</param>
+                                <param>nl.multicode.bsn.validation.*</param>
+                            </targetClasses>
+                            <targetTests>
+                                <param>nl.multicode.rest.*</param>
+                                <param>nl.multicode.bsn.service.*</param>
+                                <param>nl.multicode.bsn.validation.*</param>
+                            </targetTests>
+                            <excludedClasses>
+                                <excludedClass>nl.multicode.bsn.model.*</excludedClass>
+                            </excludedClasses>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
     <build>
         <plugins>
