@@ -6,33 +6,27 @@ import org.junit.Test;
 import javax.validation.Validation;
 import javax.validation.Validator;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class BsnValidatorTest {
 
-     private Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+    private Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
-     private static final String VALID_BSN = "142279675";
-     private static final String INVALID_BSN1 = "123456789";
-     private static final String INVALID_BSN2 = "A23456789";
-     private static final String INVALID_BSN3 = "1234567";
-     private static final String INVALID_BSN4 = "%$#@";
-     private static final String INVALID_BSN5 = null;
+    private static final String VALID_BSN = "142279675";
+    private static final String[] INVALID_BSN = {"123456789", "A23456789", "1234567", "%$#@", null};
 
 
     @Test
-    public void test_valid(){
+    public void test_valid() {
         assertTrue(validator.validate(new BurgeServiceNummer(VALID_BSN)).isEmpty());
     }
 
     @Test
-    public void test_invalid(){
-        assertFalse(validator.validate(new BurgeServiceNummer(INVALID_BSN1)).isEmpty());
-        assertFalse(validator.validate(new BurgeServiceNummer(INVALID_BSN2)).isEmpty());
-        assertFalse(validator.validate(new BurgeServiceNummer(INVALID_BSN3)).isEmpty());
-        assertFalse(validator.validate(new BurgeServiceNummer(INVALID_BSN4)).isEmpty());
-        assertFalse(validator.validate(new BurgeServiceNummer(INVALID_BSN5)).isEmpty());
-        assertEquals("BSN must be a 9 character numeric value", validator.validate(new BurgeServiceNummer(INVALID_BSN5)).iterator().next().getMessage());
+    public void test_invalid() {
+        for (String invalideBSN : INVALID_BSN) {
+            assertFalse(validator.validate(new BurgeServiceNummer(invalideBSN)).isEmpty());
+        }
     }
 
 }
