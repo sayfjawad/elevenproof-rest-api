@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#generate-button").click(function () {
+                $.get("/bsn/generate", function (data, status) {
+                    $('#generatedBsn').val(data);
+                });
+            });
+            $("#validate-button").click(function () {
+                var bsn = $('#validate-bsn-text').val();
+                $.get("/bsn/validate/" + bsn, function (data, status) {
+                    if (data == true) {
+                        $('#validate-bsn-text').css('border-bottom', 'solid 5px green');
+                    } else {
+                        $('#validate-bsn-text').css('border-bottom', 'solid 5px red');
+                    }
+                });
+            });
+            $('#validate-bsn-text').focus(function () {
+                $('#validate-bsn-text').css('border-bottom', '1px solid #ced4da');
+            });
+        });
+    </script>
+</head>
+<body>
+<fieldset>
+    <!-- Form Name -->
+    <legend>Burger Service Nummer tool</legend>
+
+    <!-- Text input-->
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="bsn-input">Valideer BSN</label>
+        <div class="col-md-4">
+            <input id="bsn-input" name="valideer" type="text" placeholder="bsn" class="form-control input-md">
+        </div>
+    </div>
+
+    <!-- Button -->
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="bsn-validate-button">Valideer BSN</label>
+        <div class="col-md-4">
+            <button id="bsn-validate-button" name="validate-button" class="btn btn-primary">valideer</button>
+        </div>
+    </div>
+
+    <!-- Button -->
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="generate-bsn-button">Genereer BSN</label>
+        <div class="col-md-4">
+            <button id="generate-bsn-button" name="generate-button" class="btn btn-primary">Genereer</button>
+        </div>
+    </div>
+
+    <!-- Text input-->
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="generated-bsn-textfield">Gegenereerde BSN</label>
+        <div class="col-md-4">
+            <input id="generated-bsn-textfield" name="genereer" type="text" placeholder="bsn" class="form-control input-md">
+
+        </div>
+    </div>
+</fieldset>
+</body>
+</html>
