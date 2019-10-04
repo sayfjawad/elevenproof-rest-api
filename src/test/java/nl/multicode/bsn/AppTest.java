@@ -1,4 +1,4 @@
-package nl.multicode.bsngenerator;
+package nl.multicode.bsn;
 
 import org.junit.After;
 import org.junit.Before;
@@ -7,19 +7,16 @@ import org.junit.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
+import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 public class AppTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
 
-    private App app;
-
     @Before
     public void setUpStreams() {
         System.setOut(new PrintStream(outContent));
-        app = new App();
     }
 
     @After
@@ -29,13 +26,14 @@ public class AppTest {
 
     @Test
     public void main_args() {
-        app.main(new String[]{"2"});
-        assertEquals(20, outContent.toString().length());
+        App.main(new String[]{"validate", "218996755"});
+        assertEquals("218996755 is valid bsn\n", outContent.toString());
     }
 
-    @Test(expected = ArrayIndexOutOfBoundsException.class)
+    @Test
     public void main_no_args() throws ArrayIndexOutOfBoundsException {
-        app.main(new String[]{});
-        fail();
+        App.main(null);
+        assertEquals(9, outContent.toString().trim().length());
+        assertTrue(outContent.toString().trim().matches("[0-9]{9}"));
     }
 }

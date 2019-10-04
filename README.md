@@ -31,8 +31,13 @@ mvn clean install -Djava.version=11
 
 De applicatie kan lokaal gestart worden met:
 
+Genereer 1 BSN door uit te voeren:
 ```
-java -jar bsn-generator-1.0-SNAPSHOT.jar <aantal gewenste bsn nummers>
+java -jar bsn-generator-1.0-SNAPSHOT.jar 
+```
+Valideer 1 BSN door uit te voeren:
+```
+java -jar bsn-generator-1.0-SNAPSHOT.jar validate <nummer>
 ```
 
 Of door gebruik te maken van een IDE met Spring integratie (zoals IntelliJ).
