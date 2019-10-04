@@ -8,18 +8,18 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
         $(document).ready(function () {
-            $("#generate-button").click(function () {
+            $("#generate-bsn-button").click(function () {
                 $.get("/bsn/generate", function (data, status) {
-                    $('#generatedBsn').val(data);
+                    $('#generated-bsn-textfield').val(data);
                 });
             });
-            $("#validate-button").click(function () {
-                var bsn = $('#validate-bsn-text').val();
+            $("#bsn-validate-button").click(function () {
+                var bsn = $('#bsn-input').val();
                 $.get("/bsn/validate/" + bsn, function (data, status) {
                     if (data == true) {
-                        $('#validate-bsn-text').css('border-bottom', 'solid 5px green');
+                        $('#bsn-input').css('border-bottom', 'solid 5px green');
                     } else {
-                        $('#validate-bsn-text').css('border-bottom', 'solid 5px red');
+                        $('#bsn-input').css('border-bottom', 'solid 5px red');
                     }
                 });
             });
@@ -54,7 +54,7 @@
     <div class="form-group">
         <label class="col-md-4 control-label" for="generate-bsn-button">Genereer BSN</label>
         <div class="col-md-4">
-            <button id="generate-bsn-button" name="generate-button" class="btn btn-primary">Genereer</button>
+            <button id="generate-bsn-button" name="generate-bsn-button" class="btn btn-primary">Genereer</button>
         </div>
     </div>
 
