@@ -1,15 +1,15 @@
 package nl.multicode.bsn.service;
 
-import nl.multicode.bsn.model.BurgeServiceNummer;
-import org.junit.Test;
-
-import javax.validation.Validator;
-import java.util.Set;
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.util.Set;
+import javax.validation.Validator;
+import nl.multicode.bsn.model.BurgeServiceNummer;
+import org.junit.jupiter.api.Test;
 
 public class BsnServiceTest {
 
@@ -30,22 +30,22 @@ public class BsnServiceTest {
     @Test
     public void generateBsn_generated() {
         bsnService = new BsnService();
-        assertTrue(bsnService.generateBsn().matches("[0-9]{9}"));
+        assertThat(bsnService.generateBsn()).matches("[0-9]{9}");
     }
 
     @Test
     public void validateBsn_true() {
         bsnService = new BsnService();
-        assertTrue(bsnService.isValidBsn(new BurgeServiceNummer("286158838")));
-        assertFalse(bsnService.isValidBsn(new BurgeServiceNummer("123456789")));
+        assertThat(bsnService.isValidBsn(new BurgeServiceNummer("286158838"))).isTrue();
+        assertThat(bsnService.isValidBsn(new BurgeServiceNummer("123456789"))).isFalse();
     }
 
     @Test
     public void validateBsn_false() {
         bsnService = new BsnService();
-        assertFalse(bsnService.isValidBsn(new BurgeServiceNummer("123456789")));
-        assertFalse(bsnService.isValidBsn(new BurgeServiceNummer("12345678")));
-        assertFalse(bsnService.isValidBsn(new BurgeServiceNummer("A12345678")));
-        assertFalse(bsnService.isValidBsn(new BurgeServiceNummer(null)));
+        assertThat(bsnService.isValidBsn(new BurgeServiceNummer("123456789"))).isFalse();
+        assertThat(bsnService.isValidBsn(new BurgeServiceNummer("12345678"))).isFalse();
+        assertThat(bsnService.isValidBsn(new BurgeServiceNummer("A12345678"))).isFalse();
+        assertThat(bsnService.isValidBsn(new BurgeServiceNummer(null))).isFalse();
     }
 }
