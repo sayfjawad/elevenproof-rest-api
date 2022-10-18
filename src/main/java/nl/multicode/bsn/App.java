@@ -2,13 +2,14 @@ package nl.multicode.bsn;
 
 import nl.multicode.bsn.service.BsnService;
 import nl.multicode.bsn.service.supplier.RandomDigitsStringSupplier;
-import nl.multicode.bsn.validation.BsnElfproef;
+import nl.multicode.bsn.validation.BsnElevenProof;
 
 
 public class App {
 
     public static void main(String[] args) {
-        BsnService bsnService = new BsnService(new BsnElfproef(), new RandomDigitsStringSupplier());
+        BsnService bsnService = new BsnService(new BsnElevenProof(),
+            new RandomDigitsStringSupplier());
         if (args != null && args.length == 2 && args[0].equalsIgnoreCase("validate")) {
             String valid = bsnService.isValidBsn(args[1]) ? "valid" : "invalid";
             System.out.println(args[1] + " is " + valid + " bsn");

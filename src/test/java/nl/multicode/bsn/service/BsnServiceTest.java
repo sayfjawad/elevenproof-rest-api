@@ -5,7 +5,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import nl.multicode.bsn.service.supplier.RandomDigitsStringSupplier;
-import nl.multicode.bsn.validation.ElfProef;
+import nl.multicode.bsn.validation.ElevenProof;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,7 +18,7 @@ public class BsnServiceTest {
     private static final int EXPECTED_LENGTH = 9;
 
     @Mock
-    private ElfProef elfProef;
+    private ElevenProof elevenProof;
 
     @Mock
     private RandomDigitsStringSupplier randomDigitsStringSupplier;
@@ -27,7 +27,7 @@ public class BsnServiceTest {
 
     @BeforeEach
     public void setup() {
-        bsnService = new BsnService(elfProef, randomDigitsStringSupplier);
+        bsnService = new BsnService(elevenProof, randomDigitsStringSupplier);
     }
 
     @Test
@@ -42,9 +42,9 @@ public class BsnServiceTest {
     public void generateBsn() {
         String bsn = "123456789";
         when(randomDigitsStringSupplier.supply()).thenReturn(bsn);
-        when(elfProef.isElfProef(bsn)).thenReturn(Boolean.TRUE);
+        when(elevenProof.isElevenProof(bsn)).thenReturn(Boolean.TRUE);
         bsnService.generateRandomBsnNummers();
-        verify(elfProef).isElfProef(bsn);
+        verify(elevenProof).isElevenProof(bsn);
         verify(randomDigitsStringSupplier).supply();
     }
 
@@ -52,14 +52,14 @@ public class BsnServiceTest {
     public void validateBsn_false() {
         String bsn = "111111111";
         assertThat(bsnService.isValidBsn(bsn)).isFalse();
-        verify(elfProef).isElfProef(bsn);
+        verify(elevenProof).isElevenProof(bsn);
     }
 
     @Test
     public void validateBsn_true() {
         String bsn = "111111111";
-        when(elfProef.isElfProef(bsn)).thenReturn(Boolean.TRUE);
+        when(elevenProof.isElevenProof(bsn)).thenReturn(Boolean.TRUE);
         assertThat(bsnService.isValidBsn(bsn)).isTrue();
-        verify(elfProef).isElfProef(bsn);
+        verify(elevenProof).isElevenProof(bsn);
     }
 }

@@ -8,20 +8,20 @@ import org.junit.jupiter.api.Test;
 
 public class ElfproefTest {
 
-    private ElfProef elfProef;
+    private ElevenProof elevenProof;
 
     @Test
     public void multipliers() {
-        elfProef = createElfproefImpl(new int[]{1, 2});
-        assertTrue(elfProef.isElfProef("15"));
-        assertFalse(elfProef.isElfProef("16"));
+        elevenProof = createElfproefImpl(new int[]{1, 2});
+        assertTrue(elevenProof.isElevenProof("15"));
+        assertFalse(elevenProof.isElevenProof("16"));
     }
 
-    private ElfProef createElfproefImpl(int[] multipliers) {
-        return new ElfProef() {
+    private ElevenProof createElfproefImpl(int[] multipliers) {
+        return new ElevenProof() {
             @Override
-            public boolean isElfProef(String nummer) {
-                return isElfProef(nummer, multipliers);
+            public boolean isElevenProof(String nummer) {
+                return isElevenProof(nummer, multipliers);
             }
         };
     }
