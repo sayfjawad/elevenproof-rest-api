@@ -1,4 +1,4 @@
-package nl.multicode.bsn.service.supplier;
+package nl.multicode.elevenproof.service.supplier;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

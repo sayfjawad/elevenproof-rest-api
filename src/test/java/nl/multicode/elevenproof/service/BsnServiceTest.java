@@ -1,11 +1,11 @@
-package nl.multicode.bsn.service;
+package nl.multicode.elevenproof.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import nl.multicode.bsn.service.supplier.RandomDigitsStringSupplier;
-import nl.multicode.bsn.validation.ElevenProof;
+import nl.multicode.elevenproof.service.supplier.RandomDigitsStringSupplier;
+import nl.multicode.elevenproof.validation.ElevenProof;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -1,11 +1,11 @@
-package nl.multicode.bsn.service;
+package nl.multicode.elevenproof.service;
 
 import java.util.Optional;
 import java.util.stream.Stream;
-import nl.multicode.bsn.service.supplier.ObjectSupplier;
-import nl.multicode.bsn.service.supplier.RandomDigitsStringSupplier;
-import nl.multicode.bsn.validation.BsnElevenProof;
-import nl.multicode.bsn.validation.ElevenProof;
+import nl.multicode.elevenproof.service.supplier.ObjectSupplier;
+import nl.multicode.elevenproof.service.supplier.RandomDigitsStringSupplier;
+import nl.multicode.elevenproof.validation.BsnElevenProof;
+import nl.multicode.elevenproof.validation.ElevenProof;
 
 public class BsnService {
 
@@ -31,7 +31,7 @@ public class BsnService {
             .findFirst();
     }
 
-    public Boolean isValidBsn(String bsn) {
+    public boolean isValidBsn(String bsn) {
         return elevenProof.isElevenProof(bsn);
     }
 }

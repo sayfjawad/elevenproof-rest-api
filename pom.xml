@@ -13,7 +13,7 @@
   <properties>
     <assertj-core.version>3.23.1</assertj-core.version>
     <java.version>18</java.version>
-    <junit-jupiter-engine.version>5.8.1</junit-jupiter-engine.version>
+    <junit-jupiter.version>5.9.1</junit-jupiter.version>
     <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
     <maven-surefire-plugin.version>2.22.1</maven-surefire-plugin.version>
     <maven.compiler.source>18</maven.compiler.source>
@@ -23,6 +23,7 @@
     <pit.mutationThreshold>90</pit.mutationThreshold>
     <pitest-maven.version>1.9.8</pitest-maven.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <lombok.version>1.18.24</lombok.version>
   </properties>
 
   <dependencies>
@@ -30,7 +31,13 @@
       <artifactId>junit-jupiter-engine</artifactId>
       <groupId>org.junit.jupiter</groupId>
       <scope>test</scope>
-      <version>${junit-jupiter-engine.version}</version>
+      <version>${junit-jupiter.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-params</artifactId>
+      <version>${junit-jupiter.version}</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <artifactId>assertj-core</artifactId>
@@ -55,6 +62,12 @@
       <scope>test</scope>
       <version>${mockito-core.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>${lombok.version}</version>
+      <scope>provided</scope>
+    </dependency>
   </dependencies>
 
   <build>
@@ -76,7 +89,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>nl.multicode.bsn.App</mainClass>
+              <mainClass>elevenproof.App</mainClass>
             </manifest>
           </archive>
           <excludes>
@@ -91,14 +104,14 @@
           <coverageThreshold>${pit.coverageThreshold}</coverageThreshold>
           <mutationThreshold>${pit.mutationThreshold}</mutationThreshold>
           <targetClasses>
-            <param>nl.multicode.bsn.service.*</param>
-            <param>nl.multicode.bsn.validation.*</param>
-            <param>nl.multicode.bsn.*</param>
+            <param>nl.multicode.elevenproof.service.*</param>
+            <param>nl.multicode.elevenproof.validation.*</param>
+            <param>nl.multicode.elevenproof.*</param>
           </targetClasses>
           <targetTests>
-            <param>nl.multicode.bsn.service.*</param>
-            <param>nl.multicode.bsn.validation.*</param>
-            <param>nl.multicode.bsn.*</param>
+            <param>nl.multicode.elevenproof.service.*</param>
+            <param>nl.multicode.elevenproof.validation.*</param>
+            <param>nl.multicode.elevenproof.*</param>
           </targetTests>
           <timeoutConstant>5000</timeoutConstant>
           <timestampedReports>false</timestampedReports>

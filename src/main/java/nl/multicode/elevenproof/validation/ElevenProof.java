@@ -1,4 +1,4 @@
-package nl.multicode.bsn.validation;
+package nl.multicode.elevenproof.validation;
 
 import java.util.concurrent.atomic.AtomicInteger;
 

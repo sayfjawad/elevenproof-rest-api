@@ -1,4 +1,4 @@
-package nl.multicode.bsn.validation;
+package nl.multicode.elevenproof.validation;
 
 
 import static junit.framework.TestCase.assertFalse;

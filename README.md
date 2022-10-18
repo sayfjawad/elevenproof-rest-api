@@ -1,13 +1,13 @@
-# bsn-generator
+# elevenproof-api
 
-Java BSN Generator (Burger Service Nummer, Sofinummer)
+Java Eleven-Proof API (BSN Burger Service Nummer, SocialService-number, Bank Account, etc...)
 
-#### Applicatie informatie
+#### Application information
 
-Name: bsn-generator
+Name: elevenproof-api
 Maintainer: Sayf jawad ([sayf@multicode.nl](mailto:sayf@multicode.nl))
 
-#### Technieken
+#### Requirements
 
 This project makes use of:
 

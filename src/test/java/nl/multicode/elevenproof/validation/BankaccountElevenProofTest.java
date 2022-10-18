@@ -1,4 +1,4 @@
-package nl.multicode.bsn.validation;
+package nl.multicode.elevenproof.validation;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -16,7 +16,7 @@ class BankaccountElevenProofTest {
 
     @Test
     public void isGeldigBSN_True() {
-        assertThat(bankaccountElevenProof.isElevenProof("0609567128")).isTrue();
+        assertThat(bankaccountElevenProof.isElevenProof("0248199544")).isTrue();
     }
 
     @Test
