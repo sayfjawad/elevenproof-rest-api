@@ -1,20 +1,23 @@
 package nl.multicode.elevenproof.service;
 
-import java.util.Optional;
-import java.util.stream.Stream;
+import lombok.RequiredArgsConstructor;
 import nl.multicode.elevenproof.service.supplier.ObjectSupplier;
-import nl.multicode.elevenproof.service.supplier.RandomDigitsStringSupplier;
+import nl.multicode.elevenproof.service.supplier.Random9DigitsStringSupplier;
 import nl.multicode.elevenproof.validation.BsnElevenProof;
 import nl.multicode.elevenproof.validation.ElevenProof;
 
-public class BsnService {
+import java.util.Optional;
+import java.util.stream.Stream;
+
+@RequiredArgsConstructor
+public class BsnService implements ElevenProofService {
 
     private final ObjectSupplier<String> random9DigitsSupplier;
     private final ElevenProof elevenProof;
 
     public BsnService() {
-        random9DigitsSupplier = new RandomDigitsStringSupplier();
-        elevenProof = new BsnElevenProof();
+        this.random9DigitsSupplier = new Random9DigitsStringSupplier();
+        this.elevenProof = new BsnElevenProof();
     }
 
     public BsnService(ElevenProof elevenProof, ObjectSupplier<String> random9DigitsSupplier) {
@@ -22,16 +25,16 @@ public class BsnService {
         this.elevenProof = elevenProof;
     }
 
-    public Optional<String> generateRandomBsnNummers() {
+    public Optional<String> generate() {
         Stream<String> infiniteStreamOfRandom9DigitNumbers = Stream.generate(
-            random9DigitsSupplier::supply);
+                random9DigitsSupplier::supply);
 
         return infiniteStreamOfRandom9DigitNumbers
-            .filter(elevenProof::isElevenProof)
-            .findFirst();
+                .filter(elevenProof::isElevenProof)
+                .findFirst();
     }
 
-    public boolean isValidBsn(String bsn) {
+    public boolean isValid(String bsn) {
         return elevenProof.isElevenProof(bsn);
     }
 }

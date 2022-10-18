@@ -2,7 +2,7 @@ package nl.multicode.elevenproof.service.supplier;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public class RandomDigitsStringSupplier implements ObjectSupplier<String> {
+public class Random9DigitsStringSupplier implements ObjectSupplier<String> {
 
     private static final int MAX = 999_999_999;
     private static final int MIN = 100_000_000;
