@@ -1,31 +1,30 @@
 package nl.multicode.bsn.validation;
 
-import org.junit.Before;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class BsnElfProefTest {
 
     private BsnElfproef bsnElfproef;
 
-    @Before
+    @BeforeEach
     public void setup() {
         bsnElfproef = new BsnElfproef();
     }
 
     @Test
     public void isGeldigBSN_True() {
-        assertTrue(bsnElfproef.isElfproef("273279865"));
-        assertTrue(bsnElfproef.isElfproef("942884000"));
+        assertThat(bsnElfproef.isElfProef("273279865")).isTrue();
+        assertThat(bsnElfproef.isElfProef("942884000")).isTrue();
     }
 
     @Test
     public void isGeldigBSN_False() {
-        assertFalse(bsnElfproef.isElfproef("111111111"));
-        assertFalse(bsnElfproef.isElfproef("222222222"));
-        assertFalse(bsnElfproef.isElfproef("11111111"));
-        assertFalse(bsnElfproef.isElfproef("X11111111"));
+        assertThat(bsnElfproef.isElfProef("111111111")).isFalse();
+        assertThat(bsnElfproef.isElfProef("222222222")).isFalse();
+        assertThat(bsnElfproef.isElfProef("11111111")).isFalse();
+        assertThat(bsnElfproef.isElfProef("X11111111")).isFalse();
     }
 }

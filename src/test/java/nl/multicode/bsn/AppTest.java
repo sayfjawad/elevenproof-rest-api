@@ -1,25 +1,25 @@
 package nl.multicode.bsn;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-
-import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.assertEquals;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class AppTest {
+
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
 
-    @Before
+    @BeforeEach
     public void setUpStreams() {
         System.setOut(new PrintStream(outContent));
     }
 
-    @After
+    @AfterEach
     public void restoreStreams() {
         System.setOut(originalOut);
     }
@@ -27,13 +27,13 @@ public class AppTest {
     @Test
     public void main_args() {
         App.main(new String[]{"validate", "218996755"});
-        assertEquals("218996755 is valid bsn\n", outContent.toString());
+        assertThat(outContent.toString()).isEqualTo("218996755 is valid bsn\n");
     }
 
     @Test
     public void main_no_args() throws ArrayIndexOutOfBoundsException {
         App.main(null);
-        assertEquals(9, outContent.toString().trim().length());
-        assertTrue(outContent.toString().trim().matches("[0-9]{9}"));
+        assertThat(outContent.toString().trim().length()).isEqualTo(19);
+        assertThat(outContent.toString().trim().matches("Optional\\[[0-9]{9}\\]")).isTrue();
     }
 }

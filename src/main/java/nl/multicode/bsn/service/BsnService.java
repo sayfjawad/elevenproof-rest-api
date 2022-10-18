@@ -1,34 +1,37 @@
 package nl.multicode.bsn.service;
 
+import java.util.Optional;
+import java.util.stream.Stream;
+import nl.multicode.bsn.service.supplier.ObjectSupplier;
+import nl.multicode.bsn.service.supplier.RandomDigitsStringSupplier;
 import nl.multicode.bsn.validation.BsnElfproef;
 import nl.multicode.bsn.validation.ElfProef;
 
-import java.util.concurrent.ThreadLocalRandom;
-
 public class BsnService {
-    private static final int MAX = 999_999_999;
-    private static final int MIN = 100_000_000;
+
+    private final ObjectSupplier<String> random9DigitsSupplier;
     private final ElfProef elfProef;
 
     public BsnService() {
+        random9DigitsSupplier = new RandomDigitsStringSupplier();
         elfProef = new BsnElfproef();
     }
 
-    public BsnService(ElfProef elfProef) {
+    public BsnService(ElfProef elfProef, ObjectSupplier<String> random9DigitsSupplier) {
+        this.random9DigitsSupplier = random9DigitsSupplier;
         this.elfProef = elfProef;
     }
 
-    public String generateRandomBsnNummers() {
-        while (true) {
-            long randomNumber = ThreadLocalRandom.current().nextInt(MIN, MAX);
-            String randomBsn = Long.toString(randomNumber);
-            if (elfProef.isElfproef(randomBsn)) {
-                return randomBsn;
-            }
-        }
+    public Optional<String> generateRandomBsnNummers() {
+        Stream<String> infiniteStreamOfRandom9DigitNumbers = Stream.generate(
+            random9DigitsSupplier::supply);
+
+        return infiniteStreamOfRandom9DigitNumbers
+            .filter(elfProef::isElfProef)
+            .findFirst();
     }
 
     public Boolean isValidBsn(String bsn) {
-        return elfProef.isElfproef(bsn);
+        return elfProef.isElfProef(bsn);
     }
 }

@@ -4,7 +4,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public interface ElfProef {
 
-    boolean isElfproef(String nummer);
+    boolean isElfProef(String nummer);
 
     default boolean isElfProef(String bsn, int[] multipliers) {
         int[] digits = getDigits(bsn);
