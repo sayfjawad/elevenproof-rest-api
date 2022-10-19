@@ -13,7 +13,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-public class BsnServiceTest {
+public class BsnElevenProofServiceTest {
 
     private static final int EXPECTED_LENGTH = 9;
 
@@ -23,17 +23,17 @@ public class BsnServiceTest {
     @Mock
     private Random9DigitsStringSupplier random9DigitsStringSupplier;
 
-    private BsnService bsnService;
+    private BsnElevenProofService bsnElevenProofService;
 
     @BeforeEach
     public void setup() {
-        bsnService = new BsnService(elevenProof, random9DigitsStringSupplier);
+        bsnElevenProofService = new BsnElevenProofService(elevenProof, random9DigitsStringSupplier);
     }
 
     @Test
     public void generateBsn_default_constructor() {
-        bsnService = new BsnService();
-        var generatedBsn = bsnService.generate();
+        bsnElevenProofService = new BsnElevenProofService();
+        var generatedBsn = bsnElevenProofService.generate();
         assertThat(generatedBsn).isNotEmpty();
         assertThat(generatedBsn.get().length()).isEqualTo(EXPECTED_LENGTH);
     }
@@ -43,7 +43,7 @@ public class BsnServiceTest {
         String bsn = "123456789";
         when(random9DigitsStringSupplier.supply()).thenReturn(bsn);
         when(elevenProof.isElevenProof(bsn)).thenReturn(Boolean.TRUE);
-        bsnService.generate();
+        bsnElevenProofService.generate();
         verify(elevenProof).isElevenProof(bsn);
         verify(random9DigitsStringSupplier).supply();
     }
@@ -51,7 +51,7 @@ public class BsnServiceTest {
     @Test
     public void validateBsn_false() {
         String bsn = "111111111";
-        assertThat(bsnService.isValid(bsn)).isFalse();
+        assertThat(bsnElevenProofService.isValid(bsn)).isFalse();
         verify(elevenProof).isElevenProof(bsn);
     }
 
@@ -59,7 +59,7 @@ public class BsnServiceTest {
     public void validateBsn_true() {
         String bsn = "111111111";
         when(elevenProof.isElevenProof(bsn)).thenReturn(Boolean.TRUE);
-        assertThat(bsnService.isValid(bsn)).isTrue();
+        assertThat(bsnElevenProofService.isValid(bsn)).isTrue();
         verify(elevenProof).isElevenProof(bsn);
     }
 }

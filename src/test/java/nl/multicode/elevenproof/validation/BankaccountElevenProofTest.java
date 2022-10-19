@@ -7,11 +7,11 @@ import org.junit.jupiter.api.Test;
 
 class BankaccountElevenProofTest {
 
-    private BankaccountElevenProof bankaccountElevenProof;
+    private BankAccountElevenProof bankaccountElevenProof;
 
     @BeforeEach
     public void setup() {
-        bankaccountElevenProof = new BankaccountElevenProof();
+        bankaccountElevenProof = new BankAccountElevenProof();
     }
 
     @Test

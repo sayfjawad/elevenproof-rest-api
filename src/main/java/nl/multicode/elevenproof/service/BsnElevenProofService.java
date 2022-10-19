@@ -10,17 +10,17 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 @RequiredArgsConstructor
-public class BsnService implements ElevenProofService {
+public class BsnElevenProofService implements ElevenProofService {
 
     private final ObjectSupplier<String> random9DigitsSupplier;
     private final ElevenProof elevenProof;
 
-    public BsnService() {
+    public BsnElevenProofService() {
         this.random9DigitsSupplier = new Random9DigitsStringSupplier();
         this.elevenProof = new BsnElevenProof();
     }
 
-    public BsnService(ElevenProof elevenProof, ObjectSupplier<String> random9DigitsSupplier) {
+    public BsnElevenProofService(ElevenProof elevenProof, ObjectSupplier<String> random9DigitsSupplier) {
         this.random9DigitsSupplier = random9DigitsSupplier;
         this.elevenProof = elevenProof;
     }

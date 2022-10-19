@@ -6,7 +6,7 @@ import static junit.framework.TestCase.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-public class ElfproefTest {
+public class ElevenProofTest {
 
     private ElevenProof elevenProof;
 

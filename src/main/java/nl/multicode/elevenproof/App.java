@@ -2,9 +2,7 @@ package nl.multicode.elevenproof;
 
 import nl.multicode.elevenproof.model.Command;
 import nl.multicode.elevenproof.model.ProofType;
-import nl.multicode.elevenproof.service.BsnService;
-import nl.multicode.elevenproof.service.supplier.Random9DigitsStringSupplier;
-import nl.multicode.elevenproof.validation.BsnElevenProof;
+import nl.multicode.elevenproof.service.BsnElevenProofService;
 
 import static nl.multicode.elevenproof.model.Command.GENERATE;
 import static nl.multicode.elevenproof.model.Command.VALIDATE;
@@ -19,13 +17,13 @@ public class App {
             final ProofType proofType = ProofType.fromValue(args[1]);
 
             if (BSN.equals(proofType)) {
-                BsnService bsnService = new BsnService();
+                BsnElevenProofService bsnElevenProofService = new BsnElevenProofService();
                 if (VALIDATE.equals(command)) {
                     final String number = args[2];
-                    String valid = bsnService.isValid(number) ? "valid" : "invalid";
+                    String valid = bsnElevenProofService.isValid(number) ? "valid" : "invalid";
                     System.out.println(number + " is " + valid + " " + proofType.getValue());
                 } else if (GENERATE.equals(command)) {
-                    System.out.println(bsnService.generate());
+                    System.out.println(bsnElevenProofService.generate());
                 }
             }
         }
