@@ -6,6 +6,7 @@ import nl.multicode.elevenproof.service.BsnElevenProofService;
 
 import static nl.multicode.elevenproof.model.Command.GENERATE;
 import static nl.multicode.elevenproof.model.Command.VALIDATE;
+import static nl.multicode.elevenproof.model.ProofType.BANK_ACCOUNT;
 import static nl.multicode.elevenproof.model.ProofType.BSN;
 
 
@@ -25,6 +26,8 @@ public class App {
                 } else if (GENERATE.equals(command)) {
                     System.out.println(bsnElevenProofService.generate());
                 }
+            } else if (BANK_ACCOUNT.equals(proofType)) {
+
             }
         }
     }

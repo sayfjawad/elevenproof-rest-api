@@ -16,8 +16,7 @@ public class BsnElevenProofService implements ElevenProofService {
     private final ElevenProof elevenProof;
 
     public BsnElevenProofService() {
-        this.random9DigitsSupplier = new Random9DigitsStringSupplier();
-        this.elevenProof = new BsnElevenProof();
+        this(new BsnElevenProof(), new Random9DigitsStringSupplier());
     }
 
     public BsnElevenProofService(ElevenProof elevenProof, ObjectSupplier<String> random9DigitsSupplier) {
