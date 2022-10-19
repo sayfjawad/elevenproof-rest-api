@@ -2,7 +2,7 @@ package nl.multicode.elevenproof.service;
 
 import lombok.RequiredArgsConstructor;
 import nl.multicode.elevenproof.service.supplier.ObjectSupplier;
-import nl.multicode.elevenproof.service.supplier.Random10DigitsStringSupplier;
+import nl.multicode.elevenproof.service.supplier.RandomDigitsStringSupplier;
 import nl.multicode.elevenproof.validation.BankAccountElevenProof;
 import nl.multicode.elevenproof.validation.ElevenProof;
 
@@ -12,22 +12,17 @@ import java.util.stream.Stream;
 @RequiredArgsConstructor
 public class BankAccountElevenProofService implements ElevenProofService {
 
-    private final ObjectSupplier<String> random10DigitsSupplier;
+    public static final int BANK_ACCOUNT_DIGITS_LENGTH = 10;
+    private final ObjectSupplier<String> randomDigitsSupplier;
     private final ElevenProof elevenProof;
 
     public BankAccountElevenProofService() {
-        this(new BankAccountElevenProof(), new Random10DigitsStringSupplier());
-    }
-
-    public BankAccountElevenProofService(ElevenProof elevenProof, ObjectSupplier<String> random9DigitsSupplier) {
-        this.random10DigitsSupplier = random9DigitsSupplier;
-        this.elevenProof = elevenProof;
+        this(new RandomDigitsStringSupplier(BANK_ACCOUNT_DIGITS_LENGTH), new BankAccountElevenProof());
     }
 
     public Optional<String> generate() {
         Stream<String> infiniteStreamOfRandom9DigitNumbers = Stream.generate(
-                random10DigitsSupplier::supply);
-
+                randomDigitsSupplier::supply);
         return infiniteStreamOfRandom9DigitNumbers
                 .filter(elevenProof::isElevenProof)
                 .findFirst();

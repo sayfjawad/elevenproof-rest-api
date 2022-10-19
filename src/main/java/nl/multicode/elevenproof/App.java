@@ -2,13 +2,12 @@ package nl.multicode.elevenproof;
 
 import nl.multicode.elevenproof.model.Command;
 import nl.multicode.elevenproof.model.ProofType;
-import nl.multicode.elevenproof.service.BsnElevenProofService;
+import nl.multicode.elevenproof.service.BurgerServiceNummerElevenProofService;
 
 import static nl.multicode.elevenproof.model.Command.GENERATE;
 import static nl.multicode.elevenproof.model.Command.VALIDATE;
 import static nl.multicode.elevenproof.model.ProofType.BANK_ACCOUNT;
 import static nl.multicode.elevenproof.model.ProofType.BSN;
-
 
 public class App {
 
@@ -18,13 +17,13 @@ public class App {
             final ProofType proofType = ProofType.fromValue(args[1]);
 
             if (BSN.equals(proofType)) {
-                BsnElevenProofService bsnElevenProofService = new BsnElevenProofService();
+                BurgerServiceNummerElevenProofService burgerServiceNummerElevenProofService = new BurgerServiceNummerElevenProofService();
                 if (VALIDATE.equals(command)) {
                     final String number = args[2];
-                    String valid = bsnElevenProofService.isValid(number) ? "valid" : "invalid";
+                    String valid = burgerServiceNummerElevenProofService.isValid(number) ? "valid" : "invalid";
                     System.out.println(number + " is " + valid + " " + proofType.getValue());
                 } else if (GENERATE.equals(command)) {
-                    System.out.println(bsnElevenProofService.generate());
+                    System.out.println(burgerServiceNummerElevenProofService.generate());
                 }
             } else if (BANK_ACCOUNT.equals(proofType)) {
 

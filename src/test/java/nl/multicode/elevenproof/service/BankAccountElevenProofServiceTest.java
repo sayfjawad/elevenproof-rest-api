@@ -21,5 +21,6 @@ class BankAccountElevenProofServiceTest {
     @Test
     void isValid() {
         assertThat(new BankAccountElevenProofService().isValid("0609567128")).isTrue();
+        assertThat(new BankAccountElevenProofService().isValid("0609567127")).isFalse();
     }
 }
