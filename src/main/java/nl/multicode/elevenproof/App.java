@@ -1,33 +1,31 @@
 package nl.multicode.elevenproof;
 
 import nl.multicode.elevenproof.model.Command;
+import nl.multicode.elevenproof.model.ElevenProofWork;
 import nl.multicode.elevenproof.model.ProofType;
-import nl.multicode.elevenproof.service.BurgerServiceNummerElevenProofService;
+import nl.multicode.elevenproof.worker.BankAccountElevenProofWorker;
+import nl.multicode.elevenproof.worker.BurgerServiceNummerElevenProofWorker;
+import nl.multicode.elevenproof.worker.ElevenProofWorker;
 
-import static nl.multicode.elevenproof.model.Command.GENERATE;
-import static nl.multicode.elevenproof.model.Command.VALIDATE;
-import static nl.multicode.elevenproof.model.ProofType.BANK_ACCOUNT;
-import static nl.multicode.elevenproof.model.ProofType.BSN;
+import java.util.List;
 
 public class App {
 
+    private static final List<ElevenProofWorker> elevenProofWorkers = List.of(
+            new BankAccountElevenProofWorker(),
+            new BurgerServiceNummerElevenProofWorker()
+    );
+
     public static void main(String[] args) {
         if (isValidArgs(args)) {
-            final Command command = Command.fromValue(args[0]);
-            final ProofType proofType = ProofType.fromValue(args[1]);
 
-            if (BSN.equals(proofType)) {
-                BurgerServiceNummerElevenProofService burgerServiceNummerElevenProofService = new BurgerServiceNummerElevenProofService();
-                if (VALIDATE.equals(command)) {
-                    final String number = args[2];
-                    String valid = burgerServiceNummerElevenProofService.isValid(number) ? "valid" : "invalid";
-                    System.out.println(number + " is " + valid + " " + proofType.getValue());
-                } else if (GENERATE.equals(command)) {
-                    System.out.println(burgerServiceNummerElevenProofService.generate());
-                }
-            } else if (BANK_ACCOUNT.equals(proofType)) {
+            final var work = ElevenProofWork.builder()
+                    .proofType(ProofType.fromValue(args[1]))
+                    .command(Command.fromValue(args[0]))
+                    .number(args.length == 3 ? args[2] : null)
+                    .build();
 
-            }
+            elevenProofWorkers.forEach(worker -> worker.doWork(work));
         }
     }
 
