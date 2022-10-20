@@ -1,6 +1,6 @@
 # elevenproof-api
 
-Java Eleven-Proof API (BSN Burger Service Nummer, SocialService-number, Bank Account, etc...)
+Opensource Java API for validating and generating numbers that use the ElevenProof (elfproef in NL:Dutch) (BSN Burger Service Nummer, Bank Account number, etc...)
 
 #### Application information
 
@@ -9,7 +9,7 @@ Maintainer: Sayf jawad ([sayf@multicode.nl](mailto:sayf@multicode.nl))
 
 #### Requirements
 
-This project makes use of:
+This project uses:
 
 ```
 Java 17
