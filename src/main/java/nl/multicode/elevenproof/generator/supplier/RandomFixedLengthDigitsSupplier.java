@@ -1,4 +1,4 @@
-package nl.multicode.elevenproof.service.supplier;
+package nl.multicode.elevenproof.generator.supplier;
 
 import lombok.RequiredArgsConstructor;
 
@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @RequiredArgsConstructor
-public class RandomDigitsStringSupplier implements ObjectSupplier<String> {
+public class RandomFixedLengthDigitsSupplier implements ObjectSupplier<String> {
 
     private final int digitsLength;
 

@@ -1,4 +1,4 @@
-package nl.multicode.elevenproof.service.supplier;
+package nl.multicode.elevenproof.generator.supplier;
 
 public interface ObjectSupplier<T> {
     T supply();

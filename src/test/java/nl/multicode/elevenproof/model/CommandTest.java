@@ -1,6 +1,5 @@
 package nl.multicode.elevenproof.model;
 
-import nl.multicode.elevenproof.model.Command;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;

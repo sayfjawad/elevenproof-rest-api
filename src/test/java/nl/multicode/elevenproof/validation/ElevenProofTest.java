@@ -1,10 +1,10 @@
 package nl.multicode.elevenproof.validation;
 
 
+import org.junit.jupiter.api.Test;
+
 import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;
-
-import org.junit.jupiter.api.Test;
 
 public class ElevenProofTest {
 

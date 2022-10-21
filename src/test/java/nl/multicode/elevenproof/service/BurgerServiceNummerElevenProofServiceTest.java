@@ -1,6 +1,6 @@
 package nl.multicode.elevenproof.service;
 
-import nl.multicode.elevenproof.service.supplier.RandomDigitsStringSupplier;
+import nl.multicode.elevenproof.generator.Generator;
 import nl.multicode.elevenproof.validation.ElevenProof;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,13 +21,13 @@ public class BurgerServiceNummerElevenProofServiceTest {
     private ElevenProof elevenProof;
 
     @Mock
-    private RandomDigitsStringSupplier digitsStringSupplier;
+    private Generator generator;
 
     private BurgerServiceNummerElevenProofService burgerServiceNummerElevenProofService;
 
     @BeforeEach
     public void setup() {
-        burgerServiceNummerElevenProofService = new BurgerServiceNummerElevenProofService(digitsStringSupplier, elevenProof);
+        burgerServiceNummerElevenProofService = new BurgerServiceNummerElevenProofService(generator, elevenProof);
     }
 
     @Test
@@ -36,16 +36,6 @@ public class BurgerServiceNummerElevenProofServiceTest {
         var generatedBsn = burgerServiceNummerElevenProofService.generate();
         assertThat(generatedBsn).isNotEmpty();
         assertThat(generatedBsn.get().length()).isEqualTo(EXPECTED_LENGTH);
-    }
-
-    @Test
-    public void generateBsn() {
-        String bsn = "123456789";
-        when(digitsStringSupplier.supply()).thenReturn(bsn);
-        when(elevenProof.isElevenProof(bsn)).thenReturn(Boolean.TRUE);
-        burgerServiceNummerElevenProofService.generate();
-        verify(elevenProof).isElevenProof(bsn);
-        verify(digitsStringSupplier).supply();
     }
 
     @Test
