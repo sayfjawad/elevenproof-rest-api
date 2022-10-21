@@ -3,8 +3,13 @@ package nl.multicode.elevenproof;
 import nl.multicode.elevenproof.controller.ElevenProofController;
 import nl.multicode.elevenproof.model.Command;
 import nl.multicode.elevenproof.model.ProofType;
+import nl.multicode.elevenproof.service.BankAccountElevenProofService;
+import nl.multicode.elevenproof.service.BurgerServiceNummerElevenProofService;
+import nl.multicode.elevenproof.service.UnknownElevenProofService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.util.Map;
 
 public class App {
 
@@ -25,7 +30,11 @@ public class App {
         Command command = Command.fromValue(args[0]);
         String number = args.length == 3 ? args[2] : null;
 
-        new ElevenProofController().handleRequest(proofType, command, number);
+        new ElevenProofController(Map.of(
+                ProofType.BANK_ACCOUNT, new BankAccountElevenProofService(),
+                ProofType.BSN, new BurgerServiceNummerElevenProofService(),
+                ProofType.UNKNOWN, new UnknownElevenProofService()
+        )).handleRequest(proofType, command, number);
     }
 
     private static boolean isInvalidArgs(String[] args) {

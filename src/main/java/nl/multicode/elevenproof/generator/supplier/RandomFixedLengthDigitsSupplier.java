@@ -13,8 +13,9 @@ public class RandomFixedLengthDigitsSupplier implements ObjectSupplier<String> {
 
     @Override
     public String supply() {
+        final var random = new Random();
         return IntStream.rangeClosed(0, digitsLength - 1).boxed()
-                .map(r -> Integer.toString(new Random().nextInt(9)))
+                .map(r -> Integer.toString(random.nextInt(9)))
                 .collect(Collectors.joining());
     }
 }
