@@ -4,11 +4,11 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <artifactId>bsn-generator</artifactId>
 
-  <groupId>nl.kvk.bsngenerator</groupId>
+  <groupId>nl.multicode.elevenproof</groupId>
 
   <modelVersion>4.0.0</modelVersion>
 
-  <name>bsn-generator</name>
+  <name>elevenproof-api</name>
 
   <properties>
     <assertj-core.version>3.23.1</assertj-core.version>
