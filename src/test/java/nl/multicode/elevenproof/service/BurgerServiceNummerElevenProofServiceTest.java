@@ -31,7 +31,7 @@ public class BurgerServiceNummerElevenProofServiceTest {
     }
 
     @Test
-    public void generateBsn_default_constructor() {
+    void generateBsn_default_constructor() {
         burgerServiceNummerElevenProofService = new BurgerServiceNummerElevenProofService();
         var generatedBsn = burgerServiceNummerElevenProofService.generate();
         assertThat(generatedBsn).isNotEmpty();
@@ -39,14 +39,14 @@ public class BurgerServiceNummerElevenProofServiceTest {
     }
 
     @Test
-    public void validateBsn_false() {
+    void validateBsn_false() {
         String bsn = "111111111";
         assertThat(burgerServiceNummerElevenProofService.isValid(bsn)).isFalse();
         verify(elevenProof).isElevenProof(bsn);
     }
 
     @Test
-    public void validateBsn_true() {
+    void validateBsn_true() {
         String bsn = "111111111";
         when(elevenProof.isElevenProof(bsn)).thenReturn(Boolean.TRUE);
         assertThat(burgerServiceNummerElevenProofService.isValid(bsn)).isTrue();

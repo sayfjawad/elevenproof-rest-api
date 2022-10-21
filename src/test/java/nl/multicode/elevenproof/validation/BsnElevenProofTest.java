@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class BsnElevenProofTest {
+class BsnElevenProofTest {
 
     private BsnElevenProof bsnElevenProof;
 
@@ -15,13 +15,13 @@ public class BsnElevenProofTest {
     }
 
     @Test
-    public void isGeldigBSN_True() {
+    void isGeldigBSN_True() {
         assertThat(bsnElevenProof.isElevenProof("273279865")).isTrue();
         assertThat(bsnElevenProof.isElevenProof("942884000")).isTrue();
     }
 
     @Test
-    public void isGeldigBSN_False() {
+    void isGeldigBSN_False() {
         assertThat(bsnElevenProof.isElevenProof("111111111")).isFalse();
         assertThat(bsnElevenProof.isElevenProof("222222222")).isFalse();
         assertThat(bsnElevenProof.isElevenProof("11111111")).isFalse();

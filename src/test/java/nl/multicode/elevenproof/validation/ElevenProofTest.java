@@ -6,12 +6,12 @@ import org.junit.jupiter.api.Test;
 import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;
 
-public class ElevenProofTest {
+class ElevenProofTest {
 
     private ElevenProof elevenProof;
 
     @Test
-    public void multipliers() {
+    void multipliers() {
         elevenProof = createElfproefImpl(new int[]{1, 2});
         assertTrue(elevenProof.isElevenProof("15"));
         assertFalse(elevenProof.isElevenProof("16"));
