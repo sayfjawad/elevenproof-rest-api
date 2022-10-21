@@ -1,32 +1,35 @@
 package nl.multicode.elevenproof;
 
+import nl.multicode.elevenproof.controller.ElevenProofWorkController;
 import nl.multicode.elevenproof.model.Command;
 import nl.multicode.elevenproof.model.ElevenProofWork;
 import nl.multicode.elevenproof.model.ProofType;
-import nl.multicode.elevenproof.worker.BankAccountElevenProofWorker;
-import nl.multicode.elevenproof.worker.BurgerServiceNummerElevenProofWorker;
-import nl.multicode.elevenproof.worker.ElevenProofWorker;
-
-import java.util.List;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class App {
 
-    private static final List<ElevenProofWorker> elevenProofWorkers = List.of(
-            new BankAccountElevenProofWorker(),
-            new BurgerServiceNummerElevenProofWorker()
-    );
+    private static final Logger log = LogManager.getLogger(App.class);
 
     public static void main(String[] args) {
         if (isValidArgs(args)) {
 
-            final var work = ElevenProofWork.builder()
-                    .proofType(ProofType.fromValue(args[1]))
-                    .command(Command.fromValue(args[0]))
-                    .number(args.length == 3 ? args[2] : null)
-                    .build();
+            ProofType proofType = ProofType.fromValue(args[1]);
+            Command command = Command.fromValue(args[0]);
+            String number = args.length == 3 ? args[2] : null;
 
-            elevenProofWorkers.forEach(worker -> worker.doWork(work));
+            new ElevenProofWorkController().doWork(ElevenProofWork.builder()
+                    .proofType(proofType)
+                    .command(command)
+                    .number(number)
+                    .build());
+            return;
         }
+
+        log.info("""
+                Usage is: java -jar app.jar <validate|generate> <bsn|bank> <number> 
+                java -jar app.jar <validate> <bsn|bank> <number>
+                java -jar app.jar <generate> <bsn|bank>""");
     }
 
     private static boolean isValidArgs(String[] args) {
