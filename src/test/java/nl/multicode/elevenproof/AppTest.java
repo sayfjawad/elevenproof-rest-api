@@ -37,8 +37,16 @@ public class AppTest {
     }
 
     @Test
-    public void main_args_invalid_arguments() throws ArrayIndexOutOfBoundsException {
-        App.main(new String[]{"wrong command", "wrong proofType"});
+    public void main_args_invalid_command_argument() throws ArrayIndexOutOfBoundsException {
+        App.main(new String[]{"wrong command", "bsn"});
+        assertThat(TestAppender.getLogs(Level.INFO).get(0)).isEqualTo("Usage is:\n" +
+                "java -jar app.jar <validate> <bsn|bank> <number>\n" +
+                "java -jar app.jar <generate> <bsn|bank>");
+    }
+
+    @Test
+    public void main_args_invalid_prooftype_argument() throws ArrayIndexOutOfBoundsException {
+        App.main(new String[]{"generate", "wrong proofType"});
         assertThat(TestAppender.getLogs(Level.INFO).get(0)).isEqualTo("Usage is:\n" +
                 "java -jar app.jar <validate> <bsn|bank> <number>\n" +
                 "java -jar app.jar <generate> <bsn|bank>");
