@@ -27,9 +27,10 @@ public class App {
         }
 
         log.info("""
-                Usage is: java -jar app.jar <validate|generate> <bsn|bank> <number> 
+                Usage is:
                 java -jar app.jar <validate> <bsn|bank> <number>
                 java -jar app.jar <generate> <bsn|bank>""");
+
     }
 
     private static boolean isValidArgs(String[] args) {
