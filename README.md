@@ -22,14 +22,14 @@ mvn clean install
 ```
 
 #### Application usage
-Generate 1 BSN:
+Generate 1 BSN or BankAccount:
 
 ```
-java -jar bsn-generator-1.0-SNAPSHOT.jar 
+java -jar elevenproof-api-1.0-SNAPSHOT.jar generate <bsn|bank>
 ```
 
-Validate 1 BSN:
+Validate 1 BSN or BankAccount:
 
 ```
-java -jar bsn-generator-1.0-SNAPSHOT.jar validate <nummer>
+java -jar elevenproof-api-1.0-SNAPSHOT.jar validate <bsn|bank> <nummer>
 ```
