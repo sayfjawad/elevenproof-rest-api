@@ -23,9 +23,11 @@ public class BurgerServiceNummerGenerator implements Generator {
 
     @Override
     public Optional<String> generate(ProofType proofType) {
-
-        return Stream.generate(randomDigitsSupplier::supply)
-                .filter(elevenProof::isElevenProof)
-                .findFirst();
+        if (ProofType.BSN.equals(proofType)) {
+            return Stream.generate(randomDigitsSupplier::supply)
+                    .filter(elevenProof::isElevenProof)
+                    .findFirst();
+        }
+        return Optional.empty();
     }
 }

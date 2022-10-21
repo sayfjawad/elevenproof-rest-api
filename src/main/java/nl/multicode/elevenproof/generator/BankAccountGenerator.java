@@ -23,9 +23,11 @@ public class BankAccountGenerator implements Generator {
 
     @Override
     public Optional<String> generate(ProofType proofType) {
-
-        return Stream.generate(randomDigitsSupplier::supply)
-                .filter(elevenProof::isElevenProof)
-                .findFirst();
+        if (ProofType.BANK_ACCOUNT.equals(proofType)) {
+            return Stream.generate(randomDigitsSupplier::supply)
+                    .filter(elevenProof::isElevenProof)
+                    .findFirst();
+        }
+        return Optional.empty();
     }
 }
