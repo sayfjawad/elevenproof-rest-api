@@ -6,5 +6,5 @@ public interface ElevenProofService {
 
     Optional<String> generate();
 
-    Boolean isValid(String number);
+    boolean isValid(String number);
 }

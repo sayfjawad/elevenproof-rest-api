@@ -27,11 +27,9 @@ public class ElevenProofController implements ProofController {
         final var service = elevenProofServices.get(proofType);
 
         switch (command) {
-            case VALIDATE ->
-                    logger.info("{} is {} {}", number, service.isValid(number) ? "valid" : "invalid", proofType.getValue());
+            case VALIDATE -> logger.info("{} is {} {}", number, service.isValid(number) ? "valid" : "invalid", proofType.getValue());
             case GENERATE -> logger.info("Generated: {}", service.generate().orElse(null));
-            case UNKNOWN ->
-                    logger.error("Cannot handle request: {}, {}, {}", proofType.getValue(), command.getValue(), number);
+            case UNKNOWN -> logger.error("Cannot handle request: {}, {}, {}", proofType.getValue(), command.getValue(), number);
         }
     }
 }

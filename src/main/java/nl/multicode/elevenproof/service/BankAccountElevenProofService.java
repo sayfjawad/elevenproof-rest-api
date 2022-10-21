@@ -24,7 +24,7 @@ public class BankAccountElevenProofService implements ElevenProofService {
         return elevenproofGenerator.generate(ProofType.BANK_ACCOUNT);
     }
 
-    public Boolean isValid(String bankAccount) {
+    public boolean isValid(String bankAccount) {
         return elevenProof.isElevenProof(bankAccount);
     }
 }

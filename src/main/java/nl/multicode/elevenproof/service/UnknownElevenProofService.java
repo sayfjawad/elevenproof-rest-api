@@ -11,7 +11,7 @@ public class UnknownElevenProofService implements ElevenProofService {
         return Optional.empty();
     }
 
-    public Boolean isValid(String number) {
+    public boolean isValid(String number) {
         return false;
     }
 }

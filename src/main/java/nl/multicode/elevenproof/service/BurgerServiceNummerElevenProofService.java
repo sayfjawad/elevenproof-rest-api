@@ -24,7 +24,7 @@ public class BurgerServiceNummerElevenProofService implements ElevenProofService
         return elevenproofGenerator.generate(ProofType.BSN);
     }
 
-    public Boolean isValid(String bsn) {
+    public boolean isValid(String bsn) {
         return elevenProof.isElevenProof(bsn);
     }
 }
