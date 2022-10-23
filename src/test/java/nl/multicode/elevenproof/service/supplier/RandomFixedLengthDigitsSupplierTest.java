@@ -3,16 +3,16 @@ package nl.multicode.elevenproof.service.supplier;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import nl.multicode.elevenproof.generator.supplier.RandomFixedLengthDigitsSupplier;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 class RandomFixedLengthDigitsSupplierTest {
 
-  public static final int EXPECTED_NR_OF_DIGITS = 9;
+  @ParameterizedTest
+  @ValueSource(ints = {0, 1, 3, 15, 10})
+  void supply(int expectedNrOfDigits) {
 
-  @Test
-  void supply() {
-
-    final var result = new RandomFixedLengthDigitsSupplier(EXPECTED_NR_OF_DIGITS).supply();
-    assertThat(result).hasSize(EXPECTED_NR_OF_DIGITS);
+    final var result = new RandomFixedLengthDigitsSupplier(expectedNrOfDigits).supply();
+    assertThat(result).hasSize(expectedNrOfDigits);
   }
 }
