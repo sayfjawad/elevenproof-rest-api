@@ -1,17 +1,18 @@
 package nl.multicode.elevenproof.service;
 
-import lombok.NoArgsConstructor;
-
 import java.util.Optional;
+import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 public class UnknownElevenProofService implements ElevenProofService {
 
-    public Optional<String> generate() {
-        return Optional.empty();
-    }
+  public Optional<String> generate() {
 
-    public boolean isValid(String number) {
-        return false;
-    }
+    return Optional.empty();
+  }
+
+  public boolean isValid(String number) {
+
+    return false;
+  }
 }

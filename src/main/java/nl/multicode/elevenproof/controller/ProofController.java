@@ -5,5 +5,7 @@ import nl.multicode.elevenproof.model.ProofType;
 
 public interface ProofController {
 
-    void handleRequest(ProofType proofType, Command command, String number);
+  void handleRequest(String[] args);
+
+  void handleRequest(Command command, ProofType proofType, String number);
 }
