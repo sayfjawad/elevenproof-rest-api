@@ -13,6 +13,6 @@ class RandomFixedLengthDigitsSupplierTest {
   void supply() {
 
     final var result = new RandomFixedLengthDigitsSupplier(EXPECTED_NR_OF_DIGITS).supply();
-    assertThat(result.length()).isEqualTo(EXPECTED_NR_OF_DIGITS);
+    assertThat(result).hasSize(EXPECTED_NR_OF_DIGITS);
   }
 }
