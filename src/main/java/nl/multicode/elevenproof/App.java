@@ -24,8 +24,8 @@ public class App {
     );
     InputValidator inputArgumentsValidationRule = new InputValidator(
         List.of(new MinimalNumberOfArgumentsRule(),
-        new UnknownArgumentsRule(),
-        new MissingValidateArgumentsRule(new MinimalNumberOfArgumentsRule())));
+            new UnknownArgumentsRule(new MinimalNumberOfArgumentsRule()),
+            new MissingValidateArgumentsRule(new MinimalNumberOfArgumentsRule())));
     new ElevenProofController(inputArgumentsValidationRule, elevenProofServiceMap).handleRequest(args);
   }
 }

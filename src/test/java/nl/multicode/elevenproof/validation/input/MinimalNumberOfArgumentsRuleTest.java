@@ -16,23 +16,33 @@ class MinimalNumberOfArgumentsRuleTest {
     rule = new MinimalNumberOfArgumentsRule();
   }
 
-/*  @Test
+  @Test
   @DisplayName("Given the number of arguments is below the minimum of 2" +
       "When the method is called" +
-      "Then the outcome should be FALSE")
-  void isValid_false() {
+      "Then Optional<Error> is returned")
+  void isValid_return_optional_error() {
 
-    assertThat(rule.isValid(new String[]{"generate"})).isFalse();
-    assertThat(rule.isValid(new String[]{})).isFalse();
+    assertThat(rule.isValid(new String[]{"generate"})).isPresent();
+    assertThat(rule.isValid(new String[]{})).isPresent();
+    assertThat(rule.isValid(new String[]{}).get().getMessage()).isEqualTo("Number of supplied arguments is insufficient.");
+  }
+
+  @Test
+  @DisplayName("Given any situation" +
+      "When the method is called" +
+      "Then is always returns true")
+  void isApplicable_always_return_true() {
+
+    assertThat(rule.isApplicable(new String[]{"generate"})).isTrue();
   }
 
   @Test
   @DisplayName("Given the number of arguments is equal to the minimum of 2" +
       "When the method is called" +
-      "Then the outcome should be TRUE")
+      "Then Optional.empty() is returned")
   void isValid_true() {
 
-    assertThat(rule.isValid(new String[]{"generate", "bsn"})).isTrue();
-    assertThat(rule.isValid(new String[]{"validate", "bsn", "some bsn nr"})).isTrue();
-  }*/
+    assertThat(rule.isValid(new String[]{"generate", "bsn"})).isEmpty();
+    assertThat(rule.isValid(new String[]{"validate", "bsn", "some bsn nr"})).isEmpty();
+  }
 }

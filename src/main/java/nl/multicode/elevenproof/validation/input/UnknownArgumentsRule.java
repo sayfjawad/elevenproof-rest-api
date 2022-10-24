@@ -1,17 +1,20 @@
 package nl.multicode.elevenproof.validation.input;
 
 import java.util.Optional;
+import lombok.RequiredArgsConstructor;
 import nl.multicode.elevenproof.model.Command;
 import nl.multicode.elevenproof.model.ProofType;
 
+@RequiredArgsConstructor
 public class UnknownArgumentsRule implements ValidationRule<String[]> {
+
+    private final MinimalNumberOfArgumentsRule minimalNumberOfArgumentsRule;
 
     @Override
     public Optional<Error> isValid(String[] args) {
 
-        String commandArgument = args[0];
-        String proofTypeArgument = args[1];
-        if (isUnknownCommand(commandArgument) || isUnknownProofTypeArgument(proofTypeArgument)) {
+        if(minimalNumberOfArgumentsRule.isValid(args).isEmpty()
+            && (isUnknownCommand(args[0]) || isUnknownProofTypeArgument(args[1]))) {
             return Optional.of(new Error("Unknown command or proof type!"));
         }
         return Optional.empty();

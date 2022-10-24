@@ -28,8 +28,7 @@ public class MissingValidateArgumentsRule implements ValidationRule<String[]> {
     @Override
     public boolean isApplicable(String[] args) {
 
-        String commandArgument = args[0];
-        return minimalNumberOfArgumentsRule.isValid(args).isEmpty() && isValidateCommand(commandArgument);
+        return minimalNumberOfArgumentsRule.isValid(args).isEmpty() && isValidateCommand(args[0]);
     }
 
     private boolean isMissingNumberArgument(String[] args) {
