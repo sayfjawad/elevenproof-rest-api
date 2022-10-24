@@ -13,7 +13,6 @@ public interface ValidationRule<T> {
   Optional<Error> isValid(T arguments);
 
   /**
-   *
    * @param args
    * @return
    */

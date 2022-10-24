@@ -21,7 +21,7 @@ public class ElevenProofController implements ProofController {
     @Override
     public void handleRequest(String[] args) {
 
-        List<Error> errorList = inputValidator.validate(args);
+        final var errorList = inputValidator.validate(args);
         if (errorList.isEmpty()) {
             final var command = Command.fromValue(args[0]);
             final var proofType = ProofType.fromValue(args[1]);

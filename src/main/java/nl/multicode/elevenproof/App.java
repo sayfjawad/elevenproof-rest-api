@@ -17,12 +17,12 @@ public class App {
 
   public static void main(String[] args) {
 
-    Map<ProofType, ElevenProofService> elevenProofServiceMap = Map.of(
+    final var elevenProofServiceMap = Map.of(
         ProofType.BANK_ACCOUNT, new BankAccountElevenProofService(),
         ProofType.BSN, new BurgerServiceNummerElevenProofService(),
         ProofType.UNKNOWN, new UnknownElevenProofService()
     );
-    InputValidator inputArgumentsValidationRule = new InputValidator(
+    final var inputArgumentsValidationRule = new InputValidator(
         List.of(new MinimalNumberOfArgumentsRule(),
             new UnknownArgumentsRule(new MinimalNumberOfArgumentsRule()),
             new MissingValidateArgumentsRule(new MinimalNumberOfArgumentsRule())));

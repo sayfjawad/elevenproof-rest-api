@@ -16,8 +16,8 @@ public class RandomFixedLengthDigitsSupplier implements ObjectSupplier<String> {
   @Override
   public String supply() {
 
-    int startInclusive = 0;
-    int endInclusive = digitsLength - 1;
+    final var startInclusive = 0;
+    final var endInclusive = digitsLength - 1;
 
     return IntStream.rangeClosed(startInclusive, endInclusive).boxed()
         .map(r -> Integer.toString(random.nextInt(MAX_RANDOM_INTEGER)))
