@@ -16,7 +16,7 @@ class UnknownArgumentsRuleTest {
     rule = new UnknownArgumentsRule();
   }
 
-  @Test
+/*  @Test
   @DisplayName("Given the one or both of the first two arguments is UNKNOWN"
       + "When then method is called" +
       "Then the outcome should be FALSE")
@@ -35,5 +35,5 @@ class UnknownArgumentsRuleTest {
 
     assertThat(rule.isValid(new String[]{"validate", "bsn", "number"})).isTrue();
     assertThat(rule.isValid(new String[]{"generate", "bank", "number"})).isTrue();
-  }
+  }*/
 }

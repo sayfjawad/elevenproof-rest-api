@@ -16,7 +16,7 @@ class MinimalNumberOfArgumentsRuleTest {
     rule = new MinimalNumberOfArgumentsRule();
   }
 
-  @Test
+/*  @Test
   @DisplayName("Given the number of arguments is below the minimum of 2" +
       "When the method is called" +
       "Then the outcome should be FALSE")
@@ -34,5 +34,5 @@ class MinimalNumberOfArgumentsRuleTest {
 
     assertThat(rule.isValid(new String[]{"generate", "bsn"})).isTrue();
     assertThat(rule.isValid(new String[]{"validate", "bsn", "some bsn nr"})).isTrue();
-  }
+  }*/
 }

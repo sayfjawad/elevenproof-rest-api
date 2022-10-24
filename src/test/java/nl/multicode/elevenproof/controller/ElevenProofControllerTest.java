@@ -10,7 +10,7 @@ import nl.multicode.elevenproof.service.BankAccountElevenProofService;
 import nl.multicode.elevenproof.service.BurgerServiceNummerElevenProofService;
 import nl.multicode.elevenproof.service.UnknownElevenProofService;
 import nl.multicode.elevenproof.util.TestAppender;
-import nl.multicode.elevenproof.validation.input.InputArgumentsValidationRule;
+import nl.multicode.elevenproof.validation.input.InputValidator;
 import org.apache.logging.log4j.Level;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,7 +30,7 @@ class ElevenProofControllerTest {
   UnknownElevenProofService unknownElevenProofService = new UnknownElevenProofService();
 
   @Mock
-  InputArgumentsValidationRule rule;
+  InputValidator rule;
 
   ElevenProofController controller;
 

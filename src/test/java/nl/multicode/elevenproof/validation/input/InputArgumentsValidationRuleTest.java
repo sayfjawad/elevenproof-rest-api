@@ -5,6 +5,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
+import java.util.List;
+import java.util.Optional;
 import nl.multicode.elevenproof.model.Command;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,8 +27,11 @@ class InputArgumentsValidationRuleTest {
   @Mock
   private MissingValidateArgumentsRule missingValidateArgumentsRule;
 
-  @InjectMocks
-  private InputArgumentsValidationRule rule;
+  private InputValidator rule;
+
+  public void before(){
+    rule = new InputValidator(List.of(minimalNumberOfArgumentsRule, unknownArgumentsRule, missingValidateArgumentsRule));
+  }
 
   @ParameterizedTest
   @CsvSource(value = {"validate", "generate"})
@@ -37,13 +42,13 @@ class InputArgumentsValidationRuleTest {
   void isValid_true(String command) {
 
     String[] args = {command, "bsn", "some bsn"};
-    when(minimalNumberOfArgumentsRule.isValid(args)).thenReturn(Boolean.TRUE);
-    when(unknownArgumentsRule.isValid(args)).thenReturn(Boolean.TRUE);
+    when(minimalNumberOfArgumentsRule.isValid(args)).thenReturn(Optional.empty());
+    when(unknownArgumentsRule.isValid(args)).thenReturn(Optional.empty());
     if (Command.VALIDATE.equals(Command.fromValue(command))) {
-      when(missingValidateArgumentsRule.isValid(args)).thenReturn(Boolean.TRUE);
+      when(missingValidateArgumentsRule.isValid(args)).thenReturn(Optional.empty());
     }
 
-    assertThat(rule.isValid(args)).isTrue();
+    assertThat(rule.validate(args)).isEmpty();
     verify(unknownArgumentsRule).isValid(args);
     if (Command.VALIDATE.equals(Command.fromValue(command))) {
       verify(missingValidateArgumentsRule).isValid(args);
@@ -61,10 +66,10 @@ class InputArgumentsValidationRuleTest {
     String[] args = {command, "bsn", "some bsn"};
 
     if (Command.VALIDATE.equals(Command.fromValue(command))) {
-      when(missingValidateArgumentsRule.isValid(args)).thenReturn(Boolean.TRUE);
+      when(missingValidateArgumentsRule.isValid(args)).thenReturn(Optional.empty());
     }
 
-    assertThat(rule.isValid(args)).isFalse();
+    assertThat(rule.validate(args)).isNotEmpty();
     verify(minimalNumberOfArgumentsRule).isValid(args);
     verifyNoInteractions(unknownArgumentsRule);
     verifyNoInteractions(missingValidateArgumentsRule);
