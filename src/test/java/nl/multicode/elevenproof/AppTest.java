@@ -3,13 +3,13 @@ package nl.multicode.elevenproof;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import nl.multicode.elevenproof.model.Command;
-import nl.multicode.elevenproof.model.ProofType;
 import nl.multicode.elevenproof.util.TestAppender;
 import org.apache.logging.log4j.Level;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 class AppTest {
 
@@ -25,43 +25,46 @@ class AppTest {
     TestAppender.clear();
   }
 
-  @Test
-  void main_args_validate_bsn() {
+  @ParameterizedTest
+  @CsvSource({"validate,bsn,000342865", "validate,bank,0609567128"})
+  @DisplayName("Given all arguments are given"
+      + "And the arguments are valid"
+      + "And the command is VALIDATE"
+      + "And the BSN/BANK is valid"
+      + "When the application is run with these arguments"
+      + "Then output will confirm the BSN/BANK is valid")
+  void main_args_validate_bsn(String command, String proofType, String number) {
 
-    App.main(new String[]{Command.VALIDATE.getValue(), ProofType.BSN.getValue(), "000342865"});
-    assertThat(TestAppender.getLogs(Level.INFO).get(0)).isEqualTo("000342865 is valid bsn");
+    App.main(new String[]{command, proofType, number});
+    assertThat(TestAppender.getLogs(Level.INFO).get(0)).isEqualTo(number + " is valid " + proofType);
 
   }
 
-  @Test
-  void main_args_generate_bsn() throws ArrayIndexOutOfBoundsException {
+  @ParameterizedTest
+  @CsvSource({"generate,bsn,[0-9]{9}", "generate,bank,[0-9]{10}"})
+  @DisplayName("Given all arguments are given"
+      + "And the arguments are valid"
+      + "And the command is GENERATE"
+      + "When the application is run with these arguments"
+      + "Then output will generate a valid elevenproof number of the given type")
+  void main_args_generate_bsn(String command, String proofType, String pattern) {
 
-    App.main(new String[]{Command.GENERATE.getValue(), ProofType.BSN.getValue()});
-    assertThat(TestAppender.getLogs(Level.INFO).get(0)).matches("Generated: Optional\\[[0-9]{9}\\]");
+    App.main(new String[]{command, proofType});
+    assertThat(TestAppender.getLogs(Level.INFO).get(0)).matches("Generated: Optional\\[" + pattern + "\\]");
   }
 
-  @Test
-  void main_args_invalid_command_argument() throws ArrayIndexOutOfBoundsException {
+  @ParameterizedTest
+  @CsvSource({"wrong,wrong,wrong",
+      "generate,wrong,wrong",
+      "validate,wrong,wrong",
+      "wrong,bsn,wrong",
+      "wrong,bank,wrong"})
+  @DisplayName("Given one or more arguments is/are invalid"
+      + "When the application is run with these arguments"
+      + "Then output will be of the correct usage of the application")
+  void main_args_invalid_command_argument(String command, String proofType, String number) throws ArrayIndexOutOfBoundsException {
 
-    App.main(new String[]{"wrong command", "bsn"});
-    assertThat(TestAppender.getLogs(Level.INFO).get(0)).isEqualTo("Usage is:\n" +
-        "java -jar app.jar <validate> <bsn|bank> <number>\n" +
-        "java -jar app.jar <generate> <bsn|bank>");
-  }
-
-  @Test
-  void main_args_invalid_prooftype_argument() throws ArrayIndexOutOfBoundsException {
-
-    App.main(new String[]{"generate", "wrong proofType"});
-    assertThat(TestAppender.getLogs(Level.INFO).get(0)).isEqualTo("Usage is:\n" +
-        "java -jar app.jar <validate> <bsn|bank> <number>\n" +
-        "java -jar app.jar <generate> <bsn|bank>");
-  }
-
-  @Test
-  void main_args_missing_arguments() throws ArrayIndexOutOfBoundsException {
-
-    App.main(new String[]{"validate", "bsn"});
+    App.main(new String[]{command, proofType, number});
     assertThat(TestAppender.getLogs(Level.INFO).get(0)).isEqualTo("Usage is:\n" +
         "java -jar app.jar <validate> <bsn|bank> <number>\n" +
         "java -jar app.jar <generate> <bsn|bank>");
