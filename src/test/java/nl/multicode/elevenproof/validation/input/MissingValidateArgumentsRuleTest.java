@@ -24,7 +24,7 @@ class MissingValidateArgumentsRuleTest {
   @Test
   @DisplayName("Given the command is 'validate'" +
       "And args contains 3 arguments" +
-      "Then the outcome should be TRUE")
+      "Then the should not contain an error")
   void isValid_no_error() {
 
     assertThat(rule.isValid(new String[]{"validate", "bsn", "some bsn"})).isEmpty();

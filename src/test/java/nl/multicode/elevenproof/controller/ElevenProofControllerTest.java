@@ -23,11 +23,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 class ElevenProofControllerTest {
 
   @Mock
-  BankAccountElevenProofService bankAccountElevenProofService = new BankAccountElevenProofService();
+  BankAccountElevenProofService bankAccountElevenProofService;
   @Mock
-  BurgerServiceNummerElevenProofService burgerServiceNummerElevenProofService = new BurgerServiceNummerElevenProofService();
+  BurgerServiceNummerElevenProofService burgerServiceNummerElevenProofService;
   @Mock
-  UnknownElevenProofService unknownElevenProofService = new UnknownElevenProofService();
+  UnknownElevenProofService unknownElevenProofService;
 
   @Mock
   InputValidator rule;
