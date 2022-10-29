@@ -14,6 +14,7 @@ import nl.multicode.elevenproof.validation.input.InputValidator;
 import org.apache.logging.log4j.Level;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -52,14 +53,36 @@ class ElevenProofControllerTest {
   }
 
   @Test
-  void handleRequest_generate() {
+  @DisplayName("Given the command is generate "
+      + "And proofType is BSN"
+      + "When handleRequest method is called"
+      + "Then the controller selects the correct service"
+      + "And runs the  generate command on the correct service")
+  void handleRequest_generate_bsn() {
 
     controller.handleRequest(Command.GENERATE, ProofType.BSN, null);
     verify(burgerServiceNummerElevenProofService).generate();
   }
 
   @Test
-  void handleRequest_validate() {
+  @DisplayName("Given the command is generate "
+      + "And proofType is BANK"
+      + "When handleRequest method is called"
+      + "Then the controller selects the correct service"
+      + "And runs the  generate command on the correct service")
+  void handleRequest_generate_bank() {
+
+    controller.handleRequest(Command.GENERATE, ProofType.BANK_ACCOUNT, null);
+    verify(bankAccountElevenProofService).generate();
+  }
+
+  @Test
+  @DisplayName("Given the command is validate "
+      + "And proofType is BSN"
+      + "When handleRequest method is called"
+      + "Then the controller selects the correct service"
+      + "And runs the validate command with the correct service")
+  void handleRequest_validate_bsn() {
 
     String number = "null";
     controller.handleRequest(Command.VALIDATE, ProofType.BSN, number);
@@ -67,6 +90,24 @@ class ElevenProofControllerTest {
   }
 
   @Test
+  @DisplayName("Given the command is validate "
+      + "And proofType is BANK"
+      + "When handleRequest method is called"
+      + "Then the controller selects the correct service"
+      + "And runs the validate command with the correct service")
+  void handleRequest_validate() {
+
+    String number = "null";
+    controller.handleRequest(Command.VALIDATE, ProofType.BANK_ACCOUNT, number);
+    verify(bankAccountElevenProofService).isValid(number);
+  }
+
+  @Test
+  @DisplayName("Given the command is validate "
+      + "And proofType is UNKNIWN"
+      + "When handleRequest method is called"
+      + "Then the controller selects the correct service"
+      + "And runs the validate command with the correct service")
   void handleRequest_unknown() {
 
     controller.handleRequest(Command.UNKNOWN, ProofType.UNKNOWN, "null");
