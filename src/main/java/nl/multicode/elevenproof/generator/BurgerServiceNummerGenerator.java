@@ -4,7 +4,7 @@ import java.util.Optional;
 import java.util.stream.Stream;
 import lombok.RequiredArgsConstructor;
 import nl.multicode.elevenproof.generator.supplier.ObjectSupplier;
-import nl.multicode.elevenproof.generator.supplier.RandomFixedLengthDigitsSupplier;
+import nl.multicode.elevenproof.generator.supplier.FixedLengthRandomNumbersStringSupplier;
 import nl.multicode.elevenproof.model.ProofType;
 import nl.multicode.elevenproof.validation.BsnElevenProof;
 import nl.multicode.elevenproof.validation.ElevenProof;
@@ -18,7 +18,7 @@ public class BurgerServiceNummerGenerator implements Generator {
 
   public BurgerServiceNummerGenerator() {
 
-    this(new RandomFixedLengthDigitsSupplier(BSN_DIGITS_LENGTH), new BsnElevenProof());
+    this(new FixedLengthRandomNumbersStringSupplier(BSN_DIGITS_LENGTH), new BsnElevenProof());
   }
 
   @Override
