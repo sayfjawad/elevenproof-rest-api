@@ -1,26 +1,38 @@
 package nl.multicode.elevenproof.service;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.verify;
 
-import java.util.Optional;
+import nl.multicode.elevenproof.generator.Generator;
+import nl.multicode.elevenproof.model.ProofType;
+import nl.multicode.elevenproof.validation.ElevenProof;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+@ExtendWith(MockitoExtension.class)
 class BankAccountElevenProofServiceTest {
 
-  @Test
-  void generate() {
+    @Mock
+    private Generator elevenproofGenerator;
+    @Mock
+    private ElevenProof elevenProof;
+    @InjectMocks
+    private BankAccountElevenProofService service;
 
-    BankAccountElevenProofService service = new BankAccountElevenProofService();
-    Optional<String> generated = service.generate();
-    assertThat(generated).isNotEmpty();
-    assertThat(generated.get()).hasSize(10);
-    assertThat(service.isValid(generated.get())).isTrue();
-  }
+    @Test
+    void generate() {
 
-  @Test
-  void isValid() {
+        service.generate();
+        verify(elevenproofGenerator).generate(ProofType.BANK_ACCOUNT);
+    }
 
-    assertThat(new BankAccountElevenProofService().isValid("0609567128")).isTrue();
-    assertThat(new BankAccountElevenProofService().isValid("0609567127")).isFalse();
-  }
+    @Test
+    void isValid() {
+
+        final var bankAccount = "bankAccount";
+        service.isValid(bankAccount);
+        verify(elevenProof).isElevenProof(bankAccount);
+    }
 }
