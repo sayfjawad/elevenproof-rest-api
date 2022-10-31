@@ -5,6 +5,7 @@ import static org.mockito.Mockito.verify;
 import nl.multicode.elevenproof.generator.Generator;
 import nl.multicode.elevenproof.model.ProofType;
 import nl.multicode.elevenproof.validation.ElevenProof;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -22,6 +23,9 @@ class BankAccountElevenProofServiceTest {
     private BankAccountElevenProofService service;
 
     @Test
+    @DisplayName("Given the Service is configured correctly"
+        + "When the generate() method is called"
+        + "Then the BangAccountGenerator member is called with the correct elevenProofType")
     void generate() {
 
         service.generate();
@@ -29,6 +33,9 @@ class BankAccountElevenProofServiceTest {
     }
 
     @Test
+    @DisplayName("Given the Service is configured correctly"
+        + "When the isValid() method is called"
+        + "Then the elevenProof is called with the number")
     void isValid() {
 
         final var bankAccount = "bankAccount";
