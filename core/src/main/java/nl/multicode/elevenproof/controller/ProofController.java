@@ -7,5 +7,5 @@ public interface ProofController {
 
   void handleRequest(String[] args);
 
-  void handleRequest(Command command, ProofType proofType, String number);
+  void handleRequest(Command command, ProofType proofType, int[] number);
 }

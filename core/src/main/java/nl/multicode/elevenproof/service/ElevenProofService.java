@@ -4,7 +4,7 @@ import java.util.Optional;
 
 public interface ElevenProofService {
 
-  Optional<String> generate();
+  Optional<int[]> generate();
 
-  boolean isValid(String number);
+  boolean isValid(int[] number);
 }

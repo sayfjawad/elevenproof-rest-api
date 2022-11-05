@@ -34,7 +34,7 @@ class AppTest {
   void main_args_validate_bsn(String command, String proofType, String number) {
 
     App.main(new String[]{command, proofType, number});
-    Assertions.assertThat(TestAppender.getLogs(Level.INFO).get(0)).isEqualTo(number + " is valid " + proofType);
+    Assertions.assertThat(TestAppender.getLogs(Level.INFO).get(0)).contains(" is valid " + proofType);
 
   }
 

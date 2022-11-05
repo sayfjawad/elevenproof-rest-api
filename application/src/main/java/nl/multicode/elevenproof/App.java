@@ -5,17 +5,18 @@ import java.util.Map;
 import nl.multicode.elevenproof.controller.ElevenProofController;
 import nl.multicode.elevenproof.generate.BankAccountGenerator;
 import nl.multicode.elevenproof.generate.BurgerServiceNummerGenerator;
+import nl.multicode.elevenproof.map.StringToIntArrayMapper;
 import nl.multicode.elevenproof.model.ProofType;
 import nl.multicode.elevenproof.service.BankAccountElevenProofService;
 import nl.multicode.elevenproof.service.BurgerServiceNummerElevenProofService;
 import nl.multicode.elevenproof.service.ElevenProofService;
 import nl.multicode.elevenproof.service.UnknownElevenProofService;
-import nl.multicode.elevenproof.validate.BankAccountElevenProof;
-import nl.multicode.elevenproof.validate.BsnElevenProof;
-import nl.multicode.elevenproof.validate.input.InputValidator;
-import nl.multicode.elevenproof.validate.input.MinimalNumberOfArgumentsRule;
-import nl.multicode.elevenproof.validate.input.MissingValidateArgumentsRule;
-import nl.multicode.elevenproof.validate.input.UnknownArgumentsRule;
+import nl.multicode.elevenproof.validate.InputValidator;
+import nl.multicode.elevenproof.validate.proof.BankAccountElevenProof;
+import nl.multicode.elevenproof.validate.proof.BsnElevenProof;
+import nl.multicode.elevenproof.validate.rule.MinimalNumberOfArgumentsRule;
+import nl.multicode.elevenproof.validate.rule.MissingValidateArgumentsRule;
+import nl.multicode.elevenproof.validate.rule.UnknownArgumentsRule;
 
 public class App {
 
@@ -28,10 +29,15 @@ public class App {
       List.of(new MinimalNumberOfArgumentsRule(),
           new UnknownArgumentsRule(new MinimalNumberOfArgumentsRule()),
           new MissingValidateArgumentsRule(new MinimalNumberOfArgumentsRule())));
+  public static final StringToIntArrayMapper INT_ARRAY_MAPPER = new StringToIntArrayMapper();
+  public static final ElevenProofController ELEVEN_PROOF_CONTROLLER = new ElevenProofController(
+      INPUT_ARGUMENTSVALIDATE_RULE,
+      ELEVEN_PROOF_SERVICE_MAP,
+      INT_ARRAY_MAPPER);
 
   private App(String[] args) {
 
-    new ElevenProofController(INPUT_ARGUMENTSVALIDATE_RULE, ELEVEN_PROOF_SERVICE_MAP).handleRequest(args);
+    ELEVEN_PROOF_CONTROLLER.handleRequest(args);
   }
 
   public static void main(String[] args) {
