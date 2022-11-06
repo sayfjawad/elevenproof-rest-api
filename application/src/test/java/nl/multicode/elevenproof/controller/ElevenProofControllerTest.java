@@ -122,6 +122,9 @@ class ElevenProofControllerTest {
   }
 
   @Test
+  @DisplayName("Given the wrong number if arguments is used "
+      + "When application is called"
+      + "Then the correct usage is logged")
   void controller_args_missing_arguments() {
 
     final var args = new String[]{"validate", "bsn"};

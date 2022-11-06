@@ -3,6 +3,7 @@ package nl.multicode.elevenproof.validate;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class ElevenProofTest {
@@ -22,38 +23,66 @@ class ElevenProofTest {
   }
 
   @Test
+  @DisplayName("Given the number and multiplier digits are of unequal length"
+      + "When the isElevenProof() method is called"
+      + "Then the outcome is false")
   void isElevenProof_invalid_input_arrays_length_unequal() {
 
-    assertThat(elevenProof.isElevenProof(new int[]{2, 5}, new int[]{9, 8, 7})).isFalse();
+    int[] number = {2, 5};
+    int[] digitPositionMultipliers = {9, 8, 7};
+    assertThat(elevenProof.isElevenProof(number, digitPositionMultipliers)).isFalse();
   }
 
   @Test
+  @DisplayName("Given the number and multiplier digits are both null"
+      + "When the isElevenProof() method is called"
+      + "Then the outcome is false")
   void isElevenProof_invalid_input_null_arrays() {
 
     assertThat(elevenProof.isElevenProof(null, null)).isFalse();
   }
 
   @Test
+  @DisplayName("Given the number is null and multiplier isn't"
+      + "When the isElevenProof() method is called"
+      + "Then the outcome is false")
   void isElevenProof_invalid_input_number_array_null() {
 
-    assertThat(elevenProof.isElevenProof(null, new int[]{9, 8, 7, 6, 5, 4, 3, 2, -1})).isFalse();
+    int[] digitPositionMultipliers = {9, 8, 7, 6, 5, 4, 3, 2, -1};
+    assertThat(elevenProof.isElevenProof(null, digitPositionMultipliers)).isFalse();
   }
 
   @Test
+  @DisplayName("Given the multiplier digits are null"
+      + "When the isElevenProof() method is called"
+      + "Then the outcome is false")
   void isElevenProof_invalid_input_digits_multipliers_array_null() {
 
-    assertThat(elevenProof.isElevenProof(new int[]{2, 5}, null)).isFalse();
+    int[] number = {2, 5};
+    assertThat(elevenProof.isElevenProof(number, null)).isFalse();
   }
 
   @Test
+  @DisplayName("Given the number and multiplier digits are of equal length"
+      + "And the number is elevenProof"
+      + "When the isElevenProof() method is called"
+      + "Then the outcome is true")
   void isElevenProof_is_elevenProof() {
 
-    assertThat(elevenProof.isElevenProof(new int[]{2, 5, 3, 0, 4, 7, 1, 4, 6}, new int[]{9, 8, 7, 6, 5, 4, 3, 2, -1})).isTrue();
+    int[] number = {2, 5, 3, 0, 4, 7, 1, 4, 6};
+    int[] digitPositionMultipliers = {9, 8, 7, 6, 5, 4, 3, 2, -1};
+    assertThat(elevenProof.isElevenProof(number, digitPositionMultipliers)).isTrue();
   }
 
   @Test
+  @DisplayName("Given the number and multiplier digits are of equal length"
+      + "And the number is NOT elevenProof"
+      + "When the isElevenProof() method is called"
+      + "Then the outcome is false")
   void isElevenProof_is_not_elevenProof() {
 
-    assertThat(elevenProof.isElevenProof(new int[]{2, 5, 3, 0, 4, 7, 1, 4, 7}, new int[]{9, 8, 7, 6, 5, 4, 3, 2, -1})).isFalse();
+    int[] number = {2, 5, 3, 0, 4, 7, 1, 4, 7};
+    int[] digitPositionMultipliers = {9, 8, 7, 6, 5, 4, 3, 2, -1};
+    assertThat(elevenProof.isElevenProof(number, digitPositionMultipliers)).isFalse();
   }
 }
