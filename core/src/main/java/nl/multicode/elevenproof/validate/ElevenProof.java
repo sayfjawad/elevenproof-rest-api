@@ -1,6 +1,6 @@
 package nl.multicode.elevenproof.validate;
 
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.IntStream;
 
 public interface ElevenProof {
 
@@ -8,11 +8,26 @@ public interface ElevenProof {
 
   default boolean isElevenProof(int[] number, int[] digitPositionMultipliers) {
 
-    final var zeroOutcome = 0;
-    final var sum = new AtomicInteger(0);
-    for (int i = 0; i < digitPositionMultipliers.length; i++) {
-      sum.addAndGet(number[i] * digitPositionMultipliers[i]);
+    if (isValidInput(number, digitPositionMultipliers)) {
+      return isDividableByEleven(getMultiplicationSum(number, digitPositionMultipliers));
     }
-    return sum.get() % 11 == zeroOutcome;
+    return false;
+  }
+
+  private boolean isValidInput(int[] number, int[] digitPositionMultipliers) {
+
+    return number != null && digitPositionMultipliers != null && number.length == digitPositionMultipliers.length;
+  }
+
+  private int getMultiplicationSum(int[] number, int[] digitPositionMultipliers) {
+
+    return IntStream.range(0, number.length)
+        .map(index -> number[index] * digitPositionMultipliers[index])
+        .sum();
+  }
+
+  private boolean isDividableByEleven(int sum) {
+
+    return sum % 11 == 0;
   }
 }
