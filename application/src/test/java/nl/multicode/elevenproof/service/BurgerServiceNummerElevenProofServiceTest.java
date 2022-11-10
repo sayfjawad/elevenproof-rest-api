@@ -19,34 +19,34 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 class BurgerServiceNummerElevenProofServiceTest {
 
-  @Mock
-  private Generator elevenproofGenerator;
-  @Mock
-  private ElevenProof elevenProof;
-  @InjectMocks
-  private BurgerServiceNummerElevenProofService service;
+    @Mock
+    private Generator elevenproofGenerator;
+    @Mock
+    private ElevenProof elevenProof;
+    @InjectMocks
+    private BurgerServiceNummerElevenProofService service;
 
-  @Test
-  @DisplayName("Given the Service is configured correctly"
-      + "When the generate() method is called"
-      + "Then the BangAccountGenerator member is called with the correct elevenProofType")
-  void generate() {
+    @Test
+    @DisplayName("Given the Service is configured correctly"
+        + "When the generate() method is called"
+        + "Then the BangAccountGenerator member is called with the correct elevenProofType")
+    void generate() {
 
-    service.generate();
-    verify(elevenproofGenerator).generate(ProofType.BSN);
-  }
+        service.generate();
+        verify(elevenproofGenerator).generate(ProofType.BSN);
+    }
 
-  @ParameterizedTest
-  @CsvSource({"1,true", "2,false"})
-  @DisplayName("Given the Service is configured correctly"
-      + "When the isValid() method is called"
-      + "Then the elevenProof is called with the number")
-  void isValid(int number, boolean outcome) {
+    @ParameterizedTest
+    @CsvSource({"1,true", "2,false"})
+    @DisplayName("Given the Service is configured correctly"
+        + "When the isValid() method is called"
+        + "Then the elevenProof is called with the number")
+    void isValid(int number, boolean outcome) {
 
-    final var bsn = new int[]{number};
-    when(elevenProof.isElevenProof(bsn)).thenReturn(outcome);
+        final var bsn = new int[]{number};
+        when(elevenProof.isElevenProof(bsn)).thenReturn(outcome);
 
-    assertThat(service.isValid(bsn)).isEqualTo(outcome);
-    verify(elevenProof).isElevenProof(bsn);
-  }
+        assertThat(service.isValid(bsn)).isEqualTo(outcome);
+        verify(elevenProof).isElevenProof(bsn);
+    }
 }

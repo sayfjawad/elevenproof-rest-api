@@ -11,24 +11,24 @@ import nl.multicode.elevenproof.validate.proof.BankAccountElevenProof;
 @RequiredArgsConstructor
 public class BankAccountGenerator implements Generator {
 
-  public static final int BANK_ACCOUNT_DIGITS_LENGTH = 10;
-  private final ObjectSupplier<int[]> randomDigitsSupplier;
-  private final BankAccountElevenProof elevenProof;
+    public static final int BANK_ACCOUNT_DIGITS_LENGTH = 10;
+    private final ObjectSupplier<int[]> randomDigitsSupplier;
+    private final BankAccountElevenProof elevenProof;
 
-  public BankAccountGenerator() {
+    public BankAccountGenerator() {
 
-    this(new FixedLengthRandomNumbersStringSupplier(BANK_ACCOUNT_DIGITS_LENGTH), new BankAccountElevenProof());
-  }
-
-  @Override
-  public Optional<int[]> generate(ProofType proofType) {
-
-    if (ProofType.BANK_ACCOUNT.equals(proofType)) {
-      return Stream.generate(randomDigitsSupplier::supply)
-          .filter(elevenProof::isElevenProof)
-          .findFirst()
-          ;
+        this(new FixedLengthRandomNumbersStringSupplier(BANK_ACCOUNT_DIGITS_LENGTH), new BankAccountElevenProof());
     }
-    return Optional.empty();
-  }
+
+    @Override
+    public Optional<int[]> generate(ProofType proofType) {
+
+        if (ProofType.BANK_ACCOUNT.equals(proofType)) {
+            return Stream.generate(randomDigitsSupplier::supply)
+                .filter(elevenProof::isElevenProof)
+                .findFirst()
+                ;
+        }
+        return Optional.empty();
+    }
 }

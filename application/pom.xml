@@ -2,8 +2,20 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns="http://maven.apache.org/POM/4.0.0"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <artifactId>application</artifactId>
 
+  <artifactId>application</artifactId>
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>17</source>
+          <target>17</target>
+        </configuration>
+        <groupId>org.apache.maven.plugins</groupId>
+      </plugin>
+    </plugins>
+  </build>
   <dependencies>
     <dependency>
       <artifactId>core</artifactId>
@@ -49,18 +61,14 @@
       <scope>provided</scope>
     </dependency>
   </dependencies>
-
   <modelVersion>4.0.0</modelVersion>
-
   <parent>
     <artifactId>elevenproof-api</artifactId>
     <groupId>nl.multicode.elevenproof</groupId>
     <version>1.0-SNAPSHOT</version>
   </parent>
-
   <properties>
     <maven.compiler.source>19</maven.compiler.source>
     <maven.compiler.target>19</maven.compiler.target>
   </properties>
-
 </project>

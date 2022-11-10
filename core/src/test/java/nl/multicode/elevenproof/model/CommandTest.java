@@ -8,12 +8,12 @@ import org.junit.jupiter.params.provider.EnumSource;
 
 class CommandTest {
 
-  @DisplayName("Given the string value of the Enum when passed to fromValue method"
-      + " Then it should convert string value to corresponding enum")
-  @ParameterizedTest
-  @EnumSource(Command.class)
-  void fromValue_canCovertAllEnumValues(Command accumulationType) {
+    @DisplayName("Given the string value of the Enum when passed to fromValue method"
+        + " Then it should convert string value to corresponding enum")
+    @ParameterizedTest
+    @EnumSource(Command.class)
+    void fromValue_canCovertAllEnumValues(Command accumulationType) {
 
-    assertThat(accumulationType).isEqualTo(Command.fromValue(accumulationType.getValue()));
-  }
+        assertThat(accumulationType).isEqualTo(Command.fromValue(accumulationType.getValue()));
+    }
 }

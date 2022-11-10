@@ -8,15 +8,15 @@ import nl.multicode.elevenproof.validate.input.ValidationRule;
 @RequiredArgsConstructor
 public class InputValidator {
 
-  private final List<ValidationRule<String[]>> validationRules;
+    private final List<ValidationRule<String[]>> validationRules;
 
-  public List<Error> validate(final String[] args) {
+    public List<Error> validate(final String[] args) {
 
-    return validationRules.stream()
-        .filter(validationRule -> validationRule.isApplicable(args))
-        .map(validationRule -> validationRule.isValid(args))
-        .filter(Optional::isPresent)
-        .map(Optional::get)
-        .toList();
-  }
+        return validationRules.stream()
+            .filter(validationRule -> validationRule.isApplicable(args))
+            .map(validationRule -> validationRule.isValid(args))
+            .filter(Optional::isPresent)
+            .map(Optional::get)
+            .toList();
+    }
 }

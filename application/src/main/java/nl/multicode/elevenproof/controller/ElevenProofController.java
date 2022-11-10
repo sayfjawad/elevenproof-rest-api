@@ -16,59 +16,60 @@ import org.apache.logging.log4j.Logger;
 @RequiredArgsConstructor
 public class ElevenProofController implements ProofController {
 
-  public static final int[] EMPTY_NUMBER = new int[0];
-  private static final Logger log = LogManager.getLogger(ElevenProofController.class);
-  private final InputValidator inputValidator;
-  private final Map<ProofType, ElevenProofService> elevenProofServices;
-  private final StringToIntArrayMapper intArrayMapper;
+    public static final int[] EMPTY_NUMBER = new int[0];
+    private static final Logger log = LogManager.getLogger(ElevenProofController.class);
+    private final InputValidator inputValidator;
+    private final Map<ProofType, ElevenProofService> elevenProofServices;
+    private final StringToIntArrayMapper intArrayMapper;
 
-  @Override
-  public void handleRequest(String[] args) {
+    @Override
+    public void handleRequest(String[] args) {
 
-    final var errorList = inputValidator.validate(args);
-    if (errorList.isEmpty()) {
-      final var command = Command.fromValue(args[0]);
-      final var proofType = ProofType.fromValue(args[1]);
-      switch (command) {
-        case VALIDATE -> handleRequest(command, proofType, intArrayMapper.map(args[2]));
-        case GENERATE -> handleRequest(command, proofType, EMPTY_NUMBER);
-        case UNKNOWN -> logErrors(errorList);
-      }
-    } else {
-      logErrors(errorList);
+        final var errorList = inputValidator.validate(args);
+        if (errorList.isEmpty()) {
+            final var command = Command.fromValue(args[0]);
+            final var proofType = ProofType.fromValue(args[1]);
+            switch (command) {
+                case VALIDATE -> handleRequest(command, proofType, intArrayMapper.apply(args[2]));
+                case GENERATE -> handleRequest(command, proofType, EMPTY_NUMBER);
+                case UNKNOWN -> logErrors(errorList);
+            }
+        } else {
+            logErrors(errorList);
+        }
     }
-  }
 
-  @Override
-  public void handleRequest(Command command, ProofType proofType, int[] number) {
+    @Override
+    public void handleRequest(Command command, ProofType proofType, int[] number) {
 
-    final var elevenProofService = elevenProofServices.get(proofType);
+        final var elevenProofService = elevenProofServices.get(proofType);
 
-    switch (command) {
-      case VALIDATE -> {
-        log.info("{} is {} {}", getStringFromIntArray(number), elevenProofService.isValid(number) ? "valid" : "invalid", proofType.getValue());
-      }
-      case GENERATE -> log.info("Generated: {}", elevenProofService.generate().map(this::getStringFromIntArray));
-      case UNKNOWN -> log.info("Cannot handle request: {}, {}, {}", proofType.getValue(), command.getValue(), getStringFromIntArray(number));
+        switch (command) {
+            case VALIDATE -> {
+                log.info("{} is {} {}", getStringFromIntArray(number), elevenProofService.isValid(number) ? "valid" : "invalid",
+                    proofType.getValue());
+            }
+            case GENERATE -> log.info("Generated: {}", elevenProofService.generate().map(this::getStringFromIntArray));
+            case UNKNOWN -> log.info("Cannot handle request: {}, {}, {}", proofType.getValue(), command.getValue(), getStringFromIntArray(number));
+        }
     }
-  }
 
-  private String getStringFromIntArray(int[] number) {
+    private String getStringFromIntArray(int[] number) {
 
-    return Arrays.stream(number)
-        .mapToObj(String::valueOf)
-        .collect(Collectors.joining());
-  }
+        return Arrays.stream(number)
+            .mapToObj(String::valueOf)
+            .collect(Collectors.joining());
+    }
 
-  private void logErrors(List<Error> errorList) {
+    private void logErrors(List<Error> errorList) {
 
-    final var errorsMessage = errorList.stream()
-        .map(Throwable::getMessage)
-        .collect(Collectors.joining("\n"));
-    log.error(errorsMessage);
-    log.info("""
-        Usage is:
-        java -jar app.jar <validate> <bsn|bank> <number>
-        java -jar app.jar <generate> <bsn|bank>""");
-  }
+        final var errorsMessage = errorList.stream()
+            .map(Throwable::getMessage)
+            .collect(Collectors.joining("\n"));
+        log.error(errorsMessage);
+        log.info("""
+            Usage is:
+            java -jar app.jar <validate> <bsn|bank> <number>
+            java -jar app.jar <generate> <bsn|bank>""");
+    }
 }

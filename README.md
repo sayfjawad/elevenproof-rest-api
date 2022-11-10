@@ -1,6 +1,6 @@
 # elevenproof-api
 
-Opensource Java API for validating and generating numbers that use the ElevenProof (elfproef in 
+Opensource Java API for validating and generating numbers that use the ElevenProof (elfproef in
 Dutch) (BSN Burger Service Nummer, Bank Account number, etc...)
 
 #### Application information
@@ -24,6 +24,7 @@ mvn clean package
 ```
 
 #### Application usage
+
 Generate BSN or BankAccount:
 
 ```

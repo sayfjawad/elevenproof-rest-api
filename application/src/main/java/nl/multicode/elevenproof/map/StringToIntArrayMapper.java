@@ -1,12 +1,14 @@
 package nl.multicode.elevenproof.map;
 
-public class StringToIntArrayMapper implements CustomMapper<String, int[]> {
+import java.util.function.Function;
 
-  @Override
-  public int[] map(String number) {
+public class StringToIntArrayMapper implements Function<String, int[]> {
 
-    return number.chars()
-        .map(Character::getNumericValue)
-        .toArray();
-  }
+    @Override
+    public int[] apply(String number) {
+
+        return number.chars()
+            .map(Character::getNumericValue)
+            .toArray();
+    }
 }

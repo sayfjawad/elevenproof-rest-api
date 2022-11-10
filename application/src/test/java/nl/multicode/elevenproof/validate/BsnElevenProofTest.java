@@ -10,36 +10,36 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 class BsnElevenProofTest {
 
-  private BsnElevenProof bsnElevenProof;
+    private BsnElevenProof bsnElevenProof;
 
-  @BeforeEach
-  public void setup() {
+    @BeforeEach
+    public void setup() {
 
-    bsnElevenProof = new BsnElevenProof();
-  }
+        bsnElevenProof = new BsnElevenProof();
+    }
 
-  @ParameterizedTest
-  @CsvSource({"253047146", "015715747", "581532053", "715078483"})
-  @DisplayName("Given that the isElevenProof is doing the BSN proof correctly "
-      + "When the method is called with a valid BSN number"
-      + "Then TRUE is returned")
-  void isElevenProof_True(String number) {
+    @ParameterizedTest
+    @CsvSource({"253047146", "015715747", "581532053", "715078483"})
+    @DisplayName("Given that the isElevenProof is doing the BSN proof correctly "
+        + "When the method is called with a valid BSN number"
+        + "Then TRUE is returned")
+    void isElevenProof_True(String number) {
 
-    assertThat(bsnElevenProof.isElevenProof(getArray(number))).isTrue();
-  }
+        assertThat(bsnElevenProof.isElevenProof(getArray(number))).isTrue();
+    }
 
-  @ParameterizedTest
-  @CsvSource({"111222330", "017717777", "221222023", "120978651"})
-  @DisplayName("Given that the isElevenProof is doing the BSN proof correctly "
-      + "When the method is called with an invalid BSN number"
-      + "Then FALSE is returned")
-  void isElevenProof_False(String number) {
+    @ParameterizedTest
+    @CsvSource({"111222330", "017717777", "221222023", "120978651"})
+    @DisplayName("Given that the isElevenProof is doing the BSN proof correctly "
+        + "When the method is called with an invalid BSN number"
+        + "Then FALSE is returned")
+    void isElevenProof_False(String number) {
 
-    assertThat(bsnElevenProof.isElevenProof(getArray(number))).isFalse();
-  }
+        assertThat(bsnElevenProof.isElevenProof(getArray(number))).isFalse();
+    }
 
-  private int[] getArray(String number) {
+    private int[] getArray(String number) {
 
-    return number.chars().map(Character::getNumericValue).toArray();
-  }
+        return number.chars().map(Character::getNumericValue).toArray();
+    }
 }
