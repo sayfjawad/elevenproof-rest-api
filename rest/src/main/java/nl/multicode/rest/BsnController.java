@@ -1,8 +1,8 @@
 package nl.multicode.rest;
 
 import lombok.RequiredArgsConstructor;
-import nl.multicode.bsn.service.BsnService;
 import nl.multicode.elevenproof.model.ElevenProofNumber;
+import nl.multicode.elevenproof.service.BsnService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

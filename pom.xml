@@ -79,6 +79,7 @@
     <module>core</module>
     <module>package</module>
     <module>spring</module>
+    <module>generate</module>
   </modules>
   <name>elevenproof-api</name>
 
