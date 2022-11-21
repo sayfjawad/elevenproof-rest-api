@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration xmlns="http://logging.apache.org/log4j/2.0/config">
+
+  <Appenders>
+    <Console name="STDOUT" target="SYSTEM_OUT">
+      <PatternLayout pattern="%sn %d{yyyy/MM/dd HH:mm:ss,SSS} %r [%-6p] [%t] %F:%L - %m%n"/>
+    </Console>
+    <!--  define the test appender -->
+    <TestAppender name="TestAppender"/>
+  </Appenders>
+
+  <Loggers>
+    <Logger additivity="false" level="INFO" name="nl.multicode">
+      <AppenderRef ref="STDOUT"/>
+      <!-- include the appender -->
+      <AppenderRef ref="TestAppender"/>
+    </Logger>
+  </Loggers>
+</Configuration>
