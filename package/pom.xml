@@ -15,7 +15,7 @@
     <description>Packaging module for building production-ready JAR files</description>
 
     <properties>
-        <start-class>nl.multicode.Application</start-class>
+        <start-class>nl.multicode.elevenproof.Application</start-class>
     </properties>
 
     <dependencies>
@@ -30,23 +30,4 @@
             <version>${project.version}</version>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <skip>false</skip>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
 </project>

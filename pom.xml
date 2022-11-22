@@ -11,22 +11,17 @@
     <module>package</module>
     <module>spring</module>
     <module>core</module>
+    <module>generate</module>
   </modules>
-
-  <parent>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.7.3</version>
-    <relativePath/>
-    <!--  lookup parent from repository  -->
-  </parent>
 
   <groupId>nl.multicode</groupId>
   <artifactId>elevenproof-rest-api</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>bsn-Service</name>
+  <name>ElevenProof-REST-API</name>
 
   <properties>
+    <maven.compiler.source>19</maven.compiler.source>
+    <maven.compiler.target>19</maven.compiler.target>
     <lombok.version>1.18.24</lombok.version>
     <validation-api.version>2.0.1.Final</validation-api.version>
     <hibernate-validator.version>6.0.13.Final</hibernate-validator.version>
@@ -35,8 +30,13 @@
     <pitest-junit5-plugin.version>1.1.0</pitest-junit5-plugin.version>
     <pitest-maven.version>1.9.8</pitest-maven.version>
     <spring-boot-dependencies.version>2.7.5</spring-boot-dependencies.version>
-    <javax.el-api.version>3.0.0</javax.el-api.version>
+    <javax.el-api.version>${springfox.version}</javax.el-api.version>
     <javax.el.version>2.2.4</javax.el.version>
+    <snakeyaml.version>1.33</snakeyaml.version>
+    <jackson-databind.version>2.14.0</jackson-databind.version>
+    <swagger-annotations.version>2.2.7</swagger-annotations.version>
+    <jackson-databind-nullable.version>0.2.4</jackson-databind-nullable.version>
+    <springfox.version>3.0.0</springfox.version>
   </properties>
 
   <dependencyManagement>
@@ -50,7 +50,29 @@
       </dependency>
       <dependency>
         <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter</artifactId>
+        <exclusions>
+          <exclusion>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+          </exclusion>
+        </exclusions>
+        <version>${spring-boot-dependencies.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-web</artifactId>
+        <exclusions>
+          <exclusion>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+          </exclusion>
+        </exclusions>
+        <version>${spring-boot-dependencies.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-validation</artifactId>
         <version>${spring-boot-dependencies.version}</version>
       </dependency>
       <dependency>
@@ -91,6 +113,41 @@
         <scope>test</scope>
         <version>${pitest-maven.version}</version>
       </dependency>
+      <dependency>
+        <groupId>org.yaml</groupId>
+        <artifactId>snakeyaml</artifactId>
+        <version>${snakeyaml.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+        <version>${jackson-databind.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.swagger.core.v3</groupId>
+        <artifactId>swagger-annotations</artifactId>
+        <version>${swagger-annotations.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.openapitools</groupId>
+        <artifactId>jackson-databind-nullable</artifactId>
+        <version>${jackson-databind-nullable.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.springfox</groupId>
+        <artifactId>springfox-swagger2</artifactId>
+        <version>${springfox.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.springfox</groupId>
+        <artifactId>springfox-spring-web</artifactId>
+        <version>${springfox.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.springfox</groupId>
+        <artifactId>springfox-boot-starter</artifactId>
+        <version>${springfox.version}</version>
+      </dependency>
     </dependencies>
 
   </dependencyManagement>
@@ -120,16 +177,16 @@
               <failWhenNoMutations>true</failWhenNoMutations>
               <targetClasses>
                 <param>nl.multicode.rest.*</param>
-                <param>nl.multicode.bsn.service.*</param>
-                <param>nl.multicode.bsn.validation.*</param>
+                <param>nl.multicode.elevenproof.service.*</param>
+                <param>nl.multicode.elevenproof.validation.*</param>
               </targetClasses>
               <targetTests>
                 <param>nl.multicode.rest.*</param>
-                <param>nl.multicode.bsn.service.*</param>
-                <param>nl.multicode.bsn.validation.*</param>
+                <param>nl.multicode.elevenproof.service.*</param>
+                <param>nl.multicode.elevenproof.validation.*</param>
               </targetTests>
               <excludedClasses>
-                <excludedClass>nl.multicode.bsn.model.*</excludedClass>
+                <excludedClass>nl.multicode.elevenproof.model.*</excludedClass>
               </excludedClasses>
             </configuration>
           </plugin>
