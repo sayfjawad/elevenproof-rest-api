@@ -8,7 +8,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-class FixedLengthRandomNumbersStringSupplierTest {
+class FixedLengthStringRandomNumbersSupplierTest {
 
     @ParameterizedTest
     @ValueSource(ints = {0, 1, 3, 15, 10, 1000})
@@ -18,7 +18,7 @@ class FixedLengthRandomNumbersStringSupplierTest {
         + "Then a random number string is generated with the required length")
     void supply_will_supply(int expectedNrOfDigits) {
 
-        final var result = new FixedLengthRandomNumbersStringSupplier(expectedNrOfDigits).supply();
+        final var result = new FixedLengthStringRandomNumbersSupplier(expectedNrOfDigits).supply();
         assertThat(result).hasSize(expectedNrOfDigits);
     }
 
@@ -31,7 +31,7 @@ class FixedLengthRandomNumbersStringSupplierTest {
         + "And the message explains that negative numbers are not supported")
     void supply_will_throw_exception(int expectedNrOfDigits) {
 
-        assertThatThrownBy(() -> new FixedLengthRandomNumbersStringSupplier(expectedNrOfDigits))
+        assertThatThrownBy(() -> new FixedLengthStringRandomNumbersSupplier(expectedNrOfDigits))
             .isInstanceOf(NegativeIntegerNotSupportedException.class)
             .hasMessageContaining("Negative integers are not accepted nor supported arguments.");
     }
