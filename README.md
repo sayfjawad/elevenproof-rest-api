@@ -27,6 +27,17 @@ Java 17
 Maven
 ```
 
+#### Use sonarqube
+Create environment variables containing url/login/password
+``` 
+SONAR_URL=http://sonar.host.com
+SONAR_LOGIN=login
+SONAR_PASSWORD=password
+```
+After building the project run:
+```
+$ mvn sonar:sonar
+```
 #### Build Application
 
 ```
