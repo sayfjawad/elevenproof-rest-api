@@ -18,6 +18,10 @@ import nl.multicode.elevenproof.validate.rule.MinimalNumberOfArgumentsRule;
 import nl.multicode.elevenproof.validate.rule.MissingValidateArgumentsRule;
 import nl.multicode.elevenproof.validate.rule.UnknownArgumentsRule;
 
+/**
+ * This class defines the application. It wires the different components together and initiates the command steps
+ * that are being entered through the main method arguments
+ */
 public class App {
 
     private static final StringToIntArrayMapper INT_ARRAY_MAPPER = new StringToIntArrayMapper();

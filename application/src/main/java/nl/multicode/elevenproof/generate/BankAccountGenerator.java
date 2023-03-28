@@ -4,7 +4,7 @@ import java.util.Optional;
 import java.util.stream.Stream;
 import lombok.RequiredArgsConstructor;
 import nl.multicode.elevenproof.generate.supplier.ObjectSupplier;
-import nl.multicode.elevenproof.generate.supply.FixedLengthRandomNumbersStringSupplier;
+import nl.multicode.elevenproof.generate.supply.FixedLengthStringRandomNumbersSupplier;
 import nl.multicode.elevenproof.model.ProofType;
 import nl.multicode.elevenproof.validate.proof.BankAccountElevenProof;
 
@@ -17,7 +17,7 @@ public class BankAccountGenerator implements Generator {
 
     public BankAccountGenerator() {
 
-        this(new FixedLengthRandomNumbersStringSupplier(BANK_ACCOUNT_DIGITS_LENGTH), new BankAccountElevenProof());
+        this(new FixedLengthStringRandomNumbersSupplier(BANK_ACCOUNT_DIGITS_LENGTH), new BankAccountElevenProof());
     }
 
     @Override
