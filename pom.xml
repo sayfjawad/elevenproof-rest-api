@@ -16,6 +16,7 @@
   <modules>
     <module>application</module>
     <module>core</module>
+    <module>package</module>
   </modules>
 
   <properties>
@@ -54,6 +55,8 @@
     </sonar.host.url>
     <sonar.login>${env.SONAR_LOGIN}</sonar.login>
     <sonar.password>${env.SONAR_PASSWORD}</sonar.password>
+    <maven-assembly-plugin.version>3.5.0</maven-assembly-plugin.version>
+    <maven-dependency-plugin.version>3.5.0</maven-dependency-plugin.version>
   </properties>
 
   <dependencyManagement>
@@ -134,6 +137,16 @@
         <artifactId>junit-jupiter</artifactId>
         <version>RELEASE</version>
         <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>${maven-assembly-plugin.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>${maven-dependency-plugin.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
