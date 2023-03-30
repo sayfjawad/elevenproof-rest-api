@@ -50,7 +50,7 @@
 
   <parent>
     <artifactId>elevenproof-api</artifactId>
-    <groupId>nl.multicode</groupId>
+    <groupId>nl.multicode.elevenproof</groupId>
     <version>1.0-SNAPSHOT</version>
   </parent>
 </project>
