@@ -16,6 +16,7 @@
   <modules>
     <module>application</module>
     <module>core</module>
+    <module>package</module>
   </modules>
 
   <properties>
@@ -54,6 +55,12 @@
     </sonar.host.url>
     <sonar.login>${env.SONAR_LOGIN}</sonar.login>
     <sonar.password>${env.SONAR_PASSWORD}</sonar.password>
+    <maven-assembly-plugin.version>3.5.0</maven-assembly-plugin.version>
+    <maven-dependency-plugin.version>3.5.0</maven-dependency-plugin.version>
+    <logback-classic.version>1.4.6</logback-classic.version>
+    <log4j-slf4j2-impl.version>2.20.0</log4j-slf4j2-impl.version>
+    <slf4j-api.version>2.0.7</slf4j-api.version>
+    <log4j-slf4j-impl.version>2.7</log4j-slf4j-impl.version>
   </properties>
 
   <dependencyManagement>
@@ -78,16 +85,26 @@
         <version>${jacoco-maven-plugin.version}</version>
       </dependency>
       <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
         <artifactId>log4j-api</artifactId>
-        <groupId>org.apache.logging.log4j</groupId>
-        <version>${log4j.version}</version>
+        <version>${log4j-slf4j-impl.version}</version>
       </dependency>
       <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
         <artifactId>log4j-core</artifactId>
-        <groupId>org.apache.logging.log4j</groupId>
-        <version>${log4j.version}</version>
+        <version>${log4j-slf4j-impl.version}</version>
       </dependency>
       <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-slf4j-impl</artifactId>
+        <version>${log4j-slf4j-impl.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>ch.qos.logback</groupId>
+        <artifactId>logback-classic</artifactId>
+        <version>${logback-classic.version}</version>
+        <scope>test</scope>
+      </dependency>      <dependency>
         <artifactId>junit-jupiter-engine</artifactId>
         <groupId>org.junit.jupiter</groupId>
         <scope>test</scope>
@@ -135,15 +152,21 @@
         <version>RELEASE</version>
         <scope>test</scope>
       </dependency>
+      <dependency>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>${maven-assembly-plugin.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>${maven-dependency-plugin.version}</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
   <build>
     <plugins>
-      <plugin>
-        <groupId>org.sonarsource.scanner.maven</groupId>
-        <artifactId>sonar-maven-plugin</artifactId>
-      </plugin>
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>

@@ -12,23 +12,23 @@ import nl.multicode.elevenproof.validate.proof.BsnElevenProof;
 @RequiredArgsConstructor
 public class BurgerServiceNummerGenerator implements Generator {
 
-    private static final int BSN_DIGITS_LENGTH = 9;
-    private final ObjectSupplier<int[]> randomDigitsSupplier;
-    private final ElevenProof elevenProof;
+  private static final int BSN_DIGITS_LENGTH = 9;
+  private final ObjectSupplier<int[]> randomDigitsSupplier;
+  private final ElevenProof elevenProof;
 
-    public BurgerServiceNummerGenerator() {
+  public BurgerServiceNummerGenerator() {
 
-        this(new FixedLengthStringRandomNumbersSupplier(BSN_DIGITS_LENGTH), new BsnElevenProof());
+    this(new FixedLengthStringRandomNumbersSupplier(BSN_DIGITS_LENGTH), new BsnElevenProof());
+  }
+
+  @Override
+  public Optional<int[]> generate(ProofType proofType) {
+
+    if (ProofType.BSN.equals(proofType)) {
+      return Stream.generate(randomDigitsSupplier::supply)
+          .filter(elevenProof::isElevenProof)
+          .findFirst();
     }
-
-    @Override
-    public Optional<int[]> generate(ProofType proofType) {
-
-        if (ProofType.BSN.equals(proofType)) {
-            return Stream.generate(randomDigitsSupplier::supply)
-                .filter(elevenProof::isElevenProof)
-                .findFirst();
-        }
-        return Optional.empty();
-    }
+    return Optional.empty();
+  }
 }

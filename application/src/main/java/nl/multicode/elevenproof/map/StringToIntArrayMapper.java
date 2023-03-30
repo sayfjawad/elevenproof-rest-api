@@ -4,11 +4,11 @@ import java.util.function.Function;
 
 public class StringToIntArrayMapper implements Function<String, int[]> {
 
-    @Override
-    public int[] apply(String number) {
+  @Override
+  public int[] apply(String number) {
 
-        return number.chars()
-            .map(Character::getNumericValue)
-            .toArray();
-    }
+    return number.chars()
+        .map(Character::getNumericValue)
+        .toArray();
+  }
 }
