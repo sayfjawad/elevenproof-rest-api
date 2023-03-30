@@ -11,6 +11,7 @@
     <module>application</module>
     <module>core</module>
     <module>package</module>
+    <module>spring</module>
   </modules>
 
   <properties>
@@ -167,6 +168,9 @@
         <artifactId>maven-dependency-plugin</artifactId>
         <version>${maven-dependency-plugin.version}</version>
       </dependency>
+
+
+
     </dependencies>
   </dependencyManagement>
 
