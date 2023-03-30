@@ -20,4 +20,5 @@
   </formats>
   <id>jar-without-test-resources</id>
   <includeBaseDirectory>false</includeBaseDirectory>
+
 </assembly>
