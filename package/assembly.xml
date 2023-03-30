@@ -1,12 +1,10 @@
-<assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<assembly xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2"
   xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2
                               http://maven.apache.org/xsd/assembly-1.1.2.xsd">
-  <id>jar-without-test-resources</id>
-  <formats>
-    <format>jar</format>
-  </formats>
-  <includeBaseDirectory>false</includeBaseDirectory>
+  <excludes>
+    <exclude>**/test/**</exclude>
+  </excludes>
   <fileSets>
     <fileSet>
       <directory>${project.build.outputDirectory}</directory>
@@ -17,7 +15,9 @@
       </includes>
     </fileSet>
   </fileSets>
-  <excludes>
-    <exclude>**/test/**</exclude>
-  </excludes>
+  <formats>
+    <format>jar</format>
+  </formats>
+  <id>jar-without-test-resources</id>
+  <includeBaseDirectory>false</includeBaseDirectory>
 </assembly>

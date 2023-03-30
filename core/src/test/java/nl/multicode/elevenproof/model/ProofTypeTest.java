@@ -8,12 +8,12 @@ import org.junit.jupiter.params.provider.EnumSource;
 
 class ProofTypeTest {
 
-    @DisplayName("Given the string value of the Enum when passed to fromValue method"
-        + " Then it should convert string value to corresponding enum")
-    @ParameterizedTest
-    @EnumSource(ProofType.class)
-    void fromValue_canCovertAllEnumValues(ProofType proofType) {
+  @DisplayName("Given the string value of the Enum when passed to fromValue method"
+      + " Then it should convert string value to corresponding enum")
+  @ParameterizedTest
+  @EnumSource(ProofType.class)
+  void fromValue_canCovertAllEnumValues(ProofType proofType) {
 
-        assertThat(proofType).isEqualTo(ProofType.fromValue(proofType.getValue()));
-    }
+    assertThat(proofType).isEqualTo(ProofType.fromValue(proofType.getValue()));
+  }
 }

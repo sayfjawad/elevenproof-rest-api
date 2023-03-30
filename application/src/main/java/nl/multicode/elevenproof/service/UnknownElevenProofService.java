@@ -6,13 +6,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UnknownElevenProofService implements ElevenProofService {
 
-    public Optional<int[]> generate() {
+  public Optional<int[]> generate() {
 
-        return Optional.empty();
-    }
+    return Optional.empty();
+  }
 
-    public boolean isValid(int[] number) {
+  public boolean isValid(int[] number) {
 
-        return false;
-    }
+    return false;
+  }
 }

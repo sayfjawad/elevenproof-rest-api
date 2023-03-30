@@ -5,6 +5,6 @@ import nl.multicode.elevenproof.model.ProofType;
 
 public interface Generator {
 
-    Optional<int[]> generate(ProofType proofType);
+  Optional<int[]> generate(ProofType proofType);
 
 }

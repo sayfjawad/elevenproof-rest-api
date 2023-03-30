@@ -8,29 +8,29 @@ import org.junit.jupiter.api.Test;
 
 class UnknownElevenProofServiceTest {
 
-    private UnknownElevenProofService service;
+  private UnknownElevenProofService service;
 
-    @BeforeEach
-    public void before() {
+  @BeforeEach
+  public void before() {
 
-        service = new UnknownElevenProofService();
-    }
+    service = new UnknownElevenProofService();
+  }
 
-    @Test
-    @DisplayName("Given the Service is working correctly"
-        + "When the generate() method is called"
-        + "Then an empty optional is returned ")
-    void generate() {
+  @Test
+  @DisplayName("Given the Service is working correctly"
+      + "When the generate() method is called"
+      + "Then an empty optional is returned ")
+  void generate() {
 
-        assertThat(service.generate()).isEmpty();
-    }
+    assertThat(service.generate()).isEmpty();
+  }
 
-    @Test
-    @DisplayName("Given the Service is working correctly"
-        + "When the isValid() method is called"
-        + "Then a false boolean is returned ")
-    void isValid() {
+  @Test
+  @DisplayName("Given the Service is working correctly"
+      + "When the isValid() method is called"
+      + "Then a false boolean is returned ")
+  void isValid() {
 
-        assertThat(service.isValid(new int[]{})).isFalse();
-    }
+    assertThat(service.isValid(new int[]{})).isFalse();
+  }
 }
