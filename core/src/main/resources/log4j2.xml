@@ -8,8 +8,9 @@
   </Appenders>
 
   <Loggers>
-    <Logger additivity="false" level="INFO" name="nl.multicode">
-      <AppenderRef ref="STDOUT"/>
-    </Logger>
+    <Root level="INFO">
+      <AppenderRef ref="STDOUT">
+      </AppenderRef>
+    </Root>
   </Loggers>
 </Configuration>

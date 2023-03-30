@@ -47,9 +47,6 @@
               <descriptorRefs>
                 <descriptorRef>jar-with-dependencies</descriptorRef>
               </descriptorRefs>
-              <excludes>
-                <exclude>**/test/**</exclude> <!-- Exclude test dependencies and resources -->
-              </excludes>
             </configuration>
           </execution>
         </executions>
