@@ -1,4 +1,4 @@
-package nl.multicode.elevenproof.spring;
+package nl.multicode.elevenproof;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

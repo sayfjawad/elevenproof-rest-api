@@ -1,4 +1,4 @@
-package nl.multicode.elevenproof.spring;
+package nl.multicode.elevenproof;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -3,6 +3,7 @@ package nl.multicode.elevenproof.generate.supply;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import nl.multicode.elevenproof.generate.supplier.FixedLengthStringRandomNumbersSupplier;
 import nl.multicode.elevenproof.generate.supplier.exception.NegativeIntegerNotSupportedException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;

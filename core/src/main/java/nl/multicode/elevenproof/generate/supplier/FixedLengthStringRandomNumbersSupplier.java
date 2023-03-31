@@ -1,7 +1,6 @@
-package nl.multicode.elevenproof.generate.supply;
+package nl.multicode.elevenproof.generate.supplier;
 
 import java.util.Random;
-import nl.multicode.elevenproof.generate.supplier.ObjectSupplier;
 import nl.multicode.elevenproof.generate.supplier.exception.NegativeIntegerNotSupportedException;
 
 public class FixedLengthStringRandomNumbersSupplier implements ObjectSupplier<int[]> {

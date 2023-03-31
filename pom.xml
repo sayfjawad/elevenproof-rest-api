@@ -22,6 +22,7 @@
     <module>core</module>
     <module>package</module>
     <module>spring</module>
+    <module>business</module>
   </modules>
 
   <properties>

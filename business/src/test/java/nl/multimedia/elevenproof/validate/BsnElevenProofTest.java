@@ -1,4 +1,4 @@
-package nl.multicode.elevenproof.validate;
+package nl.multimedia.elevenproof.validate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

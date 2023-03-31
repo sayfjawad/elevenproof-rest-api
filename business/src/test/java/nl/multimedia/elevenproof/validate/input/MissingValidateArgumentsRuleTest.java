@@ -1,4 +1,4 @@
-package nl.multicode.elevenproof.validate.input;
+package nl.multimedia.elevenproof.validate.input;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;

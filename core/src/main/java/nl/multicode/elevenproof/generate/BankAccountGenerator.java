@@ -3,8 +3,8 @@ package nl.multicode.elevenproof.generate;
 import java.util.Optional;
 import java.util.stream.Stream;
 import lombok.RequiredArgsConstructor;
+import nl.multicode.elevenproof.generate.supplier.FixedLengthStringRandomNumbersSupplier;
 import nl.multicode.elevenproof.generate.supplier.ObjectSupplier;
-import nl.multicode.elevenproof.generate.supply.FixedLengthStringRandomNumbersSupplier;
 import nl.multicode.elevenproof.model.ProofType;
 import nl.multicode.elevenproof.validate.proof.BankAccountElevenProof;
 
@@ -26,8 +26,7 @@ public class BankAccountGenerator implements Generator {
     if (ProofType.BANK_ACCOUNT.equals(proofType)) {
       return Stream.generate(randomDigitsSupplier::supply)
           .filter(elevenProof::isElevenProof)
-          .findFirst()
-          ;
+          .findFirst();
     }
     return Optional.empty();
   }
