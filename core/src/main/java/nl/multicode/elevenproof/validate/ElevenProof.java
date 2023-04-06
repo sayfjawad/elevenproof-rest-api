@@ -1,12 +1,13 @@
 package nl.multicode.elevenproof.validate;
 
+import java.util.function.Predicate;
 import java.util.stream.IntStream;
 
-public interface ElevenProof {
+public interface ElevenProof extends Predicate<int[]> {
 
-  boolean isElevenProof(int[] nummer);
+  boolean test(int[] nummer);
 
-  default boolean isElevenProof(int[] number, int[] digitPositionMultipliers) {
+  default boolean test(int[] number, int[] digitPositionMultipliers) {
 
     if (isValidInput(number, digitPositionMultipliers)) {
       return isDividableByEleven(getMultiplicationSum(number, digitPositionMultipliers));

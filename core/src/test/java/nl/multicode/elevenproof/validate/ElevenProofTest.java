@@ -24,7 +24,7 @@ class ElevenProofTest {
 
     int[] number = {2, 5};
     int[] digitPositionMultipliers = {9, 8, 7};
-    assertThat(elevenProof.isElevenProof(number, digitPositionMultipliers)).isFalse();
+    assertThat(elevenProof.test(number, digitPositionMultipliers)).isFalse();
   }
 
   @Test
@@ -33,8 +33,8 @@ class ElevenProofTest {
       + "Then the outcome is false")
   void isElevenProof_invalid_input_null_arrays() {
 
-    assertThat(elevenProof.isElevenProof(null, null)).isFalse();
-    assertThat(elevenProof.isElevenProof(new int[]{1}, new int[]{10})).isFalse();
+    assertThat(elevenProof.test(null, null)).isFalse();
+    assertThat(elevenProof.test(new int[]{1}, new int[]{10})).isFalse();
   }
 
   @Test
@@ -44,7 +44,7 @@ class ElevenProofTest {
   void isElevenProof_invalid_input_number_array_null() {
 
     int[] digitPositionMultipliers = {9, 8, 7, 6, 5, 4, 3, 2, -1};
-    assertThat(elevenProof.isElevenProof(null, digitPositionMultipliers)).isFalse();
+    assertThat(elevenProof.test(null, digitPositionMultipliers)).isFalse();
   }
 
   @Test
@@ -54,7 +54,7 @@ class ElevenProofTest {
   void isElevenProof_invalid_input_digits_multipliers_array_null() {
 
     int[] number = {2, 5};
-    assertThat(elevenProof.isElevenProof(number, null)).isFalse();
+    assertThat(elevenProof.test(number, null)).isFalse();
   }
 
   @Test
@@ -66,7 +66,7 @@ class ElevenProofTest {
 
     int[] number = {2, 5, 3, 0, 4, 7, 1, 4, 6};
     int[] digitPositionMultipliers = {9, 8, 7, 6, 5, 4, 3, 2, -1};
-    assertThat(elevenProof.isElevenProof(number, digitPositionMultipliers)).isTrue();
+    assertThat(elevenProof.test(number, digitPositionMultipliers)).isTrue();
   }
 
   @Test
@@ -78,6 +78,6 @@ class ElevenProofTest {
 
     int[] number = {2, 5, 3, 0, 4, 7, 1, 4, 7};
     int[] digitPositionMultipliers = {9, 8, 7, 6, 5, 4, 3, 2, -1};
-    assertThat(elevenProof.isElevenProof(number, digitPositionMultipliers)).isFalse();
+    assertThat(elevenProof.test(number, digitPositionMultipliers)).isFalse();
   }
 }

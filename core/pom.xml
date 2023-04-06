@@ -28,14 +28,6 @@
   </build>
   <dependencies>
     <dependency>
-      <artifactId>log4j-api</artifactId>
-      <groupId>org.apache.logging.log4j</groupId>
-    </dependency>
-    <dependency>
-      <artifactId>log4j-core</artifactId>
-      <groupId>org.apache.logging.log4j</groupId>
-    </dependency>
-    <dependency>
       <artifactId>junit-jupiter-engine</artifactId>
       <groupId>org.junit.jupiter</groupId>
       <scope>test</scope>

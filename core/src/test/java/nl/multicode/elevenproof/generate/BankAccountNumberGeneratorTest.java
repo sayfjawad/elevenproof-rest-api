@@ -8,7 +8,6 @@ import java.util.Optional;
 import nl.multicode.elevenproof.generate.supplier.ObjectSupplier;
 import nl.multicode.elevenproof.map.IntArrayToString;
 import nl.multicode.elevenproof.validate.ElevenProof;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -16,34 +15,32 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class BurgerServiceNummerGeneratorTest {
+class BankAccountNumberGeneratorTest {
+
 
   @Mock
-  private  ObjectSupplier<int[]> randomDigitsSupplier;
+  private ObjectSupplier<int[]> randomDigitsSupplier;
   @Mock
-  private  IntArrayToString intArrayToString;
+  private IntArrayToString intArrayToString;
   @Mock
-  private  ElevenProof numberElevenProof;
+  private ElevenProof numberElevenProof;
 
   @InjectMocks
-  private BurgerServiceNummerGenerator generator;
+  private BankAccountNumberGenerator generator;
 
   @Test
-  @DisplayName("Given the generator is implemented correctly"
-      + "When the generate() method is called withe the correct ProofType"
-      + "Then a valid eleven-proof BSN number is generated and returned")
   void generate() {
 
-    int[] bsn = {1,2,3};
-    when(randomDigitsSupplier.supply()).thenReturn(bsn);
-    when(numberElevenProof.test(bsn)).thenReturn(Boolean.TRUE);
-    when(intArrayToString.apply(bsn)).thenReturn("123");
+    int[] bank = {1,2,3};
+    when(randomDigitsSupplier.supply()).thenReturn(bank);
+    when(numberElevenProof.test(bank)).thenReturn(Boolean.TRUE);
+    when(intArrayToString.apply(bank)).thenReturn("123");
 
     Optional<String> generatedResult = generator.generate();
 
     assertThat(generatedResult.get()).isEqualTo("123");
     verify(randomDigitsSupplier).supply();
-    verify(numberElevenProof).test(bsn);
-    verify(intArrayToString).apply(bsn);
+    verify(numberElevenProof).test(bank);
+    verify(intArrayToString).apply(bank);
   }
 }
