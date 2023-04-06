@@ -207,7 +207,7 @@
                 <param>nl.multicode.*</param>
               </targetTests>
               <excludedClasses>
-                <excludedClass>nl.multicode.configuration.*</excludedClass>
+                <excludedClass>nl.multicode.elevenproof.config.*</excludedClass>
               </excludedClasses>
               <timeoutConstant>5000</timeoutConstant>
               <timestampedReports>false</timestampedReports>
