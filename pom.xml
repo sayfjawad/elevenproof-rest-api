@@ -53,9 +53,7 @@
     <sonar.language>java</sonar.language>
 
     <!-- If you want to connect to a sonarqube server then configure the parameters below in your environment variables -->
-    <sonar.host.url>
-      ${env.SONAR_URL}
-    </sonar.host.url>
+    <sonar.host.url>${env.SONAR_URL}</sonar.host.url>
     <sonar.login>${env.SONAR_LOGIN}</sonar.login>
     <sonar.password>${env.SONAR_PASSWORD}</sonar.password>
     <maven-assembly-plugin.version>3.5.0</maven-assembly-plugin.version>
