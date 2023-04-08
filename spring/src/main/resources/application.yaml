@@ -1,0 +1,9 @@
+logging:
+  level:
+    org.springframework: INFO
+
+springdoc:
+  api-docs:
+    path: /apispecs/api-specs.yaml
+  swagger-ui:
+    path: /api/swagger-ui.html

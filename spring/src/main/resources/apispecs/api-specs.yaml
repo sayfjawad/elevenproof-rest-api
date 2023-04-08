@@ -1,0 +1,110 @@
+openapi: 3.0.3
+info:
+  title: BSN Validation API
+  description: A simple API to validate BSNs (Burger Service Nummer).
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/api
+paths:
+  /bsn/validate/{bsn}:
+    get:
+      summary: Validate a BSN
+      description: Check if the given BSN is valid.
+      parameters:
+        - name: bsn
+          in: path
+          description: The BSN to be validated.
+          required: true
+          schema:
+            type: string
+            pattern: '^[0-9]{10}$'
+      responses:
+        '200':
+          description: BSN validation result.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  isValid:
+                    type: boolean
+                    description: Indicates whether the BSN is valid or not.
+        '400':
+          description: Bad request, invalid input.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: A human-readable error message.
+        '404':
+          description: BSN not found.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: A human-readable error message.
+  /bsn/generate:
+    get:
+      summary: generate a BSN
+      description: Generate a random eleven proof BSN.
+      responses:
+        '200':
+          description: BSN validation result.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  isValid:
+                    type: boolean
+                    description: Indicates whether the BSN is valid or not.
+
+  /bank/validate/{accountnumber}:
+    get:
+      summary: Validate a bank account number
+      description: Check if the given bank account is valid.
+      parameters:
+        - name: bankaccount
+          in: path
+          description: The bank account to be validated.
+          required: true
+          schema:
+            type: string
+            pattern: '^[0-9]{10}$'
+      responses:
+        '200':
+          description: bank account validation result.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  isValid:
+                    type: boolean
+                    description: Indicates whether the bank account number is valid or not.
+        '400':
+          description: Bad request, invalid input.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: A human-readable error message.
+        '404':
+          description: banck account number not found.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: A human-readable error message.
