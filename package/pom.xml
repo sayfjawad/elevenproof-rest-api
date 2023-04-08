@@ -54,7 +54,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <artifactId>elevenproof-api</artifactId>
+    <artifactId>elevenproof-rest-api</artifactId>
     <groupId>nl.multicode.elevenproof</groupId>
     <version>1.0-SNAPSHOT</version>
   </parent>
