@@ -61,7 +61,6 @@
     <maven-dependency-plugin.version>3.5.0</maven-dependency-plugin.version>
     <spring-boot-dependencies.version>3.0.5</spring-boot-dependencies.version>
     <springdoc-openapi.version>2.0.0</springdoc-openapi.version>
-    <jib-maven-plugin>3.3.1</jib-maven-plugin>
   </properties>
 
   <dependencyManagement>
@@ -135,9 +134,9 @@
         <version>${springdoc-openapi.version}</version>
       </dependency>
       <dependency>
-        <groupId>com.google.cloud.tools</groupId>
-        <artifactId>jib-maven-plugin</artifactId>
-        <version>${jib-maven-plugin}</version>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <version>${spring-boot-dependencies.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -238,29 +237,7 @@
             <version>${pitest-maven.version}</version>
           </plugin>
         </plugins>
-      </build>
-    </profile>
-    <profile>
-      <id>jib</id>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>com.google.cloud.tools</groupId>
-            <artifactId>jib-maven-plugin</artifactId>
-            <version>${jib-maven-plugin}</version>
-            <configuration>
-              <from>
-                <image>openjdk:11-jdk-slim</image>
-              </from>
-              <to>
-                <image>eleven-proof-rest-api:latest</image>
-                <tags>
-                  <tag>latest</tag>
-                </tags>
-              </to>
-            </configuration>
-          </plugin>
-        </plugins>
+
       </build>
     </profile>
   </profiles>

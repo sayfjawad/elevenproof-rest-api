@@ -51,9 +51,3 @@ Generate BSN or BankAccount:
 ```
 java -jar elevenproof-api-1.0-SNAPSHOT.jar generate <bsn|bank>
 ```
-
-Validate BSN or BankAccount:
-
-```
-java -jar elevenproof-api-1.0-SNAPSHOT.jar validate <bsn|bank> <nummer>
-```
