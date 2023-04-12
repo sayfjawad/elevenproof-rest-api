@@ -16,6 +16,11 @@
   <description>This module is responsible for running integration tests</description>
 
   <dependencies>
+    <dependency>
+      <groupId>nl.multicode.elevenproof</groupId>
+      <artifactId>spring-application</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
   </dependencies>
 
 </project>

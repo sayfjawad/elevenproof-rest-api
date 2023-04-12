@@ -17,7 +17,7 @@
 
   <modules>
     <module>core</module>
-    <module>spring</module>
+    <module>spring-application</module>
     <module>integration-test</module>
   </modules>
 
