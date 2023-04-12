@@ -1,7 +1,6 @@
 package nl.multicode.elevenproof.controller;
 
 import lombok.RequiredArgsConstructor;
-import nl.multicode.elevenproof.ElevenproofController;
 import nl.multicode.elevenproof.generate.BankAccountNumberGenerator;
 import nl.multicode.elevenproof.map.StringToIntArray;
 import nl.multicode.elevenproof.validate.proof.BankAccountNumberElevenProof;
@@ -32,9 +31,6 @@ public class BankNumberController implements ElevenproofController<ResponseEntit
   @GetMapping("/validate/{number}")
   public ResponseEntity<String> validate(@PathVariable String number) {
 
-    final var bsnDigits = stringToIntArray.apply(number);
-    final var isElevenProof = elevenProof.test(bsnDigits) ? "is" : "is not";
-    final var message = "number[" + number + "] " + isElevenProof + " eleven proof!";
-    return ResponseEntity.ok(message);
+    return ResponseEntity.ok(getMessage(number, stringToIntArray, elevenProof));
   }
 }

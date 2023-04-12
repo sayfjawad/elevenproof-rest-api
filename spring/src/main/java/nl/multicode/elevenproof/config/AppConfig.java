@@ -18,7 +18,8 @@ public class AppConfig {
   public BankAccountNumberGenerator getBankAccountNumberGenerator(IntArrayToString intArrayToString,
       BankAccountNumberElevenProof bankAccountNumberElevenProof) {
 
-    return new BankAccountNumberGenerator(new FixedLengthStringRandomNumbersSupplier(BurgerServiceNummerGenerator.BSN_DIGITS_LENGTH),
+    return new BankAccountNumberGenerator(
+        new FixedLengthStringRandomNumbersSupplier(BankAccountNumberGenerator.BANK_ACCOUNT_DIGITS_LENGTH),
         intArrayToString,
         bankAccountNumberElevenProof);
   }
@@ -26,7 +27,8 @@ public class AppConfig {
   @Bean
   public BurgerServiceNummerGenerator getBurgerServiceNummerGenerator(IntArrayToString intArrayToString, BsnElevenProof bsnElevenProof) {
 
-    return new BurgerServiceNummerGenerator(new FixedLengthStringRandomNumbersSupplier(BurgerServiceNummerGenerator.BSN_DIGITS_LENGTH),
+    return new BurgerServiceNummerGenerator(
+        new FixedLengthStringRandomNumbersSupplier(BurgerServiceNummerGenerator.BSN_DIGITS_LENGTH),
         intArrayToString,
         bsnElevenProof);
   }

@@ -1,7 +1,6 @@
 package nl.multicode.elevenproof.controller;
 
 import lombok.RequiredArgsConstructor;
-import nl.multicode.elevenproof.ElevenproofController;
 import nl.multicode.elevenproof.generate.BurgerServiceNummerGenerator;
 import nl.multicode.elevenproof.map.StringToIntArray;
 import nl.multicode.elevenproof.validate.proof.BsnElevenProof;
@@ -22,18 +21,15 @@ public class BurgerServiceNumberController implements ElevenproofController<Resp
   private final StringToIntArray stringToIntArray;
 
 
-  @GetMapping("/validate/{bsn}")
-  public ResponseEntity<String> validate(@PathVariable String bsn) {
-
-    final var bsnDigits = stringToIntArray.apply(bsn);
-    final var isElevenProof = elevenProof.test(bsnDigits) ? "is" : "is not";
-    final var message = "number[" + bsn + "] " + isElevenProof + " eleven proof!";
-    return ResponseEntity.ok(message);
-  }
-
   @GetMapping("/generate")
   public ResponseEntity<String> generate() {
 
     return ResponseEntity.ok(bsnGenerator.generate().toString());
+  }
+
+  @GetMapping("/validate/{bsn}")
+  public ResponseEntity<String> validate(@PathVariable String bsn) {
+
+    return ResponseEntity.ok(getMessage(bsn, stringToIntArray, elevenProof));
   }
 }
