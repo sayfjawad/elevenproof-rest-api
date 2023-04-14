@@ -1,0 +1,10 @@
+env: "LOCAL"
+config:
+  all:
+    name: "elevenproof-rest-api"
+    labels:
+      app: "elevenproof-rest-api"
+  app:
+    container:
+      image: "elevenproof-rest-api:latest"
+

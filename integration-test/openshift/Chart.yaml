@@ -1,0 +1,7 @@
+apiVersion: v2
+name: elevenproof-rest-api-integration-test
+version: 1.0.0
+description: A Helm chart for Kubernetes
+maintainers:
+  - name: "multicode"
+    email: sayf@multicode.nl
