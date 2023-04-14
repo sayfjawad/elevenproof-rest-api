@@ -50,6 +50,7 @@ public class AppConfig {
 
     return new IntArrayToString();
   }
+
   @Bean
   public StringToIntArray getStringToIntArray() {
 
