@@ -1,6 +1,5 @@
 package nl.multicode.elevenproof.generate;
 
-import java.util.Optional;
 import java.util.stream.Stream;
 import nl.multicode.elevenproof.generate.supplier.ObjectSupplier;
 import nl.multicode.elevenproof.map.IntArrayToString;
@@ -16,17 +15,19 @@ public class BurgerServiceNummerGenerator implements Generator {
   public BurgerServiceNummerGenerator(final ObjectSupplier<int[]> randomDigitsSupplier,
       final IntArrayToString intArrayToString,
       final ElevenProof elevenProof) {
+
     this.randomDigitsSupplier = randomDigitsSupplier;
     this.intArrayToString = intArrayToString;
     this.numberElevenProof = elevenProof;
   }
 
   @Override
-  public Optional<String> generate() {
+  public String generate() {
 
     return Stream.generate(randomDigitsSupplier::supply)
         .filter(numberElevenProof::test)
         .map(intArrayToString)
-        .findFirst();
+        .findFirst()
+        .orElse(null);
   }
 }

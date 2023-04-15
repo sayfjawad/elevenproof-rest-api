@@ -1,10 +1,8 @@
 package nl.multicode.elevenproof.service;
 
-import java.util.Optional;
+public interface ElevenProofService<T> {
 
-public interface ElevenProofService {
+  T generate();
 
-  Optional<int[]> generate();
-
-  boolean isValid(int[] number);
+  String validate(T number);
 }

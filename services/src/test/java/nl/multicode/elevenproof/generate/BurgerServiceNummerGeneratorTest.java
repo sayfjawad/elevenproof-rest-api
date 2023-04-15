@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.util.Optional;
 import nl.multicode.elevenproof.generate.supplier.ObjectSupplier;
 import nl.multicode.elevenproof.map.IntArrayToString;
 import nl.multicode.elevenproof.validate.ElevenProof;
@@ -19,11 +18,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 class BurgerServiceNummerGeneratorTest {
 
   @Mock
-  private  ObjectSupplier<int[]> randomDigitsSupplier;
+  private ObjectSupplier<int[]> randomDigitsSupplier;
   @Mock
-  private  IntArrayToString intArrayToString;
+  private IntArrayToString intArrayToString;
   @Mock
-  private  ElevenProof numberElevenProof;
+  private ElevenProof numberElevenProof;
 
   @InjectMocks
   private BurgerServiceNummerGenerator generator;
@@ -34,14 +33,14 @@ class BurgerServiceNummerGeneratorTest {
       + "Then a valid eleven-proof BSN number is generated and returned")
   void generate() {
 
-    int[] bsn = {1,2,3};
+    int[] bsn = {1, 2, 3};
     when(randomDigitsSupplier.supply()).thenReturn(bsn);
     when(numberElevenProof.test(bsn)).thenReturn(Boolean.TRUE);
     when(intArrayToString.apply(bsn)).thenReturn("123");
 
-    Optional<String> generatedResult = generator.generate();
+    final var generatedResult = generator.generate();
 
-    assertThat(generatedResult.get()).isEqualTo("123");
+    assertThat(generatedResult).isEqualTo("123");
     verify(randomDigitsSupplier).supply();
     verify(numberElevenProof).test(bsn);
     verify(intArrayToString).apply(bsn);

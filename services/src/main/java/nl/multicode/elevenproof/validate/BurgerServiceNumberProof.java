@@ -1,8 +1,6 @@
-package nl.multicode.elevenproof.validate.proof;
+package nl.multicode.elevenproof.validate;
 
-import nl.multicode.elevenproof.validate.ElevenProof;
-
-public class BsnElevenProof implements ElevenProof {
+public class BurgerServiceNumberProof implements ElevenProof {
 
   private static final int[] BSN_ONDNR_MULTIPLIERS = {9, 8, 7, 6, 5, 4, 3, 2, -1};
 

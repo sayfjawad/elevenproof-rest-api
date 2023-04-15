@@ -1,6 +1,4 @@
-package nl.multicode.elevenproof.validate.proof;
-
-import nl.multicode.elevenproof.validate.ElevenProof;
+package nl.multicode.elevenproof.validate;
 
 public class BankAccountNumberElevenProof implements ElevenProof {
 

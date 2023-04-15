@@ -1,6 +1,5 @@
 package nl.multicode.elevenproof.generate;
 
-import java.util.Optional;
 import java.util.stream.Stream;
 import nl.multicode.elevenproof.generate.supplier.ObjectSupplier;
 import nl.multicode.elevenproof.map.IntArrayToString;
@@ -23,11 +22,12 @@ public class BankAccountNumberGenerator implements Generator {
   }
 
   @Override
-  public Optional<String> generate() {
+  public String generate() {
 
     return Stream.generate(randomDigitsSupplier::supply)
         .filter(numberElevenProof::test)
         .map(intArrayToString)
-        .findFirst();
+        .findFirst()
+        .orElse(null);
   }
 }

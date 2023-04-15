@@ -5,8 +5,11 @@ import nl.multicode.elevenproof.generate.BurgerServiceNummerGenerator;
 import nl.multicode.elevenproof.generate.supplier.FixedLengthStringRandomNumbersSupplier;
 import nl.multicode.elevenproof.map.IntArrayToString;
 import nl.multicode.elevenproof.map.StringToIntArray;
-import nl.multicode.elevenproof.validate.proof.BankAccountNumberElevenProof;
-import nl.multicode.elevenproof.validate.proof.BsnElevenProof;
+import nl.multicode.elevenproof.map.ValidationMessageMapper;
+import nl.multicode.elevenproof.service.BankAccountNumberService;
+import nl.multicode.elevenproof.service.BurgerServiceNumberService;
+import nl.multicode.elevenproof.validate.BankAccountNumberElevenProof;
+import nl.multicode.elevenproof.validate.BurgerServiceNumberProof;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -25,18 +28,19 @@ public class AppConfig {
   }
 
   @Bean
-  public BurgerServiceNummerGenerator getBurgerServiceNummerGenerator(IntArrayToString intArrayToString, BsnElevenProof bsnElevenProof) {
+  public BurgerServiceNummerGenerator getBurgerServiceNummerGenerator(IntArrayToString intArrayToString,
+      BurgerServiceNumberProof burgerServiceNumberProof) {
 
     return new BurgerServiceNummerGenerator(
         new FixedLengthStringRandomNumbersSupplier(BurgerServiceNummerGenerator.BSN_DIGITS_LENGTH),
         intArrayToString,
-        bsnElevenProof);
+        burgerServiceNumberProof);
   }
 
   @Bean
-  public BsnElevenProof getBsnElevenProof() {
+  public BurgerServiceNumberProof getBsnElevenProof() {
 
-    return new BsnElevenProof();
+    return new BurgerServiceNumberProof();
   }
 
   @Bean
@@ -55,5 +59,33 @@ public class AppConfig {
   public StringToIntArray getStringToIntArray() {
 
     return new StringToIntArray();
+  }
+
+  @Bean
+  public ValidationMessageMapper getValidationMessageMapper() {
+
+    return new ValidationMessageMapper();
+  }
+
+  @Bean
+  public BurgerServiceNumberService getBurgerServiceNumberService(
+      BurgerServiceNummerGenerator generator,
+      BurgerServiceNumberProof elevenProof,
+      StringToIntArray stringToIntArray,
+      ValidationMessageMapper validationMessageMapper
+  ) {
+
+    return new BurgerServiceNumberService(generator, elevenProof, stringToIntArray, validationMessageMapper);
+  }
+
+  @Bean
+  public BankAccountNumberService getBankAccountNumberService(
+      BankAccountNumberGenerator generator,
+      BankAccountNumberElevenProof elevenProof,
+      StringToIntArray stringToIntArray,
+      ValidationMessageMapper validationMessageMapper
+  ) {
+
+    return new BankAccountNumberService(generator, elevenProof, stringToIntArray, validationMessageMapper);
   }
 }

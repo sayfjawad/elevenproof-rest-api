@@ -47,11 +47,6 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <artifactId>lombok</artifactId>
-      <groupId>org.projectlombok</groupId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
       <artifactId>jacoco-maven-plugin</artifactId>
       <groupId>org.jacoco</groupId>
       <version>${jacoco-maven-plugin.version}</version>

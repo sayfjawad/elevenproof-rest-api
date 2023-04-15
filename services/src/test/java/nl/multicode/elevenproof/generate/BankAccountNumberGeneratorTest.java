@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.util.Optional;
 import nl.multicode.elevenproof.generate.supplier.ObjectSupplier;
 import nl.multicode.elevenproof.map.IntArrayToString;
 import nl.multicode.elevenproof.validate.ElevenProof;
@@ -31,14 +30,14 @@ class BankAccountNumberGeneratorTest {
   @Test
   void generate() {
 
-    int[] bank = {1,2,3};
+    int[] bank = {1, 2, 3};
     when(randomDigitsSupplier.supply()).thenReturn(bank);
     when(numberElevenProof.test(bank)).thenReturn(Boolean.TRUE);
     when(intArrayToString.apply(bank)).thenReturn("123");
 
-    Optional<String> generatedResult = generator.generate();
+    final var generatedResult = generator.generate();
 
-    assertThat(generatedResult.get()).isEqualTo("123");
+    assertThat(generatedResult).isEqualTo("123");
     verify(randomDigitsSupplier).supply();
     verify(numberElevenProof).test(bank);
     verify(intArrayToString).apply(bank);
