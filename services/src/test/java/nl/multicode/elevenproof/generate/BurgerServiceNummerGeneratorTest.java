@@ -33,7 +33,7 @@ class BurgerServiceNummerGeneratorTest {
       + "Then a valid eleven-proof BSN number is generated and returned")
   void generate() {
 
-    int[] bsn = {1, 2, 3};
+    final var bsn = new int[]{1, 2, 3};
     when(randomDigitsSupplier.supply()).thenReturn(bsn);
     when(numberElevenProof.test(bsn)).thenReturn(Boolean.TRUE);
     when(intArrayToString.apply(bsn)).thenReturn("123");

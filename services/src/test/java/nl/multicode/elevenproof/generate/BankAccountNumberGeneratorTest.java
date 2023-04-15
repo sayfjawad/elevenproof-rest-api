@@ -30,7 +30,7 @@ class BankAccountNumberGeneratorTest {
   @Test
   void generate() {
 
-    int[] bank = {1, 2, 3};
+    final var bank = new int[]{1, 2, 3};
     when(randomDigitsSupplier.supply()).thenReturn(bank);
     when(numberElevenProof.test(bank)).thenReturn(Boolean.TRUE);
     when(intArrayToString.apply(bank)).thenReturn("123");
