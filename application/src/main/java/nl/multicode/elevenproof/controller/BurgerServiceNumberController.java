@@ -1,8 +1,8 @@
 package nl.multicode.elevenproof.controller;
 
 import lombok.RequiredArgsConstructor;
-import nl.multicode.elevenproof.model.BankAccountNumber;
-import nl.multicode.elevenproof.service.BankAccountNumberService;
+import nl.multicode.elevenproof.model.BurgerServiceNumberDto;
+import nl.multicode.elevenproof.service.BurgerServiceNumberService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,22 +10,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
-@RequestMapping("/api/bank")
+@RequestMapping("/api/bsn")
 @RestController
 @RequiredArgsConstructor
-public class BankNumberController implements ElevenproofController<ResponseEntity<String>> {
+public class BurgerServiceNumberController implements ElevenproofController<ResponseEntity<String>> {
 
-  private final BankAccountNumberService service;
+  private final BurgerServiceNumberService service;
 
   @GetMapping("/generate")
   public ResponseEntity<String> generate() {
 
-    return ResponseEntity.ok(service.generate().getNumber());
+    return ResponseEntity.ok(service.generate().number());
   }
 
   @GetMapping("/validate/{number}")
   public ResponseEntity<String> validate(@PathVariable String number) {
 
-    return ResponseEntity.ok(service.validate(BankAccountNumber.builder().number(number).build()));
+    return ResponseEntity.ok(service.validate(BurgerServiceNumberDto.builder().number(number).build()));
   }
 }

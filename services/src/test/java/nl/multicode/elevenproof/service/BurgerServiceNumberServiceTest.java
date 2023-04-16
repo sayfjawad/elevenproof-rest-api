@@ -7,7 +7,7 @@ import static org.mockito.Mockito.when;
 import nl.multicode.elevenproof.generate.BurgerServiceNummerGenerator;
 import nl.multicode.elevenproof.map.StringToIntArray;
 import nl.multicode.elevenproof.map.ValidationMessageMapper;
-import nl.multicode.elevenproof.model.BurgerServiceNumber;
+import nl.multicode.elevenproof.model.BurgerServiceNumberDto;
 import nl.multicode.elevenproof.validate.BurgerServiceNumberProof;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -39,7 +39,7 @@ class BurgerServiceNumberServiceTest {
 
     final var result = service.generate();
 
-    assertThat(result.getNumber()).isEqualTo(number);
+    assertThat(result.number()).isEqualTo(number);
     verify(generator).generate();
 
   }
@@ -55,7 +55,7 @@ class BurgerServiceNumberServiceTest {
     when(elevenProof.test(bsnIntegers)).thenReturn(validationResult);
     when(validationMessageMapper.getMessage(number, validationResult)).thenReturn(message);
 
-    final var result = service.validate(BurgerServiceNumber.builder().number(number).build());
+    final var result = service.validate(BurgerServiceNumberDto.builder().number(number).build());
 
     assertThat(result).isEqualTo(message);
     verify(stringToIntArray).apply(number);

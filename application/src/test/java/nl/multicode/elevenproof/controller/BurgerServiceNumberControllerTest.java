@@ -6,7 +6,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import nl.multicode.elevenproof.model.BurgerServiceNumber;
+import nl.multicode.elevenproof.model.BurgerServiceNumberDto;
 import nl.multicode.elevenproof.service.BurgerServiceNumberService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,7 +27,7 @@ class BurgerServiceNumberControllerTest {
   @Test
   void testGetBsn_bsn_generator_is_called() {
 
-    when(service.generate()).thenReturn(mock(BurgerServiceNumber.class));
+    when(service.generate()).thenReturn(mock(BurgerServiceNumberDto.class));
 
     assertThat(controller.generate().getStatusCode()).isEqualTo(HttpStatusCode.valueOf(200));
     verify(service).generate();
@@ -37,10 +37,10 @@ class BurgerServiceNumberControllerTest {
   void testValidateBsn_bsn_validation_valid_message() {
 
     final var bsn = "123456789";
-    when(service.validate(any(BurgerServiceNumber.class))).thenReturn("result");
+    when(service.validate(any(BurgerServiceNumberDto.class))).thenReturn("result");
 
     controller.validate(bsn).getBody();
 
-    verify(service).validate(any(BurgerServiceNumber.class));
+    verify(service).validate(any(BurgerServiceNumberDto.class));
   }
 }

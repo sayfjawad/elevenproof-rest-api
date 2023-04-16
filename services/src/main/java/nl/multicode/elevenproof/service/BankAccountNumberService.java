@@ -5,11 +5,11 @@ import lombok.RequiredArgsConstructor;
 import nl.multicode.elevenproof.generate.BankAccountNumberGenerator;
 import nl.multicode.elevenproof.map.StringToIntArray;
 import nl.multicode.elevenproof.map.ValidationMessageMapper;
-import nl.multicode.elevenproof.model.BankAccountNumber;
+import nl.multicode.elevenproof.model.BankAccountNumberDto;
 import nl.multicode.elevenproof.validate.BankAccountNumberElevenProof;
 
 @RequiredArgsConstructor
-public class BankAccountNumberService implements ElevenProofService<BankAccountNumber> {
+public class BankAccountNumberService implements ElevenProofService<BankAccountNumberDto> {
 
   private final BankAccountNumberGenerator generator;
   private final BankAccountNumberElevenProof elevenProof;
@@ -17,20 +17,20 @@ public class BankAccountNumberService implements ElevenProofService<BankAccountN
   private final ValidationMessageMapper validationMessageMapper;
 
   @Override
-  public BankAccountNumber generate() {
+  public BankAccountNumberDto generate() {
 
-    return BankAccountNumber.builder()
+    return BankAccountNumberDto.builder()
         .number(generator.generate())
         .build();
   }
 
   @Override
-  public String validate(BankAccountNumber number) {
+  public String validate(BankAccountNumberDto number) {
 
-    final var bsnDigits = stringToIntArray.apply(number.getNumber());
+    final var bsnDigits = stringToIntArray.apply(number.number());
     final var isElevenProof = elevenProof.test(bsnDigits);
 
     return validationMessageMapper.getMessage(
-        Objects.requireNonNull(number).getNumber(), isElevenProof);
+        Objects.requireNonNull(number).number(), isElevenProof);
   }
 }

@@ -7,7 +7,7 @@ import static org.mockito.Mockito.when;
 import nl.multicode.elevenproof.generate.BankAccountNumberGenerator;
 import nl.multicode.elevenproof.map.StringToIntArray;
 import nl.multicode.elevenproof.map.ValidationMessageMapper;
-import nl.multicode.elevenproof.model.BankAccountNumber;
+import nl.multicode.elevenproof.model.BankAccountNumberDto;
 import nl.multicode.elevenproof.validate.BankAccountNumberElevenProof;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,7 +16,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class BankAccountNumberServiceTest {
+class BankAccountNumberDtoServiceTest {
 
 
   @Mock
@@ -39,7 +39,7 @@ class BankAccountNumberServiceTest {
 
     final var result = service.generate();
 
-    assertThat(result.getNumber()).isEqualTo(number);
+    assertThat(result.number()).isEqualTo(number);
     verify(generator).generate();
 
   }
@@ -55,7 +55,7 @@ class BankAccountNumberServiceTest {
     when(elevenProof.test(bsnIntegers)).thenReturn(validationResult);
     when(validationMessageMapper.getMessage(number, validationResult)).thenReturn(message);
 
-    final var result = service.validate(BankAccountNumber.builder().number(number).build());
+    final var result = service.validate(BankAccountNumberDto.builder().number(number).build());
 
     assertThat(result).isEqualTo(message);
     verify(stringToIntArray).apply(number);

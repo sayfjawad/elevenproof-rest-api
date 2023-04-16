@@ -3,8 +3,8 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>spring-application</artifactId>
-  <name>spring-application</name>
+  <artifactId>application</artifactId>
+  <name>application</name>
   <version>1.0-SNAPSHOT</version>
 
   <parent>
@@ -22,6 +22,11 @@
     <dependency>
       <groupId>nl.multicode.elevenproof</groupId>
       <artifactId>services</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>nl.multicode.elevenproof</groupId>
+      <artifactId>generated</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>

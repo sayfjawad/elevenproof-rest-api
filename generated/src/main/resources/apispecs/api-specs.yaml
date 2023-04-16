@@ -1,0 +1,110 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+  - url: http://localhost:8080
+    description: Generated server url
+paths:
+  /appinfo/health/liveness:
+    get:
+      tags:
+        - health-controller
+      operationId: getHealth
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Health'
+  /api/bsn/validate/{number}:
+    get:
+      tags:
+        - burger-service-number-controller
+      operationId: validate
+      parameters:
+        - name: number
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /api/bsn/generate:
+    get:
+      tags:
+        - burger-service-number-controller
+      operationId: generate
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /api/bank/validate/{number}:
+    get:
+      tags:
+        - bank-number-controller
+      operationId: validate_1
+      parameters:
+        - name: number
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /api/bank/generate:
+    get:
+      tags:
+        - bank-number-controller
+      operationId: generate_1
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+components:
+  schemas:
+    Health:
+      type: object
+      properties:
+        description:
+          type: string
+        status:
+          type: string
+        details:
+          type: object
+          additionalProperties:
+            type: object
+    BurgerServiceNumber:
+      type: object
+      properties:
+        number:
+          type: string
+          pattern: '^[0-9]{9}$'
+        isElevenproof:
+          type: boolean
+    BankAccountNumber:
+      type: object
+      properties:
+        number:
+          type: string
+          pattern: '^[0-9]{10}$'
+        isElevenproof:
+          type: boolean
+

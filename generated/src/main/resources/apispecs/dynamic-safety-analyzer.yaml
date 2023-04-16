@@ -1,0 +1,897 @@
+openapi: 3.0.1
+info:
+  title: System Operations - Dynamic Safety Analyzer
+  description: Dynamic Safety Analyzer (DSA) is responsible for retrieving Prognosis from the Telemetry team. The DSA will analyse the data and detect congestion cases for the future.</br> Internal use only
+  contact:
+    name: Contact Team Dynamic Safety Analyzer
+    email: dynamicsafetyanalyzer@alliander.com
+  version: '1'
+servers:
+  - url: /
+paths:
+  /api/switch-actions/{contingencyMRID}:
+    post:
+      tags:
+        - switch-state
+      summary: Manually trigger save Switch Actions process for a single contingency
+      operationId: triggerSaveSwitchState
+      parameters:
+        - name: contingencyMRID
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+  /api/prognosis/{contingencyMRID}/trigger:
+    post:
+      tags:
+        - prognosis
+      summary: Manually trigger congestion analysis for a single contingency
+      operationId: triggerGetPrognosisForContingencyMRID
+      parameters:
+        - name: contingencyMRID
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: No Content
+  /api/couchdb-to-kafka-scheduler/run-once:
+    post:
+      tags:
+        - couch-db-to-kafka-service-scheduler-controller
+      operationId: runEvaluationSchedulerOnce
+      responses:
+        '204':
+          description: No Content
+  /api/safety-assessments/{mRID}:
+    get:
+      tags:
+        - safety-assessment
+      operationId: getById
+      parameters:
+        - name: mRID
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SafetyAssessment'
+  /api/safety-assessments/{mRID}/protection-requests:
+    get:
+      tags:
+        - safety-assessment
+      operationId: getProtectionRequests
+      parameters:
+        - name: mRID
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProtectionRequestV2'
+  /api/safety-assessments/{mRID}/congestion-prognoses:
+    get:
+      tags:
+        - safety-assessment
+      operationId: getCongestionPrognosesBySafetyAssessment
+      parameters:
+        - name: mRID
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CongestionPrognosisV2'
+  /api/protection-requests:
+    get:
+      tags:
+        - protection-request
+      operationId: getFilteredLatestCongestionPrognosis
+      parameters:
+        - name: contingencyMRID
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: congestionPrognosisId
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.protection-request.v2+json:
+              schema:
+                $ref: '#/components/schemas/CollectionModelProtectionRequestV2'
+  /api/contingencies/{mRID}/safety-assessments:
+    get:
+      tags:
+        - safety-assessment
+      operationId: getByLatestByContingencyMRID
+      parameters:
+        - name: mRID
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: analysisType
+          in: query
+          required: false
+          schema:
+            type: string
+            default: forecasted
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SafetyAssessment'
+  /api/contingencies/{mRID}/safety-assessments/latest/congestion-prognoses:
+    get:
+      tags:
+        - safety-assessment
+      operationId: getByLatestByContingencyMRIDLatestCongestionPrognoses
+      parameters:
+        - name: mRID
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CongestionPrognosisV2'
+  /api/congestion-prognoses:
+    get:
+      tags:
+        - congestion-prognosis
+      operationId: getCongestionPrognoses
+      parameters:
+        - name: contingencyMRID
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: date
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: size
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.congestion-prognosis.v2+json:
+              schema:
+                $ref: '#/components/schemas/CollectionModelEntityModelCongestionPrognosisV2_Collection'
+  /api/congestion-prognoses/{congestionPrognosisId}:
+    get:
+      tags:
+        - congestion-prognosis
+      operationId: getCongestionPrognosisById
+      parameters:
+        - name: congestionPrognosisId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.congestion-prognosis.v2+json:
+              schema:
+                $ref: '#/components/schemas/EntityModelCongestionPrognosisV2'
+  /api/congestion-prognoses/{congestionPrognosisId}/protection-requests:
+    get:
+      tags:
+        - protection-request
+      operationId: getByCongestionPrognosisId
+      parameters:
+        - name: congestionPrognosisId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/CollectionModelProtectionRequestV2'
+  /api/congestion-prognoses/latest:
+    get:
+      tags:
+        - congestion-prognosis
+      operationId: getFilteredLatestCongestionPrognosis_1
+      parameters:
+        - name: contingencyMRID
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.congestion-prognosis.v2+json:
+              schema:
+                $ref: '#/components/schemas/EntityModelCongestionPrognosisV2'
+  /api/congestion-prognoses/congestion-cases:
+    get:
+      tags:
+        - congestion-prognosis
+      operationId: getCongestionPrognosesByCongestionCases
+      parameters:
+        - name: congestionCaseIds
+          in: query
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.congestion-prognosis.v2+json:
+              schema:
+                $ref: '#/components/schemas/CollectionModelEntityModelCongestionPrognosisV2'
+  /api/congestion-cases:
+    get:
+      tags:
+        - congestion-case
+      operationId: getCongestionCases
+      parameters:
+        - name: contingencyMRID
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: congestionCaseType
+          in: query
+          required: false
+          schema:
+            type: string
+            default: FORECASTED
+            enum:
+              - MEASURED
+              - FORECASTED
+        - name: date
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: size
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.congestion-case.v2+json:
+              schema:
+                $ref: '#/components/schemas/CollectionModelEntityModelCongestionCaseV2_Collection'
+  /api/congestion-cases/{congestionCaseId}:
+    get:
+      tags:
+        - congestion-case
+      operationId: getCongestionCase
+      parameters:
+        - name: congestionCaseId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: journal
+          in: query
+          required: false
+          schema:
+            type: boolean
+        - name: prognoses
+          in: query
+          required: false
+          schema:
+            type: string
+            default: EDGES
+            enum:
+              - NONE
+              - LAST
+              - ALL
+              - EDGES
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.congestion-case.v2+json:
+              schema:
+                $ref: '#/components/schemas/EntityModelCongestionCaseV2'
+  /api/clock/time:
+    get:
+      tags:
+        - clock
+      summary: Retrieve the clock and zone offset of SO-DSA
+      operationId: getTime
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: date-time
+components:
+  schemas:
+    Contingency:
+      type: object
+      properties:
+        mRID:
+          type: string
+          format: uuid
+    SafetyAssessment:
+      type: object
+      properties:
+        mRID:
+          type: string
+          format: uuid
+        safetyAssessmentRequestMRID:
+          type: string
+          format: uuid
+        contingency:
+          $ref: '#/components/schemas/Contingency'
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+        safetyDossiers:
+          type: array
+          items:
+            $ref: '#/components/schemas/SafetyDossier'
+        analysisType:
+          type: string
+          enum:
+            - FORECASTED
+            - MEASURED
+    SafetyDossier:
+      type: object
+      properties:
+        mRID:
+          type: string
+          format: uuid
+        contingency:
+          $ref: '#/components/schemas/Contingency'
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+        created:
+          type: string
+          format: date-time
+    ProtectionRequestV2:
+      type: object
+      properties:
+        id:
+          type: string
+        contingencyMRID:
+          type: string
+        biddingZones:
+          type: array
+          items:
+            type: string
+        protectionStart:
+          type: string
+          format: date-time
+        protectionEnd:
+          type: string
+          format: date-time
+        direction:
+          type: string
+          enum:
+            - PRODUCTION
+            - CONSUMPTION
+            - NONE
+    CongestionPrognosisV2:
+      type: object
+      properties:
+        id:
+          type: string
+        contingencyMRID:
+          type: string
+          format: uuid
+        safetyAssessmentRequestMRID:
+          type: string
+          format: uuid
+        equipmentMRID:
+          type: string
+          format: uuid
+        terminalMRID:
+          type: string
+          format: uuid
+        created:
+          type: string
+          format: date-time
+        offset:
+          type: string
+          format: date-time
+        intervalDuration:
+          type: object
+          properties:
+            seconds:
+              type: integer
+              format: int64
+            nano:
+              type: integer
+              format: int32
+            negative:
+              type: boolean
+            units:
+              type: array
+              items:
+                type: object
+                properties:
+                  dateBased:
+                    type: boolean
+                  timeBased:
+                    type: boolean
+                  duration:
+                    type: object
+                    properties:
+                      seconds:
+                        type: integer
+                        format: int64
+                      nano:
+                        type: integer
+                        format: int32
+                      negative:
+                        type: boolean
+                      zero:
+                        type: boolean
+                  durationEstimated:
+                    type: boolean
+            zero:
+              type: boolean
+        congestionCaseIds:
+          type: array
+          items:
+            type: string
+        congestionValues:
+          type: array
+          items:
+            $ref: '#/components/schemas/CongestionValue'
+        prognosisRequester:
+          $ref: '#/components/schemas/PrognosisRequester'
+        exceptionalMeasurementValues:
+          type: array
+          items:
+            $ref: '#/components/schemas/MeasurementValue'
+    CongestionValue:
+      type: object
+      properties:
+        powerExpected:
+          type: integer
+          format: int64
+        validity:
+          type: string
+          enum:
+            - UNKNOWN
+            - GOOD
+            - QUESTIONABLE
+            - INVALID
+        powerDecreaseNeeded:
+          type: integer
+          format: int64
+        powerDecreaseAvailable:
+          type: integer
+          format: int64
+        powerDecreaseBufferAvailable:
+          type: integer
+          format: int64
+        powerIncreaseNeeded:
+          type: integer
+          format: int64
+        powerIncreaseAvailable:
+          type: integer
+          format: int64
+        powerIncreaseBufferAvailable:
+          type: integer
+          format: int64
+    MeasurementValue:
+      type: object
+      properties:
+        timeStamp:
+          type: string
+        value:
+          type: integer
+          format: int64
+    OperationalControlReference:
+      type: object
+
+    PrognosisRequester:
+      type: object
+      properties:
+        mRID:
+          type: string
+          format: uuid
+        state:
+          type: string
+        contingency:
+          $ref: '#/components/schemas/Contingency'
+        name:
+          type: string
+        description:
+          type: string
+        scenario:
+          type: array
+          items:
+            $ref: '#/components/schemas/Scenario'
+    Scenario:
+      type: object
+      properties:
+        mRID:
+          type: string
+          format: uuid
+        type:
+          type: string
+        description:
+          type: string
+        variant:
+          type: string
+
+    CollectionModelProtectionRequestV2:
+      type: object
+      properties:
+        _embedded:
+          type: object
+          properties:
+            protectionRequestV2s:
+              type: array
+              items:
+                $ref: '#/components/schemas/ProtectionRequestV2'
+        _links:
+          $ref: '#/components/schemas/Links'
+    Links:
+      type: array
+      items:
+        $ref: '#/components/schemas/Link'
+    CollectionModelEntityModelCongestionPrognosisV2_Collection:
+      type: object
+      properties:
+        _embedded:
+          type: object
+          properties:
+            congestionPrognosisV2s:
+              type: array
+              items:
+                $ref: '#/components/schemas/EntityModelCongestionPrognosisV2_Collection'
+        _links:
+          $ref: '#/components/schemas/Links'
+    Contingency_Collection:
+      type: object
+      properties:
+        mRID:
+          type: string
+          format: uuid
+        name:
+          type: string
+    EntityModelCongestionPrognosisV2_Collection:
+      type: object
+      properties:
+        id:
+          type: string
+        contingencyMRID:
+          type: string
+          format: uuid
+        safetyAssessmentRequestMRID:
+          type: string
+          format: uuid
+        equipmentMRID:
+          type: string
+          format: uuid
+        terminalMRID:
+          type: string
+          format: uuid
+        created:
+          type: string
+          format: date-time
+        offset:
+          type: string
+          format: date-time
+        congestionCaseIds:
+          type: array
+          items:
+            type: string
+        prognosisRequester:
+          $ref: '#/components/schemas/PrognosisRequester_Collection'
+        exceptionalMeasurementValues:
+          type: array
+          items:
+            $ref: '#/components/schemas/MeasurementValue_Collection'
+        _links:
+          $ref: '#/components/schemas/Links'
+    MeasurementValue_Collection:
+      type: object
+      properties:
+        timeStamp:
+          type: string
+        value:
+          type: integer
+          format: int64
+
+    PrognosisRequester_Collection:
+      type: object
+      properties:
+        mRID:
+          type: string
+          format: uuid
+        state:
+          type: string
+        contingency:
+          $ref: '#/components/schemas/Contingency_Collection'
+        name:
+          type: string
+        description:
+          type: string
+        scenario:
+          type: array
+          items:
+            $ref: '#/components/schemas/Scenario_Collection'
+    Scenario_Collection:
+      type: object
+      properties:
+        mRID:
+          type: string
+          format: uuid
+        type:
+          type: string
+        description:
+          type: string
+        variant:
+          type: string
+    EntityModelCongestionPrognosisV2:
+      type: object
+      properties:
+        id:
+          type: string
+        contingencyMRID:
+          type: string
+          format: uuid
+        safetyAssessmentRequestMRID:
+          type: string
+          format: uuid
+        equipmentMRID:
+          type: string
+          format: uuid
+        terminalMRID:
+          type: string
+          format: uuid
+        created:
+          type: string
+          format: date-time
+        offset:
+          type: string
+          format: date-time
+        intervalDuration:
+          type: object
+          properties:
+            seconds:
+              type: integer
+              format: int64
+            nano:
+              type: integer
+              format: int32
+            negative:
+              type: boolean
+            units:
+              type: array
+              items:
+                type: object
+                properties:
+                  dateBased:
+                    type: boolean
+                  timeBased:
+                    type: boolean
+                  duration:
+                    type: object
+                    properties:
+                      seconds:
+                        type: integer
+                        format: int64
+                      nano:
+                        type: integer
+                        format: int32
+                      negative:
+                        type: boolean
+                      zero:
+                        type: boolean
+                  durationEstimated:
+                    type: boolean
+            zero:
+              type: boolean
+        congestionCaseIds:
+          type: array
+          items:
+            type: string
+        congestionValues:
+          type: array
+          items:
+            $ref: '#/components/schemas/CongestionValue'
+
+        prognosisRequester:
+          $ref: '#/components/schemas/PrognosisRequester'
+        exceptionalMeasurementValues:
+          type: array
+          items:
+            $ref: '#/components/schemas/MeasurementValue'
+        _links:
+          $ref: '#/components/schemas/Links'
+    CollectionModelEntityModelCongestionPrognosisV2:
+      type: object
+      properties:
+        _embedded:
+          type: object
+          properties:
+            congestionPrognoses:
+              type: array
+              items:
+                $ref: '#/components/schemas/EntityModelCongestionPrognosisV2'
+        _links:
+          $ref: '#/components/schemas/Links'
+    CollectionModelEntityModelCongestionCaseV2_Collection:
+      type: object
+      properties:
+        _embedded:
+          type: object
+          properties:
+            congestionCases:
+              type: array
+              items:
+                $ref: '#/components/schemas/EntityModelCongestionCaseV2_Collection'
+        _links:
+          $ref: '#/components/schemas/Links'
+    EntityModelCongestionCaseV2_Collection:
+      type: object
+      properties:
+        id:
+          type: string
+        contingencyMRID:
+          type: string
+          format: uuid
+        equipmentMRID:
+          type: string
+          format: uuid
+        terminalMRID:
+          type: string
+          format: uuid
+        caseStart:
+          type: string
+          format: date-time
+        caseEnd:
+          type: string
+          format: date-time
+        created:
+          type: string
+          format: date-time
+        congestionCaseType:
+          type: string
+          enum:
+            - MEASURED
+            - FORECASTED
+        _links:
+          $ref: '#/components/schemas/Links'
+    EntityModelCongestionCaseV2:
+      type: object
+      properties:
+        id:
+          type: string
+        congestionPrognoses:
+          type: array
+          items:
+            $ref: '#/components/schemas/CongestionPrognosisV2'
+        contingencyMRID:
+          type: string
+          format: uuid
+        equipmentMRID:
+          type: string
+          format: uuid
+        terminalMRID:
+          type: string
+          format: uuid
+        caseStart:
+          type: string
+          format: date-time
+        caseEnd:
+          type: string
+          format: date-time
+        created:
+          type: string
+          format: date-time
+        congestionCaseType:
+          type: string
+          enum:
+            - MEASURED
+            - FORECASTED
+        _links:
+          $ref: '#/components/schemas/Links'
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+        hreflang:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        deprecation:
+          type: string
+        profile:
+          type: string
+        name:
+          type: string
+        templated:
+          type: boolean

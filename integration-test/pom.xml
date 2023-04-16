@@ -21,7 +21,7 @@
   <dependencies>
     <dependency>
       <groupId>nl.multicode.elevenproof</groupId>
-      <artifactId>spring-application</artifactId>
+      <artifactId>application</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
@@ -80,7 +80,7 @@
 
     <dependency>
       <groupId>nl.multicode.elevenproof</groupId>
-      <artifactId>spring-application</artifactId>
+      <artifactId>application</artifactId>
       <version>1.0-SNAPSHOT</version>
       <scope>test</scope>
     </dependency>

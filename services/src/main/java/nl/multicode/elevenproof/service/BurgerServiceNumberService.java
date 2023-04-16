@@ -5,11 +5,11 @@ import lombok.RequiredArgsConstructor;
 import nl.multicode.elevenproof.generate.BurgerServiceNummerGenerator;
 import nl.multicode.elevenproof.map.StringToIntArray;
 import nl.multicode.elevenproof.map.ValidationMessageMapper;
-import nl.multicode.elevenproof.model.BurgerServiceNumber;
+import nl.multicode.elevenproof.model.BurgerServiceNumberDto;
 import nl.multicode.elevenproof.validate.BurgerServiceNumberProof;
 
 @RequiredArgsConstructor
-public class BurgerServiceNumberService implements ElevenProofService<BurgerServiceNumber> {
+public class BurgerServiceNumberService implements ElevenProofService<BurgerServiceNumberDto> {
 
   private final BurgerServiceNummerGenerator generator;
   private final BurgerServiceNumberProof elevenProof;
@@ -17,20 +17,20 @@ public class BurgerServiceNumberService implements ElevenProofService<BurgerServ
   private final ValidationMessageMapper validationMessageMapper;
 
   @Override
-  public BurgerServiceNumber generate() {
+  public BurgerServiceNumberDto generate() {
 
-    return BurgerServiceNumber.builder()
+    return BurgerServiceNumberDto.builder()
         .number(generator.generate())
         .build();
   }
 
   @Override
-  public String validate(BurgerServiceNumber number) {
+  public String validate(BurgerServiceNumberDto number) {
 
-    final var bsnDigits = stringToIntArray.apply(number.getNumber());
+    final var bsnDigits = stringToIntArray.apply(number.number());
     final var isElevenProof = elevenProof.test(bsnDigits);
 
     return validationMessageMapper.getMessage(
-        Objects.requireNonNull(number).getNumber(), isElevenProof);
+        Objects.requireNonNull(number).number(), isElevenProof);
   }
 }

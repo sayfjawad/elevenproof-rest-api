@@ -6,7 +6,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import nl.multicode.elevenproof.model.BankAccountNumber;
+import nl.multicode.elevenproof.model.BankAccountNumberDto;
 import nl.multicode.elevenproof.service.BankAccountNumberService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,7 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatusCode;
 
 @ExtendWith(MockitoExtension.class)
-class BankAccountNumberControllerTest {
+class BankAccountNumberDtoControllerTest {
 
   @Mock
   BankAccountNumberService service;
@@ -28,7 +28,7 @@ class BankAccountNumberControllerTest {
   @Test
   void testGetBsn_bsn_generate_is_called() {
 
-    when(service.generate()).thenReturn(mock(BankAccountNumber.class));
+    when(service.generate()).thenReturn(mock(BankAccountNumberDto.class));
 
     assertThat(controller.generate().getStatusCode()).isEqualTo(HttpStatusCode.valueOf(200));
     verify(service).generate();
@@ -38,10 +38,10 @@ class BankAccountNumberControllerTest {
   void testValidateBankAccountNumber_number_validation() {
 
     final var bsn = "123456789";
-    when(service.validate(any(BankAccountNumber.class))).thenReturn("result");
+    when(service.validate(any(BankAccountNumberDto.class))).thenReturn("result");
 
     controller.validate(bsn).getBody();
 
-    verify(service).validate(any(BankAccountNumber.class));
+    verify(service).validate(any(BankAccountNumberDto.class));
   }
 }
