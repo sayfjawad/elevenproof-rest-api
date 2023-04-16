@@ -22,8 +22,21 @@ class BankAccountNumberDtoElevenProofTest {
   }
 
   @Test
+  void isElevenProof_TooLong() {
+
+    assertThat(elevenProof.test(new int[]{0, 4, 8, 4, 8, 4, 8, 4, 8, 8, 9})).isFalse();
+  }
+
+  @Test
+  void isElevenProof_Null() {
+
+    assertThat(elevenProof.test(null)).isFalse();
+  }
+
+  @Test
   void isNotElevenProof() {
 
-    assertThat(elevenProof.test(new int[]{1, 2, 3, 4, 8, 8, 8, 8, 8,})).isFalse();
+    assertThat(elevenProof.test(new int[]{1, 2, 3, 4, 8, 8, 8, 8, 8})).isFalse();
+    assertThat(elevenProof.test(new int[]{1, 2, 3, 4, 8, 8, 8, 8, 8,9})).isFalse();
   }
 }

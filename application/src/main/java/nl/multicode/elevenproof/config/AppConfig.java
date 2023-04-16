@@ -5,7 +5,6 @@ import nl.multicode.elevenproof.generate.BurgerServiceNummerGenerator;
 import nl.multicode.elevenproof.generate.supplier.FixedLengthStringRandomNumbersSupplier;
 import nl.multicode.elevenproof.map.IntArrayToString;
 import nl.multicode.elevenproof.map.StringToIntArray;
-import nl.multicode.elevenproof.map.ValidationMessageMapper;
 import nl.multicode.elevenproof.service.BankAccountNumberService;
 import nl.multicode.elevenproof.service.BurgerServiceNumberService;
 import nl.multicode.elevenproof.validate.BankAccountNumberElevenProof;
@@ -62,30 +61,20 @@ public class AppConfig {
   }
 
   @Bean
-  public ValidationMessageMapper getValidationMessageMapper() {
-
-    return new ValidationMessageMapper();
-  }
-
-  @Bean
   public BurgerServiceNumberService getBurgerServiceNumberService(
       BurgerServiceNummerGenerator generator,
       BurgerServiceNumberProof elevenProof,
-      StringToIntArray stringToIntArray,
-      ValidationMessageMapper validationMessageMapper
-  ) {
+      StringToIntArray stringToIntArray) {
 
-    return new BurgerServiceNumberService(generator, elevenProof, stringToIntArray, validationMessageMapper);
+    return new BurgerServiceNumberService(generator, elevenProof, stringToIntArray);
   }
 
   @Bean
   public BankAccountNumberService getBankAccountNumberService(
       BankAccountNumberGenerator generator,
       BankAccountNumberElevenProof elevenProof,
-      StringToIntArray stringToIntArray,
-      ValidationMessageMapper validationMessageMapper
-  ) {
+      StringToIntArray stringToIntArray) {
 
-    return new BankAccountNumberService(generator, elevenProof, stringToIntArray, validationMessageMapper);
+    return new BankAccountNumberService(generator, elevenProof, stringToIntArray);
   }
 }

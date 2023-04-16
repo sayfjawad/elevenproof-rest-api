@@ -6,8 +6,6 @@ import static org.mockito.Mockito.when;
 
 import nl.multicode.elevenproof.generate.BurgerServiceNummerGenerator;
 import nl.multicode.elevenproof.map.StringToIntArray;
-import nl.multicode.elevenproof.map.ValidationMessageMapper;
-import nl.multicode.elevenproof.model.BurgerServiceNumberDto;
 import nl.multicode.elevenproof.validate.BurgerServiceNumberProof;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,8 +23,6 @@ class BurgerServiceNumberServiceTest {
   private BurgerServiceNumberProof elevenProof;
   @Mock
   private StringToIntArray stringToIntArray;
-  @Mock
-  private ValidationMessageMapper validationMessageMapper;
 
   @InjectMocks
   private BurgerServiceNumberService service;
@@ -49,17 +45,14 @@ class BurgerServiceNumberServiceTest {
 
     final var bsnIntegers = new int[]{};
     final var number = "number";
-    final var message = "message";
     final var validationResult = true;
     when(stringToIntArray.apply(number)).thenReturn(bsnIntegers);
     when(elevenProof.test(bsnIntegers)).thenReturn(validationResult);
-    when(validationMessageMapper.getMessage(number, validationResult)).thenReturn(message);
 
-    final var result = service.validate(BurgerServiceNumberDto.builder().number(number).build());
+    final var result = service.isValid(number);
 
-    assertThat(result).isEqualTo(message);
+    assertThat(result).isTrue();
     verify(stringToIntArray).apply(number);
     verify(elevenProof).test(bsnIntegers);
-    verify(validationMessageMapper).getMessage(number, validationResult);
   }
 }

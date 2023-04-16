@@ -1,7 +1,6 @@
 package nl.multicode.elevenproof.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -37,10 +36,10 @@ class BurgerServiceNumberControllerTest {
   void testValidateBsn_bsn_validation_valid_message() {
 
     final var bsn = "123456789";
-    when(service.validate(any(BurgerServiceNumberDto.class))).thenReturn("result");
+    when(service.isValid(bsn)).thenReturn(true);
 
     controller.validate(bsn).getBody();
 
-    verify(service).validate(any(BurgerServiceNumberDto.class));
+    verify(service).isValid(bsn);
   }
 }

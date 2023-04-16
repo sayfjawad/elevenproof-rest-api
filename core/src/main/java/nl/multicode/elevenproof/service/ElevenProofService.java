@@ -4,5 +4,5 @@ public interface ElevenProofService<T> {
 
   T generate();
 
-  String validate(T number);
+  boolean isValid(String number);
 }
