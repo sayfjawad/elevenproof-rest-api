@@ -13,24 +13,25 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/bank")
 @RestController
 @RequiredArgsConstructor
-public class BankNumberController implements ElevenproofController<ResponseEntity<BankAccountNumber>> {
+public class BankNumberController implements
+        ElevenproofController<ResponseEntity<BankAccountNumber>> {
 
-  private final BankAccountNumberService service;
+    private final BankAccountNumberService service;
 
-  @GetMapping("/generate")
-  public ResponseEntity<BankAccountNumber> generate() {
+    @GetMapping("/generate")
+    public ResponseEntity<BankAccountNumber> generate() {
 
-    return ResponseEntity.ok(BankAccountNumber.builder()
-        .number(service.generate().number())
-        .build());
-  }
+        return ResponseEntity.ok(BankAccountNumber.builder()
+                .number(service.generate().number())
+                .build());
+    }
 
-  @GetMapping("/validate/{number}")
-  public ResponseEntity<BankAccountNumber> validate(@PathVariable String number) {
+    @GetMapping("/validate/{number}")
+    public ResponseEntity<BankAccountNumber> validate(@PathVariable("number") String number) {
 
-    return ResponseEntity.ok(BankAccountNumber.builder()
-        .number(number)
-        .isElevenproof(service.isValid(number))
-        .build());
-  }
+        return ResponseEntity.ok(BankAccountNumber.builder()
+                .number(number)
+                .isElevenproof(service.isValid(number))
+                .build());
+    }
 }

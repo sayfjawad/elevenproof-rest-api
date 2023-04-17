@@ -1,16 +1,9 @@
 logging:
   level:
-    org.springframework: DEBUG
+    org.springframework: INFO
 
 springdoc:
   api-docs:
     path: /apispecs/api-specs.yaml
   swagger-ui:
     path: /api/swagger-ui.html
-
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
