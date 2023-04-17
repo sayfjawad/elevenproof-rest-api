@@ -48,6 +48,30 @@ After building the project run:
 $ mvn sonar:sonar
 ```
 
+#### Integration testing using kubernetes
+Running automated tests to ensure functional expectations are met and prevent regression
+
+## requisites
+Install Docker-Desktop and enable kuberenetes support in settings
+
+## run the integration tests
+Make sure docker-desktop is running, build the necessary docker image using 'jib'
+``` 
+$ cd application
+$ mvn jib:dockerBuild
+```
+go to the integration-test folder
+```
+$ cd integration-test
+```
+run the integration test.sh script with install parameter then again with port parameter
+```
+$ cd integration-test
+$ ./test.sh install
+$ ./test.sh port
+```
+your kuberenetes pod should be running. now you can run cucumber tests
+
 #### Application usage
 
 Generate BSN or BankAccount:
@@ -73,3 +97,4 @@ $ curl -X 'GET' 'http://localhost:8080/api/bsn/validate/052863785' -H 'accept: *
 $ curl -X 'GET' 'http://localhost:8080/api/bank/generate' -H 'accept: */*'
 $ curl -X 'GET' 'http://localhost:8080/api/bank/validate/0810660385' -H 'accept: */*'
 ```
+
