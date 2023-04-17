@@ -41,7 +41,7 @@ class BankAccountNumberDtoServiceTest {
   }
 
   @Test
-  void validate() {
+  void validate_valid() {
 
     final var bsnIntegers = new int[]{};
     final var number = "number";
@@ -52,6 +52,22 @@ class BankAccountNumberDtoServiceTest {
     final var result = service.isValid(number);
 
     assertThat(result).isTrue();
+    verify(stringToIntArray).apply(number);
+    verify(elevenProof).test(bsnIntegers);
+  }
+
+  @Test
+  void validate_invalid() {
+
+    final var bsnIntegers = new int[]{};
+    final var number = "number";
+    final var validationResult = false;
+    when(stringToIntArray.apply(number)).thenReturn(bsnIntegers);
+    when(elevenProof.test(bsnIntegers)).thenReturn(validationResult);
+
+    final var result = service.isValid(number);
+
+    assertThat(result).isFalse();
     verify(stringToIntArray).apply(number);
     verify(elevenProof).test(bsnIntegers);
   }
