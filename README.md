@@ -4,6 +4,9 @@ Opensource Java API for validating and generating numbers that use the ElevenPro
 Dutch) (BSN Burger Service Nummer, Bank Account number, etc...)
 
 ## How the eleven proof works
+This example uses the Dutch implementation of the eleven proof for the social security number 
+equivalent 'BSN - Burger Service Nummer'.  
+
 | BSN number  | 0 | 5 | 6 | 7 | 0 | 4 | 0 | 3 | 0 | 5 |
 
 |             | #1  | #2  | #3  | #4  | #5  | #6  | #7  | #8  | #9  |        |     |        |   |
@@ -27,8 +30,14 @@ Java 17
 Maven
 ```
 
+#### Build Application
+```
+mvn clean package
+```
+
 #### Use sonarqube
-Create environment variables containing url/login/password
+Create environment variables containing url/login/password to be able to connect your project to a
+SonarQube/SonarCloud instance.
 ``` 
 SONAR_URL=http://sonar.host.com
 SONAR_LOGIN=login
@@ -38,22 +47,54 @@ After building the project run:
 ```
 $ mvn sonar:sonar
 ```
-#### Build Application
 
+#### Integration testing using kubernetes
+Running automated tests to ensure functional expectations are met and prevent regression
+
+## requisites
+Install Docker-Desktop and enable kuberenetes support in settings
+
+## run the integration tests
+Make sure docker-desktop is running, build the necessary docker image using 'jib'
+``` 
+$ cd application
+$ mvn jib:dockerBuild
 ```
-mvn clean package
+go to the integration-test folder
 ```
+$ cd integration-test
+```
+run the integration test.sh script with install parameter then again with port parameter
+```
+$ cd integration-test
+$ ./test.sh install
+$ ./test.sh port
+```
+your kuberenetes pod should be running. now you can run cucumber tests
 
 #### Application usage
 
 Generate BSN or BankAccount:
+buid the application 
+``` 
+$ mvn clean package
+```
+run the application 
+```
+$ java -jar application/target/application-1.0-SNAPSHOT.jar
+```
+test by browser
+```
+http://localhost:8080/api/swagger-ui/index.html
+```
+test by command line
+```
+# BSN 
+$ curl -X 'GET' 'http://localhost:8080/api/bsn/generate' -H 'accept: */*'
+$ curl -X 'GET' 'http://localhost:8080/api/bsn/validate/052863785' -H 'accept: */*'
 
-```
-java -jar elevenproof-api-1.0-SNAPSHOT.jar generate <bsn|bank>
+#BANK
+$ curl -X 'GET' 'http://localhost:8080/api/bank/generate' -H 'accept: */*'
+$ curl -X 'GET' 'http://localhost:8080/api/bank/validate/0810660385' -H 'accept: */*'
 ```
 
-Validate BSN or BankAccount:
-
-```
-java -jar elevenproof-api-1.0-SNAPSHOT.jar validate <bsn|bank> <nummer>
-```

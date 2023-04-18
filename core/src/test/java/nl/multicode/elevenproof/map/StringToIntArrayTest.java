@@ -8,23 +8,23 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 class StringToIntArrayTest {
 
-  StringToIntArray stringToIntArray;
+    StringToIntArray stringToIntArray;
 
-  @BeforeEach
-  public void setup() {
+    @BeforeEach
+    public void setup() {
 
-    stringToIntArray = new StringToIntArray();
-  }
-
-  @ParameterizedTest
-  @CsvSource({"001199", "0123456", "91234"})
-  void apply(String string) {
-
-    final var digitStringOrigin = string.split("");
-    final var digitIntResult = stringToIntArray.apply(string);
-
-    for (int index = 0; index < string.length(); index++) {
-      assertThat(Integer.parseInt(digitStringOrigin[index])).isEqualTo(digitIntResult[index]);
+        stringToIntArray = new StringToIntArray();
     }
-  }
+
+    @ParameterizedTest
+    @CsvSource({"001199", "0123456", "91234"})
+    void apply(String string) {
+
+        final var digitStringOrigin = string.split("");
+        final var digitIntResult = stringToIntArray.apply(string);
+
+        for (int index = 0; index < string.length(); index++) {
+            assertThat(Integer.parseInt(digitStringOrigin[index])).isEqualTo(digitIntResult[index]);
+        }
+    }
 }
