@@ -18,30 +18,30 @@ import org.springframework.http.HttpStatusCode;
 @ExtendWith(MockitoExtension.class)
 class BankAccountNumberDtoControllerTest {
 
-  @Mock
-  BankAccountNumberService service;
+    @Mock
+    BankAccountNumberService service;
 
-  @InjectMocks
-  BankNumberController controller;
+    @InjectMocks
+    BankNumberController controller;
 
 
-  @Test
-  void testGetBsn_bsn_generate_is_called() {
+    @Test
+    void testGetBsn_bsn_generate_is_called() {
 
-    when(service.generate()).thenReturn(mock(BankAccountNumberDto.class));
+        when(service.generate()).thenReturn(mock(BankAccountNumberDto.class));
 
-    assertThat(controller.generate().getStatusCode()).isEqualTo(HttpStatusCode.valueOf(200));
-    verify(service).generate();
-  }
+        assertThat(controller.generate().getStatusCode()).isEqualTo(HttpStatusCode.valueOf(200));
+        verify(service).generate();
+    }
 
-  @Test
-  void testValidateBankAccountNumber_number_validation() {
+    @Test
+    void testValidateBankAccountNumber_number_validation() {
 
-    final var bsn = "123456789";
-    when(service.isValid(bsn)).thenReturn(true);
+        final var bsn = "123456789";
+        when(service.isValid(bsn)).thenReturn(true);
 
-    controller.validate(bsn).getBody();
+        controller.validate(bsn).getBody();
 
-    verify(service).isValid(bsn);
-  }
+        verify(service).isValid(bsn);
+    }
 }

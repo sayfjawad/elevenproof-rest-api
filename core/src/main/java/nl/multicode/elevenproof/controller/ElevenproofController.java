@@ -2,9 +2,9 @@ package nl.multicode.elevenproof.controller;
 
 public interface ElevenproofController<T> {
 
-  T generate();
+    T generate();
 
-  T validate(String number);
+    T validate(String number);
 
 
 }

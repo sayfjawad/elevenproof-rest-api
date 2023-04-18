@@ -6,9 +6,9 @@ import java.util.stream.Collectors;
 
 public class IntArrayToString implements Function<int[], String> {
 
-  @Override
-  public String apply(int[] ints) {
+    @Override
+    public String apply(int[] ints) {
 
-    return Arrays.stream(ints).mapToObj(String::valueOf).collect(Collectors.joining());
-  }
+        return Arrays.stream(ints).mapToObj(String::valueOf).collect(Collectors.joining());
+    }
 }

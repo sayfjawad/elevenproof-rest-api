@@ -17,29 +17,29 @@ import org.mockito.junit.jupiter.MockitoExtension;
 class BankAccountNumberDtoGeneratorTest {
 
 
-  @Mock
-  private ObjectSupplier<int[]> randomDigitsSupplier;
-  @Mock
-  private IntArrayToString intArrayToString;
-  @Mock
-  private ElevenProof numberElevenProof;
+    @Mock
+    private ObjectSupplier<int[]> randomDigitsSupplier;
+    @Mock
+    private IntArrayToString intArrayToString;
+    @Mock
+    private ElevenProof numberElevenProof;
 
-  @InjectMocks
-  private BankAccountNumberGenerator generator;
+    @InjectMocks
+    private BankAccountNumberGenerator generator;
 
-  @Test
-  void generate() {
+    @Test
+    void generate() {
 
-    final var bank = new int[]{1, 2, 3};
-    when(randomDigitsSupplier.supply()).thenReturn(bank);
-    when(numberElevenProof.test(bank)).thenReturn(Boolean.TRUE);
-    when(intArrayToString.apply(bank)).thenReturn("123");
+        final var bank = new int[]{1, 2, 3};
+        when(randomDigitsSupplier.supply()).thenReturn(bank);
+        when(numberElevenProof.test(bank)).thenReturn(Boolean.TRUE);
+        when(intArrayToString.apply(bank)).thenReturn("123");
 
-    final var generatedResult = generator.generate();
+        final var generatedResult = generator.generate();
 
-    assertThat(generatedResult).isEqualTo("123");
-    verify(randomDigitsSupplier).supply();
-    verify(numberElevenProof).test(bank);
-    verify(intArrayToString).apply(bank);
-  }
+        assertThat(generatedResult).isEqualTo("123");
+        verify(randomDigitsSupplier).supply();
+        verify(numberElevenProof).test(bank);
+        verify(intArrayToString).apply(bank);
+    }
 }

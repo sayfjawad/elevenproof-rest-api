@@ -11,13 +11,13 @@ import org.springframework.context.ApplicationContext;
 @SpringBootTest
 class ApplicationTests {
 
-  @Autowired
-  ApplicationContext context;
+    @Autowired
+    ApplicationContext context;
 
-  @Test
-  void contextLoads() {
+    @Test
+    void contextLoads() {
 
-    final var bankAccountNumberGenerator = context.getBean(BankAccountNumberGenerator.class);
-    assertThat(bankAccountNumberGenerator).isNotNull();
-  }
+        final var bankAccountNumberGenerator = context.getBean(BankAccountNumberGenerator.class);
+        assertThat(bankAccountNumberGenerator).isNotNull();
+    }
 }

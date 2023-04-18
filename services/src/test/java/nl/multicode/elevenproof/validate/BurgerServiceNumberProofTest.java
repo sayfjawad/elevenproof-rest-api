@@ -7,36 +7,36 @@ import org.junit.jupiter.api.Test;
 
 class BurgerServiceNumberProofTest {
 
-  BurgerServiceNumberProof elevenProof;
+    BurgerServiceNumberProof elevenProof;
 
-  @BeforeEach
-  public void setup() {
+    @BeforeEach
+    public void setup() {
 
-    elevenProof = new BurgerServiceNumberProof();
-  }
+        elevenProof = new BurgerServiceNumberProof();
+    }
 
-  @Test
-  void isElevenProof() {
+    @Test
+    void isElevenProof() {
 
-    assertThat(elevenProof.test(new int[]{4, 3, 0, 3, 5, 3, 8, 0, 7})).isTrue();
-  }
+        assertThat(elevenProof.test(new int[]{4, 3, 0, 3, 5, 3, 8, 0, 7})).isTrue();
+    }
 
-  @Test
-  void isElevenProof_TooLong() {
+    @Test
+    void isElevenProof_TooLong() {
 
-    assertThat(elevenProof.test(new int[]{4, 3, 0, 3, 5, 3, 8, 0, 7, 9})).isFalse();
-  }
+        assertThat(elevenProof.test(new int[]{4, 3, 0, 3, 5, 3, 8, 0, 7, 9})).isFalse();
+    }
 
-  @Test
-  void isElevenProof_Null() {
+    @Test
+    void isElevenProof_Null() {
 
-    assertThat(elevenProof.test(null)).isFalse();
-  }
+        assertThat(elevenProof.test(null)).isFalse();
+    }
 
-  @Test
-  void isNotElevenProof() {
+    @Test
+    void isNotElevenProof() {
 
-    assertThat(elevenProof.test(new int[]{1, 2, 3, 4, 8, 8, 8, 8})).isFalse();
-    assertThat(elevenProof.test(new int[]{1, 2, 3, 4, 8, 8, 8, 8,9})).isFalse();
-  }
+        assertThat(elevenProof.test(new int[]{1, 2, 3, 4, 8, 8, 8, 8})).isFalse();
+        assertThat(elevenProof.test(new int[]{1, 2, 3, 4, 8, 8, 8, 8, 9})).isFalse();
+    }
 }

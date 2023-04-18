@@ -7,36 +7,36 @@ import org.junit.jupiter.api.Test;
 
 class BankAccountNumberDtoElevenProofTest {
 
-  BankAccountNumberElevenProof elevenProof;
+    BankAccountNumberElevenProof elevenProof;
 
-  @BeforeEach
-  public void setup() {
+    @BeforeEach
+    public void setup() {
 
-    elevenProof = new BankAccountNumberElevenProof();
-  }
+        elevenProof = new BankAccountNumberElevenProof();
+    }
 
-  @Test
-  void isElevenProof() {
+    @Test
+    void isElevenProof() {
 
-    assertThat(elevenProof.test(new int[]{0, 4, 8, 4, 8, 4, 8, 4, 8, 8})).isTrue();
-  }
+        assertThat(elevenProof.test(new int[]{0, 4, 8, 4, 8, 4, 8, 4, 8, 8})).isTrue();
+    }
 
-  @Test
-  void isElevenProof_TooLong() {
+    @Test
+    void isElevenProof_TooLong() {
 
-    assertThat(elevenProof.test(new int[]{0, 4, 8, 4, 8, 4, 8, 4, 8, 8, 9})).isFalse();
-  }
+        assertThat(elevenProof.test(new int[]{0, 4, 8, 4, 8, 4, 8, 4, 8, 8, 9})).isFalse();
+    }
 
-  @Test
-  void isElevenProof_Null() {
+    @Test
+    void isElevenProof_Null() {
 
-    assertThat(elevenProof.test(null)).isFalse();
-  }
+        assertThat(elevenProof.test(null)).isFalse();
+    }
 
-  @Test
-  void isNotElevenProof() {
+    @Test
+    void isNotElevenProof() {
 
-    assertThat(elevenProof.test(new int[]{1, 2, 3, 4, 8, 8, 8, 8, 8})).isFalse();
-    assertThat(elevenProof.test(new int[]{1, 2, 3, 4, 8, 8, 8, 8, 8,9})).isFalse();
-  }
+        assertThat(elevenProof.test(new int[]{1, 2, 3, 4, 8, 8, 8, 8, 8})).isFalse();
+        assertThat(elevenProof.test(new int[]{1, 2, 3, 4, 8, 8, 8, 8, 8, 9})).isFalse();
+    }
 }

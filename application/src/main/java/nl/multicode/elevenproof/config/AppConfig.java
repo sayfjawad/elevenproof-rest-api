@@ -16,65 +16,69 @@ import org.springframework.context.annotation.Configuration;
 public class AppConfig {
 
 
-  @Bean
-  public BankAccountNumberGenerator getBankAccountNumberGenerator(IntArrayToString intArrayToString,
-      BankAccountNumberElevenProof bankAccountNumberElevenProof) {
+    @Bean
+    public BankAccountNumberGenerator getBankAccountNumberGenerator(
+            IntArrayToString intArrayToString,
+            BankAccountNumberElevenProof bankAccountNumberElevenProof) {
 
-    return new BankAccountNumberGenerator(
-        new FixedLengthStringRandomNumbersSupplier(BankAccountNumberGenerator.BANK_ACCOUNT_DIGITS_LENGTH),
-        intArrayToString,
-        bankAccountNumberElevenProof);
-  }
+        return new BankAccountNumberGenerator(
+                new FixedLengthStringRandomNumbersSupplier(
+                        BankAccountNumberGenerator.BANK_ACCOUNT_DIGITS_LENGTH),
+                intArrayToString,
+                bankAccountNumberElevenProof);
+    }
 
-  @Bean
-  public BurgerServiceNummerGenerator getBurgerServiceNummerGenerator(IntArrayToString intArrayToString,
-      BurgerServiceNumberProof burgerServiceNumberProof) {
+    @Bean
+    public BurgerServiceNummerGenerator getBurgerServiceNummerGenerator(
+            IntArrayToString intArrayToString,
+            BurgerServiceNumberProof burgerServiceNumberProof) {
 
-    return new BurgerServiceNummerGenerator(
-        new FixedLengthStringRandomNumbersSupplier(BurgerServiceNummerGenerator.BSN_DIGITS_LENGTH),
-        intArrayToString,
-        burgerServiceNumberProof);
-  }
+        return new BurgerServiceNummerGenerator(
+                new FixedLengthStringRandomNumbersSupplier(
+                        BurgerServiceNummerGenerator.BSN_DIGITS_LENGTH),
+                intArrayToString,
+                burgerServiceNumberProof);
+    }
 
-  @Bean
-  public BurgerServiceNumberProof getBsnElevenProof() {
+    @Bean
+    public BurgerServiceNumberProof getBsnElevenProof() {
 
-    return new BurgerServiceNumberProof();
-  }
+        return new BurgerServiceNumberProof();
+    }
 
-  @Bean
-  public BankAccountNumberElevenProof getBankAccountNumberElevenProof() {
+    @Bean
+    public BankAccountNumberElevenProof getBankAccountNumberElevenProof() {
 
-    return new BankAccountNumberElevenProof();
-  }
+        return new BankAccountNumberElevenProof();
+    }
 
-  @Bean
-  public IntArrayToString getIntArrayToString() {
+    @Bean
+    public IntArrayToString getIntArrayToString() {
 
-    return new IntArrayToString();
-  }
+        return new IntArrayToString();
+    }
 
-  @Bean
-  public StringToIntArray getStringToIntArray() {
+    @Bean
+    public StringToIntArray getStringToIntArray() {
 
-    return new StringToIntArray();
-  }
+        return new StringToIntArray();
+    }
 
-  @Bean
-  public BurgerServiceNumberService getBurgerServiceNumberService(
-      BurgerServiceNummerGenerator generator,
-      BurgerServiceNumberProof elevenProof,
-      StringToIntArray stringToIntArray) {
+    @Bean
+    public BurgerServiceNumberService getBurgerServiceNumberService(
+            BurgerServiceNummerGenerator generator,
+            BurgerServiceNumberProof elevenProof,
+            StringToIntArray stringToIntArray) {
 
-    return new BurgerServiceNumberService(generator, elevenProof, stringToIntArray);
-  }
+        return new BurgerServiceNumberService(generator, elevenProof, stringToIntArray);
+    }
 
-  @Bean
-  public BankAccountNumberService getBankAccountNumberService(
-      BankAccountNumberGenerator generator,
-      BankAccountNumberElevenProof elevenProof,
-      StringToIntArray stringToIntArray) {
+    @Bean
+    public BankAccountNumberService getBankAccountNumberService(
+            BankAccountNumberGenerator generator,
+            BankAccountNumberElevenProof elevenProof,
+            StringToIntArray stringToIntArray) {
 
-    return new BankAccountNumberService(generator, elevenProof, stringToIntArray);
-  }
+        return new BankAccountNumberService(generator, elevenProof, stringToIntArray);
+    }
 }

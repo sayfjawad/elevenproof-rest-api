@@ -2,7 +2,7 @@ package nl.multicode.elevenproof.service;
 
 public interface ElevenProofService<T> {
 
-  T generate();
+    T generate();
 
-  boolean isValid(String number);
+    boolean isValid(String number);
 }

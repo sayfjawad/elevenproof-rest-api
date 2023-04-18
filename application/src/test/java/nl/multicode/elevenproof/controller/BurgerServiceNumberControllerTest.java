@@ -18,29 +18,29 @@ import org.springframework.http.HttpStatusCode;
 @ExtendWith(MockitoExtension.class)
 class BurgerServiceNumberControllerTest {
 
-  @Mock
-  BurgerServiceNumberService service;
+    @Mock
+    BurgerServiceNumberService service;
 
-  @InjectMocks
-  BurgerServiceNumberController controller;
+    @InjectMocks
+    BurgerServiceNumberController controller;
 
-  @Test
-  void testGetBsn_bsn_generator_is_called() {
+    @Test
+    void testGetBsn_bsn_generator_is_called() {
 
-    when(service.generate()).thenReturn(mock(BurgerServiceNumberDto.class));
+        when(service.generate()).thenReturn(mock(BurgerServiceNumberDto.class));
 
-    assertThat(controller.generate().getStatusCode()).isEqualTo(HttpStatusCode.valueOf(200));
-    verify(service).generate();
-  }
+        assertThat(controller.generate().getStatusCode()).isEqualTo(HttpStatusCode.valueOf(200));
+        verify(service).generate();
+    }
 
-  @Test
-  void testValidateBsn_bsn_validation_valid_message() {
+    @Test
+    void testValidateBsn_bsn_validation_valid_message() {
 
-    final var bsn = "123456789";
-    when(service.isValid(bsn)).thenReturn(true);
+        final var bsn = "123456789";
+        when(service.isValid(bsn)).thenReturn(true);
 
-    controller.validate(bsn).getBody();
+        controller.validate(bsn).getBody();
 
-    verify(service).isValid(bsn);
-  }
+        verify(service).isValid(bsn);
+    }
 }

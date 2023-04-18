@@ -7,10 +7,10 @@ import org.springframework.boot.actuate.health.Status;
 
 class HealthControllerTest {
 
-  @Test
-  void getHealth() {
+    @Test
+    void getHealth() {
 
-    final var result = new HealthController().getHealth();
-    assertThat(result.getStatus()).isEqualTo(Status.UP);
-  }
+        final var result = new HealthController().getHealth();
+        assertThat(result.getStatus()).isEqualTo(Status.UP);
+    }
 }
