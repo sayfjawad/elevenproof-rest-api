@@ -1,21 +1,16 @@
 package nl.multicode.elevenproof;
 
-import io.cucumber.junit.Cucumber;
-import io.cucumber.junit.CucumberOptions;
-import io.cucumber.spring.CucumberContextConfiguration;
-import io.cucumber.spring.SpringFactory;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
+import static io.cucumber.junit.platform.engine.Constants.PLUGIN_PROPERTY_NAME;
 
-@RunWith(Cucumber.class)
-@CucumberOptions(
-        objectFactory = SpringFactory.class,
-        plugin = {"pretty"},
-        features = "src/test/resources/features",
-        monochrome = true
-)
-@CucumberContextConfiguration
-@SpringBootTest(classes = {Application.class})
+import org.junit.platform.suite.api.ConfigurationParameter;
+import org.junit.platform.suite.api.IncludeEngines;
+import org.junit.platform.suite.api.SelectClasspathResource;
+import org.junit.platform.suite.api.Suite;
+
+@Suite
+@IncludeEngines("cucumber")
+@SelectClasspathResource("features")
+@ConfigurationParameter(key = PLUGIN_PROPERTY_NAME, value = "pretty")
 public class RunCucumberTest {
 
 }

@@ -1,8 +1,0 @@
-host: "localhost"
-hostKafka: ${host}
-hostApplication: ${host}
-
-logging:
-  level:
-    root: DEBUG
-spring:
