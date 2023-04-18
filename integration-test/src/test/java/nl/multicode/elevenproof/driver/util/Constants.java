@@ -7,10 +7,6 @@ public class Constants {
 
     public static final URI ELEVENPROOF_REST_API_ENDPOINT;
 
-    private Constants() {
-
-    }
-
     static {
         try {
             ELEVENPROOF_REST_API_ENDPOINT = new URI(
@@ -18,5 +14,9 @@ public class Constants {
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private Constants() {
+
     }
 }

@@ -19,8 +19,10 @@ class BurgerServiceNummerGeneratorTest {
 
     @Mock
     private ObjectSupplier<int[]> randomDigitsSupplier;
+
     @Mock
     private IntArrayToString intArrayToString;
+
     @Mock
     private ElevenProof numberElevenProof;
 

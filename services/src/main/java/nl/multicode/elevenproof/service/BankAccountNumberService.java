@@ -9,22 +9,24 @@ import nl.multicode.elevenproof.validate.BankAccountNumberElevenProof;
 @RequiredArgsConstructor
 public class BankAccountNumberService implements ElevenProofService<BankAccountNumberDto> {
 
-  private final BankAccountNumberGenerator generator;
-  private final BankAccountNumberElevenProof elevenProof;
-  private final StringToIntArray stringToIntArray;
+    private final BankAccountNumberGenerator generator;
 
-  @Override
-  public BankAccountNumberDto generate() {
+    private final BankAccountNumberElevenProof elevenProof;
 
-    return BankAccountNumberDto.builder()
-        .number(generator.generate())
-        .build();
-  }
+    private final StringToIntArray stringToIntArray;
 
-  @Override
-  public boolean isValid(String number) {
+    @Override
+    public BankAccountNumberDto generate() {
 
-    final var bsnDigits = stringToIntArray.apply(number);
-    return elevenProof.test(bsnDigits);
-  }
+        return BankAccountNumberDto.builder()
+                .number(generator.generate())
+                .build();
+    }
+
+    @Override
+    public boolean isValid(String number) {
+
+        final var bsnDigits = stringToIntArray.apply(number);
+        return elevenProof.test(bsnDigits);
+    }
 }

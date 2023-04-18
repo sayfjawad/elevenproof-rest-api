@@ -23,6 +23,7 @@ import org.apache.http.HttpStatus;
 public class StepDefinitions {
 
     private Map<String, Object> context;
+
     private ObjectMapper objectMapper;
 
     @Before

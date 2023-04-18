@@ -9,22 +9,24 @@ import nl.multicode.elevenproof.validate.BurgerServiceNumberProof;
 @RequiredArgsConstructor
 public class BurgerServiceNumberService implements ElevenProofService<BurgerServiceNumberDto> {
 
-  private final BurgerServiceNummerGenerator generator;
-  private final BurgerServiceNumberProof elevenProof;
-  private final StringToIntArray stringToIntArray;
+    private final BurgerServiceNummerGenerator generator;
 
-  @Override
-  public BurgerServiceNumberDto generate() {
+    private final BurgerServiceNumberProof elevenProof;
 
-    return BurgerServiceNumberDto.builder()
-        .number(generator.generate())
-        .build();
-  }
+    private final StringToIntArray stringToIntArray;
 
-  @Override
-  public boolean isValid(String number) {
+    @Override
+    public BurgerServiceNumberDto generate() {
 
-    final var bsnDigits = stringToIntArray.apply(number);
-    return elevenProof.test(bsnDigits);
-  }
+        return BurgerServiceNumberDto.builder()
+                .number(generator.generate())
+                .build();
+    }
+
+    @Override
+    public boolean isValid(String number) {
+
+        final var bsnDigits = stringToIntArray.apply(number);
+        return elevenProof.test(bsnDigits);
+    }
 }

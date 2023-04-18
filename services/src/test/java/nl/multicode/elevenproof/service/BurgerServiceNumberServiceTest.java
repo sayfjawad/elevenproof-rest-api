@@ -19,8 +19,10 @@ class BurgerServiceNumberServiceTest {
 
     @Mock
     private BurgerServiceNummerGenerator generator;
+
     @Mock
     private BurgerServiceNumberProof elevenProof;
+
     @Mock
     private StringToIntArray stringToIntArray;
 

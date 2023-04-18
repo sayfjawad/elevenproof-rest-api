@@ -9,18 +9,21 @@ import nl.multicode.elevenproof.validate.ElevenProof;
 @RequiredArgsConstructor
 public class BurgerServiceNummerGenerator implements Generator {
 
-  public static final int BSN_DIGITS_LENGTH = 9;
-  private final ObjectSupplier<int[]> randomDigitsSupplier;
-  private final IntArrayToString intArrayToString;
-  private final ElevenProof numberElevenProof;
+    public static final int BSN_DIGITS_LENGTH = 9;
 
-  @Override
-  public String generate() {
+    private final ObjectSupplier<int[]> randomDigitsSupplier;
 
-    return Stream.generate(randomDigitsSupplier::supply)
-        .filter(numberElevenProof)
-        .map(intArrayToString)
-        .findFirst()
-        .orElse(null);
-  }
+    private final IntArrayToString intArrayToString;
+
+    private final ElevenProof numberElevenProof;
+
+    @Override
+    public String generate() {
+
+        return Stream.generate(randomDigitsSupplier::supply)
+                .filter(numberElevenProof)
+                .map(intArrayToString)
+                .findFirst()
+                .orElse(null);
+    }
 }

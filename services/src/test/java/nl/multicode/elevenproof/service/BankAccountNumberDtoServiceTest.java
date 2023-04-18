@@ -19,8 +19,10 @@ class BankAccountNumberDtoServiceTest {
 
     @Mock
     private BankAccountNumberGenerator generator;
+
     @Mock
     private BankAccountNumberElevenProof elevenProof;
+
     @Mock
     private StringToIntArray stringToIntArray;
 
