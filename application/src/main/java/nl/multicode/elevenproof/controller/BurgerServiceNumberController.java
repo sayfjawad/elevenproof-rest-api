@@ -1,7 +1,7 @@
 package nl.multicode.elevenproof.controller;
 
-import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import nl.multicode.elevenproof.service.ElevenproofBeforeBigBang;
 import nl.multicode.elevenproof.openapi.model.BurgerServiceNumber;
 import nl.multicode.elevenproof.service.BurgerServiceNumberService;
 import org.springframework.http.ResponseEntity;
@@ -17,21 +17,24 @@ import org.springframework.web.bind.annotation.RestController;
 public class BurgerServiceNumberController implements
         ElevenproofController<ResponseEntity<BurgerServiceNumber>> {
 
-    private final BurgerServiceNumberService service;
+    private final ElevenproofBeforeBigBang elevenproofBeforeBigBang;
 
     @GetMapping("/generate")
     public ResponseEntity<BurgerServiceNumber> generate() {
 
-        return ResponseEntity.ok(
-                BurgerServiceNumber.builder().number(service.generate().number()).build());
+        return ResponseEntity.ok(BurgerServiceNumber.builder()
+                .number(elevenproofBeforeBigBang.executeCommand(
+                        new String[]{"generate", "bank"}).getNumber())
+                .build());
     }
 
     @GetMapping("/validate/{number}")
-    public ResponseEntity<BurgerServiceNumber> validate(
-            @Valid @PathVariable("number") String number) {
+    public ResponseEntity<BurgerServiceNumber> validate(@PathVariable("number") String number) {
 
-        return ResponseEntity.ok(
-                BurgerServiceNumber.builder().number(number).isElevenproof(service.isValid(number))
-                        .build());
+        return ResponseEntity.ok(BurgerServiceNumber.builder()
+                .number(number)
+                .isElevenproof(elevenproofBeforeBigBang.executeCommand(
+                        new String[]{"validate", "bank", number}).isValid())
+                .build());
     }
 }
