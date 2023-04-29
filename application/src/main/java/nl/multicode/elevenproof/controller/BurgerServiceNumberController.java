@@ -3,7 +3,6 @@ package nl.multicode.elevenproof.controller;
 import lombok.RequiredArgsConstructor;
 import nl.multicode.elevenproof.service.ElevenproofBeforeBigBang;
 import nl.multicode.elevenproof.openapi.model.BurgerServiceNumber;
-import nl.multicode.elevenproof.service.BurgerServiceNumberService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

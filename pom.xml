@@ -16,10 +16,8 @@
   <packaging>pom</packaging>
 
   <modules>
-    <module>core</module>
     <module>application</module>
     <module>integration-test</module>
-    <module>services</module>
     <module>generated</module>
   </modules>
 
