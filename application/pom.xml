@@ -12,6 +12,10 @@
     <groupId>nl.multicode.elevenproof</groupId>
     <version>1.0-SNAPSHOT</version>
   </parent>
+  <properties>
+    <docker.hub.user>${env.DOCKER_HUB_USER}</docker.hub.user>
+    <docker.hub.pass>${env.DOCKER_HUB_PASS}</docker.hub.pass>
+  </properties>
 
   <dependencies>
     <dependency>
@@ -74,6 +78,11 @@
         <configuration>
           <to>
             <image>elevenproof-rest-api</image>
+            <image>registry.hub.docker.com/sayf4all/elevenproof-rest-api:latests</image>
+            <auth>
+              <username>${docker.hub.user}</username>
+              <password>${docker.hub.pass}</password>
+            </auth>
           </to>
         </configuration>
       </plugin>
