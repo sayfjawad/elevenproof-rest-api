@@ -1,100 +1,100 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://maven.apache.org/POM/4.0.0"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-
-  <parent>
-    <groupId>nl.multicode.elevenproof</groupId>
-    <artifactId>elevenproof-rest-api</artifactId>
-    <version>1.0-SNAPSHOT</version>
-  </parent>
-
   <artifactId>integration-test</artifactId>
-  <version>1.0-SNAPSHOT</version>
-
-  <description>This module is responsible for running integration tests</description>
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
-
-
-  <dependencies>
-    <dependency>
-      <groupId>nl.multicode.elevenproof</groupId>
-      <artifactId>generated</artifactId>
-      <version>1.0-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-      <groupId>io.cucumber</groupId>
-      <artifactId>cucumber-java</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>io.cucumber</groupId>
-      <artifactId>cucumber-junit-platform-engine</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.junit.platform</groupId>
-      <artifactId>junit-platform-suite</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>io.rest-assured</groupId>
-      <artifactId>rest-assured-all</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>io.rest-assured</groupId>
-      <artifactId>rest-assured</artifactId>
-      <scope>test</scope>
-    </dependency><dependency>
-    <groupId>org.modelmapper</groupId>
-    <artifactId>modelmapper</artifactId>
-  </dependency>
-    <dependency>
-      <groupId>com.vaadin.external.google</groupId>
-      <artifactId>android-json</artifactId>
-      <version>0.0.20131108.vaadin1</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
 
   <build>
     <plugins>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
           <skipTests>true</skipTests>
         </configuration>
+        <groupId>org.apache.maven.plugins</groupId>
       </plugin>
     </plugins>
   </build>
 
+  <dependencies>
+    <dependency>
+      <artifactId>generated</artifactId>
+      <groupId>nl.multicode.elevenproof</groupId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <artifactId>cucumber-java</artifactId>
+      <groupId>io.cucumber</groupId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <artifactId>cucumber-junit-platform-engine</artifactId>
+      <groupId>io.cucumber</groupId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <artifactId>junit-platform-suite</artifactId>
+      <groupId>org.junit.platform</groupId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <artifactId>junit-jupiter</artifactId>
+      <groupId>org.junit.jupiter</groupId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <artifactId>rest-assured-all</artifactId>
+      <groupId>io.rest-assured</groupId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <artifactId>rest-assured</artifactId>
+      <groupId>io.rest-assured</groupId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <artifactId>modelmapper</artifactId>
+      <groupId>org.modelmapper</groupId>
+    </dependency>
+    <dependency>
+      <artifactId>android-json</artifactId>
+      <groupId>com.vaadin.external.google</groupId>
+      <scope>test</scope>
+      <version>0.0.20131108.vaadin1</version>
+    </dependency>
+  </dependencies>
+
+  <description>This module is responsible for running integration tests</description>
+  <modelVersion>4.0.0</modelVersion>
+
+
+  <parent>
+    <artifactId>elevenproof-rest-api</artifactId>
+    <groupId>nl.multicode.elevenproof</groupId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+
   <profiles>
     <profile>
-      <id>integration-test</id>
       <build>
         <plugins>
           <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-surefire-plugin</artifactId>
             <configuration>
-              <skipTests>false</skipTests>
               <includes>
                 <include>**/*CucumberTest.java</include>
               </includes>
+              <skipTests>false</skipTests>
             </configuration>
+            <groupId>org.apache.maven.plugins</groupId>
           </plugin>
         </plugins>
       </build>
+      <id>integration-test</id>
     </profile>
   </profiles>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
 </project>
