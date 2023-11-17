@@ -35,7 +35,7 @@ class BurgerServiceNumberControllerRestTest {
     @Test
     void testGenerate() {
 
-        BurgerServiceNumberDto mockResponse = new BurgerServiceNumberDto("123456789");
+        final var mockResponse = new BurgerServiceNumberDto("123456789");
         when(service.generate()).thenReturn(mockResponse);
 
         RestAssuredMockMvc.given()
