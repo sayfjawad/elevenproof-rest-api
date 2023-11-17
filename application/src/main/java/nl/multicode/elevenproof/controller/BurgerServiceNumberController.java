@@ -23,16 +23,18 @@ public class BurgerServiceNumberController implements
     @GetMapping("/generate")
     public ResponseEntity<BurgerServiceNumber> generate() {
 
-        return ResponseEntity.ok(
-                BurgerServiceNumber.builder().number(service.generate().number()).build());
+        return ResponseEntity.ok(BurgerServiceNumber.builder()
+                .number(service.generate().number())
+                .build());
     }
 
     @GetMapping("/validate/{number}")
     public ResponseEntity<BurgerServiceNumber> validate(
             @Valid @PathVariable("number") String number) {
 
-        return ResponseEntity.ok(
-                BurgerServiceNumber.builder().number(number).isElevenproof(service.isValid(number))
-                        .build());
+        return ResponseEntity.ok(BurgerServiceNumber.builder()
+                .number(number)
+                .isElevenproof(service.isValid(number))
+                .build());
     }
 }
