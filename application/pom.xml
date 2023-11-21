@@ -33,6 +33,15 @@
             <image>registry.hub.docker.com/sayf4all/elevenproof-rest-api:latests</image>
             <image>elevenproof-rest-api</image>
           </to>
+          <container>
+            <jvmFlags>
+              <jvmFlag>-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005</jvmFlag>
+            </jvmFlags>
+            <ports>
+              <port>8080</port>
+              <port>5005</port>
+            </ports>
+          </container>
         </configuration>
         <groupId>com.google.cloud.tools</groupId>
       </plugin>
