@@ -76,6 +76,7 @@
 
   <profiles>
     <profile>
+      <id>integration-test</id>
       <build>
         <plugins>
           <plugin>
@@ -90,7 +91,6 @@
           </plugin>
         </plugins>
       </build>
-      <id>integration-test</id>
     </profile>
   </profiles>
 

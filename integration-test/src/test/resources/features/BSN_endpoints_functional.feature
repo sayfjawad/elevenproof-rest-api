@@ -1,4 +1,4 @@
-Feature: An example
+Feature: BSN number endpoints cucumber-test feature
 
   Scenario: Test BSN generation endpoint functionality
     Given the application is up and running

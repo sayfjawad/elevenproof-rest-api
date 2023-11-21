@@ -45,23 +45,23 @@ images to dockerhub.com
 ``` 
 DOCKER_HUB_USER={your dockerhub username}
 DOCKER_HUB_PASS={your dockerhub password}
+``` 
 
 #### Use sonarqube
 Create environment variables containing url/login/password to be able to connect your project to a
-SonarQube/SonarCloud instance.
+SonarQube/SonarCloud instance. 
 ``` 
-
 SONAR_URL=http://sonar.host.com
 SONAR_LOGIN=login
 SONAR_PASSWORD=password
+``` 
 
-```
+
 After building the project run:
 ```
-
 $ mvn sonar:sonar
-
 ```
+
 
 #### Integration testing using kubernetes
 Running automated tests to ensure functional expectations are met and prevent regression
@@ -72,10 +72,8 @@ Install Docker-Desktop and enable kuberenetes support in settings
 ## run the integration tests
 Make sure docker-desktop is running, build the necessary docker image using 'jib'
 ``` 
-
 $ cd application
 $ mvn jib:dockerBuild
-
 ```
 go to the integration-test folder
 ```
@@ -91,7 +89,12 @@ $ ./test.sh install
 $ ./test.sh port
 
 ```
-your kuberenetes pod should be running. now you can run cucumber tests
+your kuberenetes pod should be running. 
+Now you can run cucumber tests!
+
+``` 
+$ mvn clean install -Pintegration-test
+```
 
 #### Application usage
 

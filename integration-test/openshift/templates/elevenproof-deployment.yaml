@@ -33,7 +33,7 @@ spec:
               memory: 1Gi
             requests:
               cpu: 500m
-              memory: 1Gi
+              memory: 500Mi
           livenessProbe:
             httpGet:
               path: /appinfo/health/liveness

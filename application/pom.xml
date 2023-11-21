@@ -22,6 +22,9 @@
       <plugin>
         <artifactId>jib-maven-plugin</artifactId>
         <configuration>
+          <from>
+            <image>eclipse-temurin:17-jre-ubi9-minimal</image>
+          </from>
           <to>
             <auth>
               <password>${docker.hub.pass}</password>
