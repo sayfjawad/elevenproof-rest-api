@@ -15,3 +15,6 @@ spec:
     - name: http
       port: 8080
       targetPort: http
+    - name: debug
+      port: 5005
+      targetPort: http
