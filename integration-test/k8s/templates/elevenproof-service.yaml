@@ -17,4 +17,4 @@ spec:
       targetPort: http
     - name: debug
       port: 5005
-      targetPort: http
+      targetPort: 5005
