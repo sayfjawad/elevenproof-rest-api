@@ -13,14 +13,14 @@ function uninstall() {
   helm uninstall --debug "integratie-test"
 }
 function install() {
-  helm install --wait --wait-for-jobs --debug --values "$BASEDIR/openshift/values.yaml,$BASEDIR/openshift/values-local.yaml" "integratie-test" "$BASEDIR/openshift"
+  helm install --wait --wait-for-jobs --debug --values "$BASEDIR/k8s/values.yaml,$BASEDIR/k8s/values-local.yaml" "integratie-test" "$BASEDIR/k8s"
 }
 function portforwarding() {
   kubectl port-forward service/elevenproof-rest-api 8080:8080 &
   kubectl port-forward service/elevenproof-rest-api 5005:5005 &
 }
 function template() {
-  helm template r1 --debug --values "$BASEDIR/openshift/values.yaml,$BASEDIR/openshift/values-local.yaml" "$BASEDIR/openshift"
+  helm template r1 --debug --values "$BASEDIR/k8s/values.yaml,$BASEDIR/k8s/values-local.yaml" "$BASEDIR/k8s"
 }
 case "${1:-}" in
 "usage" | "--help")
