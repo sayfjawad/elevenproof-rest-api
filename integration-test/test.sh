@@ -9,8 +9,31 @@ printUsageAndExit() {
   echo "       test.sh port"
   exit 1
 }
+# Function to kill processes binding to a specific port
+kill_port() {
+    port=$1
+    echo "Checking for processes binding to port $port"
+
+    # Use lsof to find processes using the specified port and extract their PIDs
+    pids=$(lsof -nPi :$port | grep LISTEN | awk '{print $2}')
+
+    # Check if we found any PIDs
+    if [ -z "$pids" ]; then
+        echo "No processes found binding to port $port."
+    else
+        # Kill each process found
+        for pid in $pids; do
+            echo "Killing process $pid binding to port $port"
+            kill -9 $pid
+        done
+    fi
+}
 function uninstall() {
   helm uninstall --debug "integratie-test"
+  # Ports to be checked and cleaned
+  kill_port 8080
+  kill_port 5005
+  echo "Uninstall tasks completed."
 }
 function install() {
   helm install --wait --wait-for-jobs --debug --values "$BASEDIR/k8s/values.yaml,$BASEDIR/k8s/values-local.yaml" "integratie-test" "$BASEDIR/k8s"
