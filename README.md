@@ -31,7 +31,7 @@ Java 17
 Spring Boot 3.x
 Maven
 docker
-kubernetes (k8s)
+kubernetes (k8s) # P.S. docker-desktop has a kubernetes implementation you can use
 helm
 kubectl
 ```
