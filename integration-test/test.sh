@@ -31,9 +31,11 @@ kill_port() {
 function uninstall() {
   helm uninstall --debug "integratie-test"
   # Ports to be checked and cleaned
+  kubectl delete service elevenproof-rest-api
+  kubectl delete service eleven-proof-api-service
   kill_port 8080
   kill_port 5005
-  echo "Uninstall tasks completed."
+#  echo "Uninstall tasks completed."
 }
 function install() {
   helm install --wait --wait-for-jobs --debug --values "$BASEDIR/k8s/values.yaml,$BASEDIR/k8s/values-local.yaml" "integratie-test" "$BASEDIR/k8s"
