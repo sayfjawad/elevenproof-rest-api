@@ -1,11 +1,11 @@
 Feature: BankNumber endpoints cucumber-test feature
 
-  Scenario: Test BSN generation endpoint functionality
+  Scenario: Test Bank generation endpoint functionality
     Given the application is up and running
     When endpoint /api/bank/generate is called
     Then generated BANK is expected to be valid
 
-  Scenario Outline: Test BSN validation endpoint functionality
+  Scenario Outline: Test Bank validation endpoint functionality
     Given the application is up and running
     When endpoint /api/bank/validate/<validNumber> is called
     Then validated BANK is expected to be <valid>
@@ -16,4 +16,4 @@ Feature: BankNumber endpoints cucumber-test feature
       | 0243886143  | false |
       | 0420301143  | true  |
       | 7153405860  | true  |
-      | 55676531111 | false |
+      | 5567653111  | false |

@@ -28,7 +28,12 @@ This project uses:
 
 ```
 Java 17
+Spring Boot 3.x
 Maven
+docker
+kubernetes (k8s)
+helm
+kubectl
 ```
 
 #### Build Application
