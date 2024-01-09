@@ -1,5 +1,7 @@
 package nl.multicode.elevenproof.config;
 
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.servers.Server;
 import nl.multicode.elevenproof.generate.BankAccountNumberGenerator;
 import nl.multicode.elevenproof.generate.BurgerServiceNummerGenerator;
 import nl.multicode.elevenproof.generate.supplier.FixedLengthStringRandomNumbersSupplier;
@@ -15,6 +17,15 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AppConfig {
 
+    @Bean
+    public OpenAPI customOpenAPI() {
+
+        OpenAPI openapi = new OpenAPI();
+        openapi.addServersItem(new Server().url("https://elevenproof.multicode.nl"));
+        openapi.addServersItem(new Server().url("http://elevenproof.multicode.nl"));
+        openapi.addServersItem(new Server().url("http://localhost:8080"));
+        return openapi;
+    }
 
     @Bean
     public BankAccountNumberGenerator getBankAccountNumberGenerator(

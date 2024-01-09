@@ -4,6 +4,6 @@ logging:
 
 springdoc:
   api-docs:
-    path: /apispecs/api-specs.yaml
+    path: /api/specs/api-specs.yaml
   swagger-ui:
     path: /api/swagger-ui.html

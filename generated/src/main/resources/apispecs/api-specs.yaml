@@ -3,8 +3,12 @@ info:
   title: OpenAPI definition
   version: v0
 servers:
+  - url: https://elevenproof.multicode.nl
+    description: Primary server URL
+  - url: http://elevenproof.multicode.nl
+    description: Fallback server URL
   - url: http://localhost:8080
-    description: Generated server url
+    description: Localhost server url
 paths:
   /appinfo/health/liveness:
     get:
