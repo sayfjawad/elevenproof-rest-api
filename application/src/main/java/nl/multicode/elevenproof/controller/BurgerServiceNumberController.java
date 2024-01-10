@@ -2,8 +2,10 @@ package nl.multicode.elevenproof.controller;
 
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import nl.multicode.elevenproof.model.BurgerServiceNumberDto;
 import nl.multicode.elevenproof.openapi.model.BurgerServiceNumber;
 import nl.multicode.elevenproof.service.BurgerServiceNumberService;
+import nl.multicode.elevenproof.service.ElevenProofService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class BurgerServiceNumberController implements
         ElevenproofController<ResponseEntity<BurgerServiceNumber>> {
 
-    private final BurgerServiceNumberService service;
+    private final ElevenProofService<BurgerServiceNumberDto> service;
 
     @GetMapping("/generate")
     public ResponseEntity<BurgerServiceNumber> generate() {
