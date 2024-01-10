@@ -20,7 +20,7 @@ public class AppConfig {
     @Bean
     public OpenAPI customOpenAPI() {
 
-        OpenAPI openapi = new OpenAPI();
+        final var openapi = new OpenAPI();
         openapi.addServersItem(new Server().url("https://elevenproof.multicode.nl"));
         openapi.addServersItem(new Server().url("http://elevenproof.multicode.nl"));
         openapi.addServersItem(new Server().url("http://localhost:8080"));

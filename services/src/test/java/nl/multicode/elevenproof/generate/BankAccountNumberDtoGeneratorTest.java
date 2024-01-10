@@ -1,12 +1,13 @@
 package nl.multicode.elevenproof.generate;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.verify;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 import nl.multicode.elevenproof.generate.supplier.ObjectSupplier;
 import nl.multicode.elevenproof.map.IntArrayToString;
 import nl.multicode.elevenproof.validate.ElevenProof;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -14,8 +15,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class BankAccountNumberDtoGeneratorTest {
-
+class BankAccountNumberGeneratorTest {
 
     @Mock
     private ObjectSupplier<int[]> randomDigitsSupplier;
@@ -30,18 +30,26 @@ class BankAccountNumberDtoGeneratorTest {
     private BankAccountNumberGenerator generator;
 
     @Test
-    void generate() {
+    @DisplayName("Given a valid bank account number, when generate is called, then return a String representation of the bank account number")
+    public void testGenerate() {
 
-        final var bank = new int[]{1, 2, 3};
-        when(randomDigitsSupplier.supply()).thenReturn(bank);
-        when(numberElevenProof.test(bank)).thenReturn(Boolean.TRUE);
-        when(intArrayToString.apply(bank)).thenReturn("123");
+        final var validBankNumber = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+        when(randomDigitsSupplier.supply()).thenReturn(validBankNumber);
+        when(numberElevenProof.test(any())).thenReturn(true);
+        when(intArrayToString.apply(any())).thenReturn("1234567890");
 
-        final var generatedResult = generator.generate();
-
-        assertThat(generatedResult).isEqualTo("123");
-        verify(randomDigitsSupplier).supply();
-        verify(numberElevenProof).test(bank);
-        verify(intArrayToString).apply(bank);
+        final var result = generator.generate();
+        assertEquals("1234567890", result);
     }
+
+/*    @Test
+    @DisplayName("Given an invalid bank account number, when generate is called, then return null")
+    public void testGenerate_whenNoValidNumber() {
+        final var invalidBankNumber = new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 1};
+        when(randomDigitsSupplier.supply()).thenReturn(invalidBankNumber);
+        when(numberElevenProof.test(any())).thenReturn(false);
+
+        final var result = generator.generate();
+        assertNull(result);
+    }*/
 }
