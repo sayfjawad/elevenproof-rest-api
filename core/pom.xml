@@ -2,6 +2,15 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns="http://maven.apache.org/POM/4.0.0"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <parent>
+    <artifactId>elevenproof-rest-api</artifactId>
+    <groupId>nl.multicode.elevenproof</groupId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+
+  <modelVersion>4.0.0</modelVersion>
+  <name>core</name>
   <artifactId>core</artifactId>
 
   <dependencies>
@@ -41,13 +50,4 @@
       <version>${jacoco-maven-plugin.version}</version>
     </dependency>
   </dependencies>
-
-  <modelVersion>4.0.0</modelVersion>
-  <name>core</name>
-
-  <parent>
-    <artifactId>elevenproof-rest-api</artifactId>
-    <groupId>nl.multicode.elevenproof</groupId>
-    <version>1.0-SNAPSHOT</version>
-  </parent>
 </project>
