@@ -20,10 +20,10 @@ jobs:
           distribution: 'adopt'
 
       - name: Build with Maven
-        run: mvn -B package --file pom.xml
+        run: mvn -B install
 
       - name: Test with Maven
-        run: mvn -B test --file pom.xml
+        run: mvn -B test
 
       - name: Build and Push application module Docker Image
         run: mvn -B jib:build -Djib.to.auth.username=${{ secrets.DOCKER_USERNAME }} -Djib.to.auth.password=${{ secrets.DOCKER_PASSWORD }}
