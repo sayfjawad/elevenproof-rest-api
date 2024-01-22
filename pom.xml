@@ -71,6 +71,7 @@
     <spring-boot-dependencies.version>3.0.5</spring-boot-dependencies.version>
     <springdoc-openapi.version>2.0.0</springdoc-openapi.version>
     <jib-maven-plugin.version>3.3.1</jib-maven-plugin.version>
+    <jib.skip>true</jib.skip> <!-- Skip Jib plugin by default -->
     <validation-api.version>2.0.1.Final</validation-api.version>
     <jackson-databind-nullable.version>0.2.6</jackson-databind-nullable.version>
     <swagger-annotations.version>2.2.8</swagger-annotations.version>
@@ -215,6 +216,13 @@
         <artifactId>modelmapper</artifactId>
         <version>${modelmapper.version}</version>
       </dependency>
+      <!-- https://mvnrepository.com/artifact/com.google.cloud.tools/jib-maven-plugin -->
+      <dependency>
+        <groupId>com.google.cloud.tools</groupId>
+        <artifactId>jib-maven-plugin</artifactId>
+        <version>${jib-maven-plugin.version}</version>
+      </dependency>
+
     </dependencies>
   </dependencyManagement>
 
@@ -309,6 +317,16 @@
             </goals>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>com.google.cloud.tools</groupId>
+        <artifactId>jib-maven-plugin</artifactId>
+        <configuration>
+          <to>
+            <image>elevenproof-rest-api</image>
+          </to>
+          <skip>${jib.skip}</skip> <!-- Use the property -->
+        </configuration>
       </plugin>
     </plugins>
   </build>
