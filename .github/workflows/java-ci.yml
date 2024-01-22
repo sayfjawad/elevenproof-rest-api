@@ -25,5 +25,8 @@ jobs:
       - name: Test with Maven
         run: mvn -B test --file pom.xml
 
-      - name: Build and Push Docker Image
-        run: mvn -pl application compile jib:build -Djib.to.auth.username=${{ secrets.DOCKERHUB_USERNAME }} -Djib.to.auth.password=${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build application module with Maven
+        run: mvn -B -f application/pom.xml clean package
+
+      - name: Build and Push application module Docker Image
+        run: mvn -B -f application/pom.xml compile jib:build -Djib.to.auth.username=${{ secrets.DOCKER_USERNAME }} -Djib.to.auth.password=${{ secrets.DOCKER_PASSWORD }}
