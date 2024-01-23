@@ -44,7 +44,7 @@
     <!-- PiTest settings -->
     <pit.coverageThreshold>75</pit.coverageThreshold>
     <pit.mutationThreshold>75</pit.mutationThreshold>
-    <pitest-junit5-plugin.version>1.1.2</pitest-junit5-plugin.version>
+    <pitest-junit5-plugin.version>1.2.1</pitest-junit5-plugin.version>
     <pitest-maven.version>1.11.7</pitest-maven.version>
 
     <!-- JaCoCo Properties -->
@@ -355,9 +355,9 @@
             </configuration>
             <dependencies>
               <dependency>
-                <artifactId>pitest-junit5-plugin</artifactId>
                 <groupId>org.pitest</groupId>
-                <version>${pitest-junit5-plugin.version}</version>
+                <artifactId>pitest-junit5-plugin</artifactId>
+                <version>1.2.1</version>
               </dependency>
             </dependencies>
             <executions>

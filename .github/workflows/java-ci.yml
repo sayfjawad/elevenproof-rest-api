@@ -27,5 +27,4 @@ jobs:
       - name: Build and Push Docker Image with Jib
         run: |
           IMAGE_ID=ghcr.io/${{ github.repository_owner }}/elevenproof-rest-api:${{ github.sha }}
-          mvn -B package
-          mvn -B -f application/pom.xml compile jib:build -Djib.to.image=$IMAGE_ID -Djib.to.auth.username=${{ github.actor }} -Djib.to.auth.password=${{ secrets.GITHUB_TOKEN }}
+          mvn -B package jib:build -Djib.to.image=$IMAGE_ID -Djib.to.auth.username=${{ github.actor }} -Djib.to.auth.password=${{ secrets.GITHUB_TOKEN }}
