@@ -24,6 +24,9 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
+      - name: Build and execute pitest
+        run: mvn -B package -Ppitest
+
       - name: Build and Push Docker Image with Jib
         run: |
           IMAGE_ID=ghcr.io/${{ github.repository_owner }}/elevenproof-rest-api:${{ github.sha }}
