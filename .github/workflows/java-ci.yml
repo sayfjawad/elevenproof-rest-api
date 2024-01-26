@@ -27,6 +27,14 @@ jobs:
       - name: Build and execute pitest
         run: mvn -B package -Ppitest
 
+      - name: Upload to SonarQube
+        run: mvn -B package sonar:sonar
+        env:
+          SONAR_URL: ${{ secrets.SONAR_URL }}
+          SONAR_LOGIN: ${{ secrets.SONAR_LOGIN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_PASSWORD: ${{ secrets.SONAR_PASSWORD }}
+
       - name: Build and Push Docker Image with Jib
         run: |
           IMAGE_ID=ghcr.io/${{ github.repository_owner }}/elevenproof-rest-api:${{ github.sha }}
