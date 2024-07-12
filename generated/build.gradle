@@ -1,0 +1,57 @@
+plugins {
+    id 'java'
+}
+
+group = 'nl.multicode.elevenproof'
+version = '1.0-SNAPSHOT'
+sourceCompatibility = '17'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "org.springframework.boot:spring-boot-starter-web"
+    implementation "org.openapitools:jackson-databind-nullable:${libs.versions.jacksonDatabindNullable}"
+    implementation "io.swagger.core.v3:swagger-annotations:${libs.versions.swaggerAnnotations}"
+    implementation "javax.annotation:javax.annotation-api:${libs.versions.javaxAnnotationApi}"
+    implementation "com.google.code.gson:gson:${libs.versions.gson}"
+    implementation "javax.validation:validation-api:${libs.versions.validationApi}"
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.boot:spring-boot-dependencies:${libs.versions.springBootDependencies}"
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+tasks.register('generateApi', JavaExec) {
+    group = 'build'
+    description = 'Generates the API code using OpenAPI Generator'
+    mainClass = 'org.openapitools.codegen.OpenAPIGenerator'
+    args = [
+            'generate',
+            '-i', "${projectDir}/src/main/resources/apispecs/api-specs.yaml",
+            '-g', 'spring',
+            '--additional-properties', 'dateLibrary=java8-localdatetime',
+            '--additional-properties', 'additionalModelTypeAnnotations=@lombok.Builder,@lombok.NoArgsConstructor,@lombok.AllArgsConstructor',
+            '-o', "${buildDir}/generated-sources"
+    ]
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs "${buildDir}/generated-sources/src/gen/java/main"
+        }
+    }
+}

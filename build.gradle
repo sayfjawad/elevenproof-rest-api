@@ -1,0 +1,125 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version libs.versions.springBootDependencies
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'com.google.cloud.tools.jib' version libs.versions.jibMavenPlugin apply false
+}
+
+allprojects {
+    group = 'nl.multicode.elevenproof'
+    version = '1.0-SNAPSHOT'
+    sourceCompatibility = '17'
+
+    repositories {
+        mavenCentral()
+    }
+
+    apply plugin: 'java'
+    apply plugin: 'io.spring.dependency-management'
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.boot:spring-boot-dependencies:${libs.versions.springBootDependencies}"
+        }
+    }
+
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
+
+    tasks.named('test') {
+        useJUnitPlatform()
+    }
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'io.spring.dependency-management'
+}
+
+dependencies {
+    testImplementation "org.junit.jupiter:junit-jupiter-engine"
+    testImplementation "org.junit.jupiter:junit-jupiter-params"
+    testImplementation "org.assertj:assertj-core"
+    testImplementation "org.pitest:pitest-maven"
+    testImplementation "org.mockito:mockito-core"
+    testImplementation "org.mockito:mockito-junit-jupiter"
+    provided "org.projectlombok:lombok"
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.boot:spring-boot-dependencies:${libs.versions.springBootDependencies}"
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+bootJar {
+    archiveFileName = "${project.name}-${project.version}.jar"
+}
+
+jib {
+    to {
+        image = 'elevenproof-rest-api'
+    }
+    container {
+        jvmFlags = ['-Xms512m', '-Xmx1024m']
+    }
+    setAllowInsecureRegistries(true)
+}
+
+jacoco {
+    toolVersion = libs.versions.jacocoMavenPlugin
+}
+
+tasks.withType(Test) {
+    finalizedBy 'jacocoTestReport'
+}
+
+tasks.register('jacocoTestReport', JacocoReport) {
+    dependsOn tasks.test
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+    classDirectories.setFrom(files(classDirectories.files.collect {
+        fileTree(dir: it, exclude: ['**/test/**', '**/model/**', '**/dto/**', '**/Application*', '**/config/**'])
+    }))
+    sourceDirectories.setFrom(files('src/main/java'))
+    executionData.setFrom(files("${buildDir}/jacoco/test.exec"))
+}
+
+tasks.register('pitest', JavaExec) {
+    group = 'verification'
+    description = 'Run PIT Mutation Testing'
+    mainClass = 'org.pitest.mutationtest.commandline.MutationCoverageReport'
+    classpath = sourceSets.main.runtimeClasspath
+    args = [
+            '--reportDir', "${buildDir}/reports/pitest",
+            '--targetClasses', 'nl.multicode.*',
+            '--targetTests', 'nl.multicode.*',
+            '--excludedClasses', 'nl.multicode.elevenproof.config.*',
+            '--sourceDirs', 'src/main/java',
+            '--timestampedReports=false'
+    ]
+    environment 'PITEST_VERSION', libs.versions.pitestMaven
+}
+
+tasks.register('skipJib') {
+    doFirst {
+        tasks.withType(JavaExec) {
+            onlyIf { false }
+        }
+    }
+}
+
+tasks.named('build') {
+    dependsOn tasks.jacocoTestReport
+}

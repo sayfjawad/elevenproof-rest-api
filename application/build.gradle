@@ -1,0 +1,58 @@
+plugins {
+    id 'org.springframework.boot' version libs.versions.springBootDependencies
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'com.google.cloud.tools.jib' version libs.versions.jibMavenPlugin
+    id 'java'
+}
+
+group = 'nl.multicode.elevenproof'
+version = '1.0-SNAPSHOT'
+sourceCompatibility = '17'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':core')
+    implementation project(':services')
+    implementation project(':generated')
+
+    implementation "org.springframework.boot:spring-boot-starter-web"
+    implementation "org.springframework.boot:spring-boot-starter-validation"
+    implementation "org.springframework.boot:spring-boot-starter-actuator"
+
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
+    testImplementation "io.rest-assured:rest-assured-all"
+    testImplementation "io.rest-assured:rest-assured"
+    testImplementation "io.rest-assured:spring-mock-mvc"
+    implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2"
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.boot:spring-boot-dependencies:${libs.versions.springBootDependencies}"
+    }
+}
+
+bootJar {
+    archiveFileName = "${project.name}-${project.version}.jar"
+}
+
+jib {
+    to {
+        image = 'elevenproof-rest-api'
+    }
+    container {
+        jvmFlags = ['-Xms512m', '-Xmx1024m']
+    }
+    setAllowInsecureRegistries(true)
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

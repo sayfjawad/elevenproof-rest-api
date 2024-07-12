@@ -1,0 +1,52 @@
+[versions]
+springBootDependencies = "3.0.5"
+junitJupiter = "5.9.2"
+lombok = "1.18.24"
+mavenCompilerPlugin = "3.10.1"
+mavenSurefirePlugin = "3.0.0"
+mockitoCore = "5.1.1"
+assertjCore = "3.23.1"
+pitestJunit5Plugin = "1.2.1"
+pitestMaven = "1.11.7"
+jacocoMavenPlugin = "0.8.8"
+springdocOpenapi = "2.0.0"
+jibMavenPlugin = "3.3.1"
+validationApi = "2.0.1.Final"
+jacksonDatabindNullable = "0.2.6"
+swaggerAnnotations = "2.2.8"
+javaxAnnotationApi = "1.3.2"
+gson = "2.10.1"
+modelmapper = "2.4.4"
+restassured = "5.4.0"
+
+[libraries]
+springBootDependencies = { group = "org.springframework.boot", name = "spring-boot-dependencies", version.ref = "springBootDependencies" }
+junitJupiterEngine = { group = "org.junit.jupiter", name = "junit-jupiter-engine", version.ref = "junitJupiter" }
+junitJupiterParams = { group = "org.junit.jupiter", name = "junit-jupiter-params", version.ref = "junitJupiter" }
+assertjCore = { group = "org.assertj", name = "assertj-core", version.ref = "assertjCore" }
+mockitoCore = { group = "org.mockito", name = "mockito-core", version.ref = "mockitoCore" }
+mockitoJunitJupiter = { group = "org.mockito", name = "mockito-junit-jupiter", version.ref = "mockitoCore" }
+lombok = { group = "org.projectlombok", name = "lombok", version.ref = "lombok" }
+pitestMaven = { group = "org.pitest", name = "pitest-maven", version.ref = "pitestMaven" }
+jacocoMavenPlugin = { group = "org.jacoco", name = "jacoco-maven-plugin", version.ref = "jacocoMavenPlugin" }
+springdocOpenapi = { group = "org.springdoc", name = "springdoc-openapi-starter-webmvc-ui", version.ref = "springdocOpenapi" }
+jibMavenPlugin = { group = "com.google.cloud.tools", name = "jib-maven-plugin", version.ref = "jibMavenPlugin" }
+validationApi = { group = "javax.validation", name = "validation-api", version.ref = "validationApi" }
+jacksonDatabindNullable = { group = "org.openapitools", name = "jackson-databind-nullable", version.ref = "jacksonDatabindNullable" }
+swaggerAnnotations = { group = "io.swagger.core.v3", name = "swagger-annotations", version.ref = "swaggerAnnotations" }
+javaxAnnotationApi = { group = "javax.annotation", name = "javax.annotation-api", version.ref = "javaxAnnotationApi" }
+gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
+modelmapper = { group = "org.modelmapper", name = "modelmapper", version.ref = "modelmapper" }
+restassured = { group = "io.rest-assured", name = "spring-mock-mvc", version.ref = "restassured" }
+
+[bundles]
+springBootBundle = ["springBootDependencies"]
+testBundle = ["junitJupiterEngine", "junitJupiterParams", "assertjCore", "mockitoCore", "mockitoJunitJupiter"]
+
+[plugins]
+springBoot = { id = "org.springframework.boot", version.ref = "springBootDependencies" }
+mavenCompiler = { id = "org.apache.maven.plugins", name = "maven-compiler-plugin", version.ref = "mavenCompilerPlugin" }
+mavenSurefire = { id = "org.apache.maven.plugins", name = "maven-surefire-plugin", version.ref = "mavenSurefirePlugin" }
+jib = { id = "com.google.cloud.tools", name = "jib-maven-plugin", version.ref = "jibMavenPlugin" }
+pitest = { id = "org.pitest", name = "pitest-maven", version.ref = "pitestMaven" }
+jacoco = { id = "org.jacoco", name = "jacoco-maven-plugin", version.ref = "jacocoMavenPlugin" }

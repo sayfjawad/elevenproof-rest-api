@@ -1,0 +1,5 @@
+rootProject.name = 'elevenproof-rest-api'
+include 'core', 'generated', 'services', 'application', 'integration-test'
+
+
+
