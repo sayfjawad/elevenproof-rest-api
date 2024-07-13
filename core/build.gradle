@@ -17,12 +17,11 @@ dependencies {
     testImplementation "org.pitest:pitest-maven"
     testImplementation "org.mockito:mockito-core"
     testImplementation "org.mockito:mockito-junit-jupiter"
-    implementation "org.jacoco:jacoco-maven-plugin:${libs.versions.jacocoMavenPlugin}"
 }
 
 dependencyManagement {
     imports {
-        mavenBom "org.springframework.boot:spring-boot-dependencies:${libs.versions.springBootDependencies}"
+        mavenBom "org.springframework.boot:spring-boot-dependencies:${libs.versions.springBoot}"
     }
 }
 

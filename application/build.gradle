@@ -1,8 +1,9 @@
+// Submodule build.gradle (for example, application/build.gradle)
+
 plugins {
-    id 'org.springframework.boot' version libs.versions.springBootDependencies
-    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
-    id 'com.google.cloud.tools.jib' version libs.versions.jibMavenPlugin
     id 'java'
+    alias(libs.plugins.springBoot)
+    alias(libs.plugins.springBootDependencyManagement)
 }
 
 group = 'nl.multicode.elevenproof'
@@ -27,26 +28,6 @@ dependencies {
     testImplementation "io.rest-assured:rest-assured"
     testImplementation "io.rest-assured:spring-mock-mvc"
     implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2"
-}
-
-dependencyManagement {
-    imports {
-        mavenBom "org.springframework.boot:spring-boot-dependencies:${libs.versions.springBootDependencies}"
-    }
-}
-
-bootJar {
-    archiveFileName = "${project.name}-${project.version}.jar"
-}
-
-jib {
-    to {
-        image = 'elevenproof-rest-api'
-    }
-    container {
-        jvmFlags = ['-Xms512m', '-Xmx1024m']
-    }
-    setAllowInsecureRegistries(true)
 }
 
 tasks.withType(JavaCompile) {

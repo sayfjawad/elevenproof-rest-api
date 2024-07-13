@@ -21,7 +21,7 @@ dependencies {
 
 dependencyManagement {
     imports {
-        mavenBom "org.springframework.boot:spring-boot-dependencies:${libs.versions.springBootDependencies}"
+        mavenBom "org.springframework.boot:spring-boot-dependencies:${libs.versions.springBoot}"
     }
 }
 
