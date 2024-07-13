@@ -2,6 +2,8 @@
 
 plugins {
     id 'java'
+    alias libs.plugins.springBoot
+    alias libs.plugins.springBootDependencyManagement
 }
 
 group = 'nl.multicode.elevenproof'
@@ -52,10 +54,7 @@ tasks.named('compileGeneratedJava') {
     dependsOn tasks.named('generateApi')
 }
 
-tasks.named('compileJava') {
-    dependsOn tasks.named('compileGeneratedJava')
-}
-
 compileJava {
     source sourceSets.generated.java
 }
+

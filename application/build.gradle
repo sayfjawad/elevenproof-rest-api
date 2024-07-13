@@ -13,6 +13,12 @@ repositories {
     mavenCentral()
 }
 
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.boot:spring-boot-dependencies:${libs.versions.springBoot}"
+    }
+}
+
 dependencies {
     implementation project(':core')
     implementation project(':services')
@@ -35,4 +41,9 @@ tasks.withType(JavaCompile) {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+// Ensure the application module waits for the generated code
+tasks.named('compileJava') {
+    dependsOn project(':generated').tasks.named('generateApi')
 }
