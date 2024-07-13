@@ -1,36 +1,36 @@
+// generated/build.gradle
+
 plugins {
     id 'java'
 }
 
 group = 'nl.multicode.elevenproof'
 version = '1.0-SNAPSHOT'
-sourceCompatibility = '17'
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation "org.springframework.boot:spring-boot-starter-web"
-    implementation "org.openapitools:jackson-databind-nullable:${libs.versions.jacksonDatabindNullable}"
-    implementation "io.swagger.core.v3:swagger-annotations:${libs.versions.swaggerAnnotations}"
-    implementation "javax.annotation:javax.annotation-api:${libs.versions.javaxAnnotationApi}"
-    implementation "com.google.code.gson:gson:${libs.versions.gson}"
-    implementation "javax.validation:validation-api:${libs.versions.validationApi}"
+    implementation libs.springBootWeb
+    implementation libs.jacksonDatabindNullable
+    implementation libs.swaggerAnnotations
+    implementation libs.javaxAnnotationApi
+    implementation libs.gson
+    implementation libs.validationApi
 }
 
-dependencyManagement {
-    imports {
-        mavenBom "org.springframework.boot:spring-boot-dependencies:${libs.versions.springBoot}"
+sourceSets {
+    generated {
+        java {
+            srcDirs "${buildDir}/generated-sources/src/gen/java/main"
+        }
     }
-}
-
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
-}
-
-tasks.named('test') {
-    useJUnitPlatform()
+    main {
+        java {
+            srcDirs = ['src/main/java']
+        }
+    }
 }
 
 tasks.register('generateApi', JavaExec) {
@@ -48,10 +48,14 @@ tasks.register('generateApi', JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
 }
 
-sourceSets {
-    main {
-        java {
-            srcDirs "${buildDir}/generated-sources/src/gen/java/main"
-        }
-    }
+tasks.named('compileGeneratedJava') {
+    dependsOn tasks.named('generateApi')
+}
+
+tasks.named('compileJava') {
+    dependsOn tasks.named('compileGeneratedJava')
+}
+
+compileJava {
+    source sourceSets.generated.java
 }

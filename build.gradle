@@ -60,3 +60,5 @@ tasks.register('pitest', JavaExec) {
     ]
     environment 'PITEST_VERSION', libs.versions.pitestMaven
 }
+
+evaluationDependsOn(':generated')

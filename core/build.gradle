@@ -4,19 +4,17 @@ plugins {
 
 group = 'nl.multicode.elevenproof'
 version = '1.0-SNAPSHOT'
-sourceCompatibility = '17'
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    testImplementation "org.junit.jupiter:junit-jupiter-engine"
-    testImplementation "org.junit.jupiter:junit-jupiter-params"
-    testImplementation "org.assertj:assertj-core"
-    testImplementation "org.pitest:pitest-maven"
-    testImplementation "org.mockito:mockito-core"
-    testImplementation "org.mockito:mockito-junit-jupiter"
+    testImplementation libs.junitJupiterEngine
+    testImplementation libs.junitJupiterParams
+    testImplementation libs.assertjCore
+    testImplementation libs.mockitoCore
+    testImplementation libs.mockitoJunitJupiter
 }
 
 dependencyManagement {
