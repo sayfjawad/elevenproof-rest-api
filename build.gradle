@@ -2,8 +2,8 @@
 
 plugins {
     id 'java'
-    alias(libs.plugins.springBoot) apply false
-    alias(libs.plugins.springBootDependencyManagement) apply false
+    alias libs.plugins.springBoot apply false
+    alias libs.plugins.springBootDependencyManagement apply false
 }
 
 allprojects {
@@ -24,6 +24,12 @@ allprojects {
 
     tasks.named('test') {
         useJUnitPlatform()
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.boot:spring-boot-dependencies:${libs.versions.springBoot}"
+        }
     }
 
     dependencies {

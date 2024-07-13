@@ -20,6 +20,7 @@ dependencies {
     implementation libs.javaxAnnotationApi
     implementation libs.gson
     implementation libs.validationApi
+    implementation libs.openApiGeneratorCli
 }
 
 sourceSets {
@@ -43,11 +44,13 @@ tasks.register('generateApi', JavaExec) {
             'generate',
             '-i', "${projectDir}/src/main/resources/apispecs/api-specs.yaml",
             '-g', 'spring',
+            '--api-package', 'nl.multicode.elevenproof.api',
+            '--model-package', 'nl.multicode.elevenproof.model',
             '--additional-properties', 'dateLibrary=java8-localdatetime',
             '--additional-properties', 'additionalModelTypeAnnotations=@lombok.Builder,@lombok.NoArgsConstructor,@lombok.AllArgsConstructor',
             '-o', "${buildDir}/generated-sources"
     ]
-    classpath = sourceSets.main.runtimeClasspath
+    classpath = sourceSets.main.runtimeClasspath + configurations.runtimeClasspath
 }
 
 tasks.named('compileGeneratedJava') {
@@ -58,3 +61,8 @@ compileJava {
     source sourceSets.generated.java
 }
 
+// Ensure the generated sources are included in the JAR
+tasks.named('jar') {
+    from sourceSets.generated.output
+    archiveBaseName.set("${project.name}")
+}
