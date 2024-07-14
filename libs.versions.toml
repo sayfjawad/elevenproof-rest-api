@@ -23,12 +23,16 @@ springBootWeb = { group = "org.springframework.boot", name = "spring-boot-starte
 springBootActuator = { group = "org.springframework.boot", name = "spring-boot-starter-actuator" } # version automatically set by dependency management
 springBootValidation = { group = "org.springframework.boot", name = "spring-boot-starter-validation" } # version automatically set by dependency management
 springBootTest = { group = "org.springframework.boot", name = "spring-boot-starter-test" } # version automatically set by dependency management
+
 lombok = { group = "org.projectlombok", name = "lombok", version.ref = "lombok" }
 junitJupiterEngine = { group = "org.junit.jupiter", name = "junit-jupiter-engine", version.ref = "junitJupiter" }
 junitJupiterParams = { group = "org.junit.jupiter", name = "junit-jupiter-params", version.ref = "junitJupiter" }
 assertjCore = { group = "org.assertj", name = "assertj-core", version.ref = "assertjCore" }
 mockitoCore = { group = "org.mockito", name = "mockito-core", version.ref = "mockitoCore" }
 mockitoJunitJupiter = { group = "org.mockito", name = "mockito-junit-jupiter", version.ref = "mockitoCore" }
+restassured = { group = "io.rest-assured", name = "spring-mock-mvc", version.ref = "restassured" }
+
+springdopcOpenAPIstarterWebmvc = { group = "org.springdoc", name = "springdoc-openapi-starter-webmvc-ui", version.ref = "springdocOpenapi" }
 springdocOpenapi = { group = "org.springdoc", name = "springdoc-openapi-starter-webmvc-ui", version.ref = "springdocOpenapi" }
 validationApi = { group = "javax.validation", name = "validation-api", version.ref = "validationApi" }
 jacksonDatabindNullable = { group = "org.openapitools", name = "jackson-databind-nullable", version.ref = "jacksonDatabindNullable" }
@@ -36,11 +40,8 @@ swaggerAnnotations = { group = "io.swagger.core.v3", name = "swagger-annotations
 javaxAnnotationApi = { group = "javax.annotation", name = "javax.annotation-api", version.ref = "javaxAnnotationApi" }
 gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 modelmapper = { group = "org.modelmapper", name = "modelmapper", version.ref = "modelmapper" }
-restassured = { group = "io.rest-assured", name = "spring-mock-mvc", version.ref = "restassured" }
-springdopcOpenAPIstarterWebmvc = { group = "org.springdoc", name = "springdoc-openapi-starter-webmvc-ui", version.ref = "springdocOpenapi" }
 
 [bundles]
-springBootBundle = ["springBootDependencies"]
 testBundle = ["junitJupiterEngine", "junitJupiterParams", "assertjCore", "mockitoCore", "mockitoJunitJupiter"]
 
 [plugins]

@@ -1,8 +1,7 @@
 import org.openapitools.generator.gradle.plugin.tasks.GenerateTask
 
 plugins {
-    id 'java'
-    id 'org.openapi.generator' version '6.2.1' // Ensure to check for the latest version
+    alias libs.plugins.openApiGenerator
     alias libs.plugins.springBoot
     alias libs.plugins.springBootDependencyManagement
 }
