@@ -1,68 +1,48 @@
-// generated/build.gradle
-
 plugins {
     id 'java'
-    alias libs.plugins.springBoot
-    alias libs.plugins.springBootDependencyManagement
+    id 'org.openapi.generator' version '6.2.1' // Ensure to check for the latest version
 }
-
-group = 'nl.multicode.elevenproof'
-version = '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation libs.springBootWeb
-    implementation libs.jacksonDatabindNullable
-    implementation libs.swaggerAnnotations
-    implementation libs.javaxAnnotationApi
-    implementation libs.gson
-    implementation libs.validationApi
-    implementation libs.openApiGeneratorCli
+    implementation 'io.swagger:swagger-annotations:1.6.4' // Adjust version as needed
+    implementation 'com.squareup.okhttp3:okhttp:4.9.3' // Add OkHttp dependency
+    implementation 'com.squareup.okio:okio:2.10.0' // Add Okio dependency
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.3' // Add OkHttp logging interceptor
+    implementation 'io.gsonfire:gson-fire:1.8.5' // Add GsonFire dependency
+    implementation 'javax.ws.rs:javax.ws.rs-api:2.1.1' // Add JAX-RS dependency
+    implementation 'javax.annotation:javax.annotation-api:1.3.2' // Add javax.annotation-api dependency
+    implementation 'org.jetbrains:annotations:24.0.1' // Add JetBrains annotations dependency
 }
 
-sourceSets {
-    generated {
-        java {
-            srcDirs "${buildDir}/generated-sources/src/gen/java/main"
-        }
-    }
-    main {
-        java {
-            srcDirs = ['src/main/java']
-        }
-    }
+// Ensure the generated sources are compiled
+sourceSets.main.java.srcDir "${projectDir}/build/generated/src/main/java"
+
+// Ensure the clean task deletes the generated files
+clean {
+    delete "${projectDir}/build/generated"
 }
 
-tasks.register('generateApi', JavaExec) {
-    group = 'build'
-    description = 'Generates the API code using OpenAPI Generator'
-    mainClass = 'org.openapitools.codegen.OpenAPIGenerator'
-    args = [
-            'generate',
-            '-i', "${projectDir}/src/main/resources/apispecs/api-specs.yaml",
-            '-g', 'spring',
-            '--api-package', 'nl.multicode.elevenproof.api',
-            '--model-package', 'nl.multicode.elevenproof.model',
-            '--additional-properties', 'dateLibrary=java8-localdatetime',
-            '--additional-properties', 'additionalModelTypeAnnotations=@lombok.Builder,@lombok.NoArgsConstructor,@lombok.AllArgsConstructor',
-            '-o', "${buildDir}/generated-sources"
+// Define the generateOpenApi task
+task generateOpenApi(type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask) {
+    generatorName = "java"
+    inputSpec = "${projectDir}/src/main/resources/apispecs/api-specs.yaml"
+    outputDir = "${projectDir}/build/generated"
+    apiPackage = "com.example.api"
+    modelPackage = "com.example.model"
+    configOptions = [
+            dateLibrary: "java8"
     ]
-    classpath = sourceSets.main.runtimeClasspath + configurations.runtimeClasspath
 }
 
-tasks.named('compileGeneratedJava') {
-    dependsOn tasks.named('generateApi')
-}
+// Ensure the openApiGenerate task runs before compileJava
+compileJava.dependsOn generateOpenApi
 
-compileJava {
-    source sourceSets.generated.java
-}
+// Ensure the openApiGenerate task runs before classes
+classes.dependsOn generateOpenApi
 
-// Ensure the generated sources are included in the JAR
-tasks.named('jar') {
-    from sourceSets.generated.output
-    archiveBaseName.set("${project.name}")
-}
+// Ensure the generateOpenApi task runs after clean
+generateOpenApi.mustRunAfter clean

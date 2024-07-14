@@ -11,12 +11,10 @@ repositories {
 
 dependencies {
     implementation project(':core')
-}
 
-dependencyManagement {
-    imports {
-        mavenBom "org.springframework.boot:spring-boot-dependencies:${libs.versions.springBoot}"
-    }
+    testImplementation libs.restassured
+    testImplementation libs.bundles.testBundle
+    testRuntimeOnly libs.junitJupiterEngine
 }
 
 tasks.withType(JavaCompile) {

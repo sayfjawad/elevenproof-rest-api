@@ -1,7 +1,6 @@
 // application/build.gradle
 
 plugins {
-    id 'java'
     alias(libs.plugins.springBoot)
     alias(libs.plugins.springBootDependencyManagement)
 }
@@ -21,12 +20,13 @@ dependencies {
     implementation libs.springBootWeb
     implementation libs.springBootActuator
     implementation libs.springBootValidation
-    implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2"
+    implementation libs.springdocOpenapi
+    implementation libs.springdopcOpenAPIstarterWebmvc
 
-    testImplementation "org.springframework.boot:spring-boot-starter-test"
-    testImplementation "io.rest-assured:rest-assured-all"
-    testImplementation "io.rest-assured:rest-assured"
-    testImplementation "io.rest-assured:spring-mock-mvc"
+    testImplementation libs.springBootTest
+    testImplementation libs.restassured
+    testImplementation libs.bundles.testBundle
+    testRuntimeOnly libs.junitJupiterEngine
 }
 
 tasks.withType(JavaCompile) {
@@ -35,10 +35,4 @@ tasks.withType(JavaCompile) {
 
 tasks.named('test') {
     useJUnitPlatform()
-}
-
-// Ensure the application module waits for the generated code
-tasks.named('compileJava') {
-    dependsOn project(':generated').tasks.named('generateApi')
-    dependsOn project(':generated').tasks.named('jar')
 }

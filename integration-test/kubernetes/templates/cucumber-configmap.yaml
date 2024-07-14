@@ -1,7 +1,0 @@
-kind: ConfigMap
-apiVersion: v1
-metadata:
-  name: {{ .Values.config.all.name }}-cucumber-configmap
-data:
-  cucumber.env: >
-    API_ENDPOINT="http://{{ .Values.config.all.name }}:8080"
