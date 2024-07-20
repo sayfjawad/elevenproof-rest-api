@@ -26,12 +26,6 @@ allprojects {
         useJUnitPlatform()
     }
 
-    dependencyManagement {
-        imports {
-            mavenBom "org.springframework.boot:spring-boot-dependencies:${libs.versions.springBoot}"
-        }
-    }
-
     dependencies {
         compileOnly libs.lombok
         annotationProcessor libs.lombok
@@ -51,20 +45,24 @@ dependencies {
     testImplementation libs.mockitoJunitJupiter
 }
 
-tasks.register('pitest', JavaExec) {
-    group = 'verification'
-    description = 'Run PIT Mutation Testing'
-    mainClass = 'org.pitest.mutationtest.commandline.MutationCoverageReport'
-    classpath = sourceSets.main.runtimeClasspath
-    args = [
-            '--reportDir', "${buildDir}/reports/pitest",
-            '--targetClasses', 'nl.multicode.*',
-            '--targetTests', 'nl.multicode.*',
-            '--excludedClasses', 'nl.multicode.elevenproof.config.*',
-            '--sourceDirs', 'src/main/java',
-            '--timestampedReports=false'
-    ]
-    environment 'PITEST_VERSION', libs.versions.pitestMaven
+task allDependencies {
+    subprojects.each { project ->
+        project.tasks.create(name: "printDependencies", type: DefaultTask) {
+            doLast {
+                println "Dependencies for project ${project.name}:"
+                project.configurations.each { configuration ->
+                    try {
+                        configuration.allDependencies.each { dependency ->
+                            println "  ${configuration.name} -> ${dependency.group}:${dependency.name}:${dependency.version}"
+                        }
+                    } catch (Exception e) {
+                        // Handle exceptions if needed
+                    }
+                }
+            }
+        }
+        dependsOn "${project.path}:printDependencies"
+    }
 }
 
 evaluationDependsOn(':generated')

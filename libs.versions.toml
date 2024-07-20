@@ -5,7 +5,6 @@ junitJupiter = "5.9.2"
 lombok = "1.18.24"
 mockitoCore = "5.1.1"
 assertjCore = "3.23.1"
-springdocOpenapi = "2.0.0"
 openApiGenerator = "6.2.0"
 jib = "3.4.3"
 validationApi = "2.0.1.Final"
@@ -18,7 +17,6 @@ restassured = "5.4.0"
 
 
 [libraries]
-springBootDependencies = { group = "org.springframework.boot", name = "spring-boot-dependencies", version.ref = "springBoot" }
 springBootWeb = { group = "org.springframework.boot", name = "spring-boot-starter-web" } # version automatically set by dependency management
 springBootActuator = { group = "org.springframework.boot", name = "spring-boot-starter-actuator" } # version automatically set by dependency management
 springBootValidation = { group = "org.springframework.boot", name = "spring-boot-starter-validation" } # version automatically set by dependency management
@@ -32,8 +30,6 @@ mockitoCore = { group = "org.mockito", name = "mockito-core", version.ref = "moc
 mockitoJunitJupiter = { group = "org.mockito", name = "mockito-junit-jupiter", version.ref = "mockitoCore" }
 restassured = { group = "io.rest-assured", name = "spring-mock-mvc", version.ref = "restassured" }
 
-springdopcOpenAPIstarterWebmvc = { group = "org.springdoc", name = "springdoc-openapi-starter-webmvc-ui", version.ref = "springdocOpenapi" }
-springdocOpenapi = { group = "org.springdoc", name = "springdoc-openapi-starter-webmvc-ui", version.ref = "springdocOpenapi" }
 validationApi = { group = "javax.validation", name = "validation-api", version.ref = "validationApi" }
 jacksonDatabindNullable = { group = "org.openapitools", name = "jackson-databind-nullable", version.ref = "jacksonDatabindNullable" }
 swaggerAnnotations = { group = "io.swagger.core.v3", name = "swagger-annotations", version.ref = "swaggerAnnotations" }

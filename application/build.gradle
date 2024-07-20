@@ -20,9 +20,9 @@ dependencies {
     implementation libs.springBootWeb
     implementation libs.springBootActuator
     implementation libs.springBootValidation
-    implementation libs.springdocOpenapi
-    implementation libs.springdopcOpenAPIstarterWebmvc
     implementation libs.validationApi
+//    implementation libs.springdopcWebmvcUI
+//    implementation libs.springdopcWebmvcAPI
 
     testImplementation libs.springBootTest
     testImplementation libs.restassured
