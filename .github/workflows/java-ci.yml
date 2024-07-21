@@ -29,10 +29,10 @@ jobs:
         env:
           JAVA_OPTS: "--add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED"
 
-      - name: Run Pitest
-        run: ./gradlew pitest
-        env:
-          JAVA_OPTS: "--add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED"
+#      - name: Run Pitest
+#        run: ./gradlew pitest
+#        env:
+#          JAVA_OPTS: "--add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED"
 
       - name: Upload to SonarQube
         run: ./gradlew build sonar

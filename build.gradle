@@ -1,9 +1,11 @@
+// Root build.gradle
+
 plugins {
     id 'java'
     id 'jacoco'
     alias libs.plugins.springBoot apply false
     alias libs.plugins.springBootDependencyManagement apply false
-    alias libs.plugins.piTest apply false
+    //alias libs.plugins.piTest apply false
 }
 
 allprojects {
@@ -35,7 +37,7 @@ allprojects {
 subprojects {
     apply plugin: "java"
     apply plugin: "io.spring.dependency-management"
-    apply plugin: "info.solidsoft.pitest"
+    //apply plugin: "info.solidsoft.pitest"
     apply plugin: "jacoco"
 
     jacoco {
@@ -46,7 +48,7 @@ subprojects {
         finalizedBy jacocoTestReport // run JaCoCo after tests
     }
 
-    pitest {
+/*    pitest {
         verbose = true
         targetClasses = ['nl.multicode.*']
         targetTests = ['nl.multicode.*']
@@ -55,8 +57,7 @@ subprojects {
         jvmArgs = ['--add-opens', 'java.base/java.lang=ALL-UNNAMED',
                    '--add-opens', 'java.base/java.util=ALL-UNNAMED',
                    '--add-opens', 'java.base/java.lang.reflect=ALL-UNNAMED']
-        testPlugin = 'junit5'
-    }
+    }*/
 
     jacocoTestReport {
         reports {

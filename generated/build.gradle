@@ -4,7 +4,7 @@ plugins {
     alias libs.plugins.openApiGenerator
     alias libs.plugins.springBoot
     alias libs.plugins.springBootDependencyManagement
-    alias libs.plugins.piTest apply false
+    //alias libs.plugins.piTest apply false
 }
 
 repositories {

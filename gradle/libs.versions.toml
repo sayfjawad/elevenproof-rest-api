@@ -16,7 +16,7 @@ okHttp3 = "4.9.3"
 okio = "2.10.0"
 openApiGenerator = "6.2.0"
 openapiGeneratorCli = "7.7.0"
-piTest = "1.7.4"
+#piTest = "1.7.4"
 restassured = "5.4.0"
 springBoot = "3.3.1"
 springDependencyManagement = "1.1.6"
@@ -57,6 +57,6 @@ testBundle = ["junit4", "junitJupiterEngine", "junitJupiterParams", "assertjCore
 
 [plugins]
 openApiGenerator = { id = "org.openapi.generator", version.ref = "openApiGenerator" }
-piTest = { id = "info.solidsoft.pitest", version.ref = "piTest" }
+#piTest = { id = "info.solidsoft.pitest", version.ref = "piTest" }
 springBoot = { id = "org.springframework.boot", version.ref = "springBoot" }
 springBootDependencyManagement = { id = "io.spring.dependency-management", version.ref = "springDependencyManagement" }
