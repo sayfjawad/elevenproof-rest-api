@@ -5,7 +5,7 @@ plugins {
     id 'jacoco'
     alias libs.plugins.springBoot apply false
     alias libs.plugins.springBootDependencyManagement apply false
-    //alias libs.plugins.piTest apply false
+    id 'org.sonarqube' version '4.0.0.2929' apply false
 }
 
 allprojects {
@@ -37,8 +37,8 @@ allprojects {
 subprojects {
     apply plugin: "java"
     apply plugin: "io.spring.dependency-management"
-    //apply plugin: "info.solidsoft.pitest"
     apply plugin: "jacoco"
+    apply plugin: "org.sonarqube"
 
     jacoco {
         toolVersion = "0.8.12"
@@ -48,21 +48,29 @@ subprojects {
         finalizedBy jacocoTestReport // run JaCoCo after tests
     }
 
-/*    pitest {
-        verbose = true
-        targetClasses = ['nl.multicode.*']
-        targetTests = ['nl.multicode.*']
-        mutationThreshold = 85
-        outputFormats = ['HTML']
-        jvmArgs = ['--add-opens', 'java.base/java.lang=ALL-UNNAMED',
-                   '--add-opens', 'java.base/java.util=ALL-UNNAMED',
-                   '--add-opens', 'java.base/java.lang.reflect=ALL-UNNAMED']
-    }*/
-
     jacocoTestReport {
         reports {
             xml.required = true
             html.required = true
+        }
+    }
+
+    sonarqube {
+        properties {
+            property "sonar.projectKey", "nl.multicode.elevenproof"
+            property "sonar.projectName", "Elevenproof REST API"
+            property "sonar.projectVersion", "1.0-SNAPSHOT"
+            property "sonar.language", "java"
+            property "sonar.java.coveragePlugin", "jacoco"
+            property "sonar.dynamicAnalysis", "reuseReports"
+            property "sonar.jacoco.reportPaths", file("${buildDir}/jacoco/test.exec")
+            property "sonar.coverage.exclusions", "**/test/**, **/src/nl/multicode/elevenproof/model/**, **/src/**/*Dto.java, **/src/nl/multicode/elevenproof/Application.java, **/src/nl/multicode/elevenproof/config/**"
+
+            // Environment variables for SonarQube server connection
+            property "sonar.host.url", System.getenv("SONAR_URL")
+            property "sonar.login", System.getenv("SONAR_LOGIN")
+            property "sonar.password", System.getenv("SONAR_PASSWORD")
+            property "sonar.token", System.getenv("SONAR_TOKEN")
         }
     }
 }
