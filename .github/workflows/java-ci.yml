@@ -25,10 +25,10 @@ jobs:
           distribution: 'temurin'
 
       - name: Build and execute pitest
-        run: mvn -B package -Ppitest
+        run: ./gradlew build pitest
 
       - name: Upload to SonarQube
-        run: mvn -B package sonar:sonar
+        run: ./gradlew sonar
         env:
           SONAR_URL: ${{ secrets.SONAR_URL }}
           SONAR_LOGIN: ${{ secrets.SONAR_LOGIN }}
@@ -38,4 +38,4 @@ jobs:
       - name: Build and Push Docker Image with Jib
         run: |
           IMAGE_ID=ghcr.io/${{ github.repository_owner }}/elevenproof-rest-api:${{ github.sha }}
-          mvn -B package jib:build -Djib.to.image=$IMAGE_ID -Djib.to.auth.username=${{ github.actor }} -Djib.to.auth.password=${{ secrets.GITHUB_TOKEN }}
+          ./gradlew jib --image=$IMAGE_ID --auth.username=${{ github.actor }} --auth.password=${{ secrets.GITHUB_TOKEN }}
