@@ -18,15 +18,15 @@ dependencies {
     implementation libs.javaxAnnotationApi
     implementation libs.gson
     implementation libs.validationApi
-    implementation 'com.squareup.okhttp3:okhttp:4.9.3' // Add OkHttp dependency
-    implementation 'com.squareup.okio:okio:2.10.0' // Add Okio dependency
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.3'
+    implementation libs.okHttp3
+    implementation libs.okHttp3LoggingInterceptor
+    implementation libs.okio
     // Add OkHttp logging interceptor
-    implementation 'io.gsonfire:gson-fire:1.8.5' // Add GsonFire dependency
-    implementation 'javax.ws.rs:javax.ws.rs-api:2.1.1' // Add JAX-RS dependency
-    compileOnly 'org.openapitools:openapi-generator-cli:7.7.0'
-    compileOnly 'org.projectlombok:lombok:1.18.24' // Add Lombok dependency
-    annotationProcessor 'org.projectlombok:lombok:1.18.24' // Add Lombok annotation processor
+    implementation libs.gsonFire
+    implementation libs.jaxrs
+    compileOnly libs.openapiGeneratorCli
+    compileOnly libs.lombok
+    annotationProcessor libs.lombok
 
 }
 
