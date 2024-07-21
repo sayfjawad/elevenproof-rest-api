@@ -6,6 +6,7 @@ lombok = "1.18.24"
 mockitoCore = "5.1.1"
 assertjCore = "3.23.1"
 openApiGenerator = "6.2.0"
+springDoc = "2.6.0"
 jib = "3.4.3"
 validationApi = "2.0.1.Final"
 jacksonDatabindNullable = "0.2.6"
@@ -36,6 +37,7 @@ swaggerAnnotations = { group = "io.swagger.core.v3", name = "swagger-annotations
 javaxAnnotationApi = { group = "javax.annotation", name = "javax.annotation-api", version.ref = "javaxAnnotationApi" }
 gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 modelmapper = { group = "org.modelmapper", name = "modelmapper", version.ref = "modelmapper" }
+springdocOpenAPIGenerator = { group = "org.springdoc", name = "springdoc-openapi-starter-webmvc-ui", version.ref = "springDoc" }
 
 [bundles]
 testBundle = ["junitJupiterEngine", "junitJupiterParams", "assertjCore", "mockitoCore", "mockitoJunitJupiter"]
