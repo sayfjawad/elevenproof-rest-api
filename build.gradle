@@ -4,7 +4,7 @@ plugins {
     id 'java'
     alias libs.plugins.springBoot apply false
     alias libs.plugins.springBootDependencyManagement apply false
-    id 'info.solidsoft.pitest' version '1.6.7'
+    alias libs.plugins.piTest apply false
 
 }
 
