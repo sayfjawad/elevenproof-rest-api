@@ -2,6 +2,7 @@
 springDependencyManagement = "1.1.6"
 springBoot = "3.3.1"
 junitJupiter = "5.10.3"
+junit4 = "4.13.2"
 lombok = "1.18.24"
 mockitoCore = "5.1.1"
 assertjCore = "3.23.1"
@@ -16,6 +17,7 @@ modelmapper = "2.4.4"
 restassured = "5.4.0"
 jib = "3.4.3"
 piTest = "1.7.4"
+jacoco = "0.8.12"
 
 
 [libraries]
@@ -25,6 +27,8 @@ springBootValidation = { group = "org.springframework.boot", name = "spring-boot
 springBootTest = { group = "org.springframework.boot", name = "spring-boot-starter-test" } # version automatically set by dependency management
 
 lombok = { group = "org.projectlombok", name = "lombok", version.ref = "lombok" }
+# junit4 is needed for piTest to work because it contains a class that is needed by the plugin
+junit4 = { group = "junit", name = "junit", version.ref = "junit4" }
 junitJupiterEngine = { group = "org.junit.jupiter", name = "junit-jupiter-engine", version.ref = "junitJupiter" }
 junitJupiterParams = { group = "org.junit.jupiter", name = "junit-jupiter-params", version.ref = "junitJupiter" }
 assertjCore = { group = "org.assertj", name = "assertj-core", version.ref = "assertjCore" }
@@ -41,10 +45,10 @@ modelmapper = { group = "org.modelmapper", name = "modelmapper", version.ref = "
 springdocOpenAPIGenerator = { group = "org.springdoc", name = "springdoc-openapi-starter-webmvc-ui", version.ref = "springDoc" }
 
 [bundles]
-testBundle = ["junitJupiterEngine", "junitJupiterParams", "assertjCore", "mockitoCore", "mockitoJunitJupiter"]
+testBundle = ["junit4", "junitJupiterEngine", "junitJupiterParams", "assertjCore", "mockitoCore", "mockitoJunitJupiter"]
 
 [plugins]
 springBoot = { id = "org.springframework.boot", version.ref = "springBoot" }
 springBootDependencyManagement = { id = 'io.spring.dependency-management', version.ref = "springDependencyManagement" }
 openApiGenerator = { id = "org.openapi.generator", version.ref = "openApiGenerator" } # Make sure to use the latest version available
-piTest = {id = "info.solidsoft.pitest", version.ref = "piTest"}
+piTest = { id = "info.solidsoft.pitest", version.ref = "piTest" }

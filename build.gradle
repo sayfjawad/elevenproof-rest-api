@@ -1,7 +1,6 @@
-// Root build.gradle
-
 plugins {
     id 'java'
+    id 'jacoco'
     alias libs.plugins.springBoot apply false
     alias libs.plugins.springBootDependencyManagement apply false
     alias libs.plugins.piTest apply false
@@ -34,20 +33,36 @@ allprojects {
 }
 
 subprojects {
-    apply plugin: 'java'
-    apply plugin: 'io.spring.dependency-management'
-    apply plugin: 'info.solidsoft.pitest'
+    apply plugin: "java"
+    apply plugin: "io.spring.dependency-management"
+    apply plugin: "info.solidsoft.pitest"
+    apply plugin: "jacoco"
 
+    jacoco {
+        toolVersion = "0.8.12"
+    }
+
+    test {
+        finalizedBy jacocoTestReport // run JaCoCo after tests
+    }
 
     pitest {
+        verbose = true
         targetClasses = ['nl.multicode.*']
         targetTests = ['nl.multicode.*']
         mutationThreshold = 85
         outputFormats = ['HTML']
         jvmArgs = ['--add-opens', 'java.base/java.lang=ALL-UNNAMED',
                    '--add-opens', 'java.base/java.util=ALL-UNNAMED',
-                   '--add-opens', 'java.base/java.lang.reflect=ALL-UNNAMED'
-        ]
+                   '--add-opens', 'java.base/java.lang.reflect=ALL-UNNAMED']
+        testPlugin = 'junit5'
+    }
+
+    jacocoTestReport {
+        reports {
+            xml.required = true
+            html.required = true
+        }
     }
 }
 
@@ -66,8 +81,7 @@ task allDependencies {
                 println "Dependencies for project ${project.name}:"
                 project.configurations.each { configuration ->
                     try {
-                        configuration.allDependencies.each { dependency ->
-                            println "  ${configuration.name} -> ${dependency.group}:${dependency.name}:${dependency.version}"
+                        configuration.allDependencies.each { dependency -> println "  ${configuration.name} -> ${dependency.group}:${dependency.name}:${dependency.version}"
                         }
                     } catch (Exception e) {
                         // Handle exceptions if needed

@@ -24,10 +24,15 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Build and execute pitest
-        run: ./gradlew build pitest
+      - name: Run Tests and Generate JaCoCo Report
+        run: ./gradlew test jacocoTestReport
         env:
-          JAVA_OPTS: "--add-opens java.base/java.lang=ALL-UNNAMED"
+          JAVA_OPTS: "--add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED"
+
+      - name: Run Pitest
+        run: ./gradlew pitest
+        env:
+          JAVA_OPTS: "--add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED"
 
       - name: Upload to SonarQube
         run: ./gradlew build sonar
