@@ -35,7 +35,7 @@ jobs:
 #          JAVA_OPTS: "--add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED"
 
       - name: Upload to SonarQube
-        run: ./gradlew build sonar --debug
+        run: ./gradlew build sonar --info
         env:
           SONAR_URL: ${{ secrets.SONAR_URL }}
           SONAR_LOGIN: ${{ secrets.SONAR_LOGIN }}
