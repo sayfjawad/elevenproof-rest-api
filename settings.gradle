@@ -1,11 +1,3 @@
 rootProject.name = 'elevenproof-rest-api'
 include 'core', 'generated', 'services', 'application', 'integration-test'
 
-
-dependencyResolutionManagement {
-    versionCatalogs {
-        libs {
-            from(files("libs.versions.toml"))
-        }
-    }
-}
