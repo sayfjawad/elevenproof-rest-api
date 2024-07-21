@@ -26,9 +26,11 @@ jobs:
 
       - name: Build and execute pitest
         run: ./gradlew build pitest
+        env:
+          JAVA_OPTS: "--add-opens java.base/java.lang=ALL-UNNAMED"
 
       - name: Upload to SonarQube
-        run: ./gradlew sonar
+        run: ./gradlew build sonar
         env:
           SONAR_URL: ${{ secrets.SONAR_URL }}
           SONAR_LOGIN: ${{ secrets.SONAR_LOGIN }}

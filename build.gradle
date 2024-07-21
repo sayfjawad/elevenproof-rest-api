@@ -39,12 +39,13 @@ subprojects {
     apply plugin: 'io.spring.dependency-management'
     apply plugin: 'info.solidsoft.pitest'
 
+
     pitest {
-        testPlugin = 'junit5'
         targetClasses = ['nl.multicode.*']
         targetTests = ['nl.multicode.*']
         mutationThreshold = 85
         outputFormats = ['HTML']
+        jvmArgs = ['--add-opens', 'java.base/java.lang=ALL-UNNAMED']
     }
 }
 
