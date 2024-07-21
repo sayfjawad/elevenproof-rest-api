@@ -63,7 +63,7 @@ subprojects {
             property "sonar.language", "java"
             property "sonar.java.coveragePlugin", "jacoco"
             property "sonar.dynamicAnalysis", "reuseReports"
-            property "sonar.jacoco.reportPaths", file("${buildDir}/jacoco/test.exec")
+            property "sonar.jacoco.reportPaths", "${buildDir}/jacoco/test.exec"
             property "sonar.coverage.exclusions", "**/test/**, **/src/nl/multicode/elevenproof/model/**, **/src/**/*Dto.java, **/src/nl/multicode/elevenproof/Application.java, **/src/nl/multicode/elevenproof/config/**"
 
             // Environment variables for SonarQube server connection
