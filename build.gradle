@@ -4,6 +4,8 @@ plugins {
     id 'java'
     alias libs.plugins.springBoot apply false
     alias libs.plugins.springBootDependencyManagement apply false
+    id 'info.solidsoft.pitest' version '1.6.7'
+
 }
 
 allprojects {
@@ -35,6 +37,15 @@ allprojects {
 subprojects {
     apply plugin: 'java'
     apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'info.solidsoft.pitest'
+
+    pitest {
+        testPlugin = 'junit5'
+        targetClasses = ['nl.multicode.*']
+        targetTests = ['nl.multicode.*']
+        mutationThreshold = 85
+        outputFormats = ['HTML']
+    }
 }
 
 dependencies {

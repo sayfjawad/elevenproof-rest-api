@@ -7,7 +7,6 @@ mockitoCore = "5.1.1"
 assertjCore = "3.23.1"
 openApiGenerator = "6.2.0"
 springDoc = "2.6.0"
-jib = "3.4.3"
 validationApi = "2.0.1.Final"
 jacksonDatabindNullable = "0.2.6"
 swaggerAnnotations = "2.2.22"
@@ -15,6 +14,8 @@ javaxAnnotationApi = "1.3.2"
 gson = "2.10.1"
 modelmapper = "2.4.4"
 restassured = "5.4.0"
+jib = "3.4.3"
+piTest = "1.7.4"
 
 
 [libraries]
@@ -46,3 +47,4 @@ testBundle = ["junitJupiterEngine", "junitJupiterParams", "assertjCore", "mockit
 springBoot = { id = "org.springframework.boot", version.ref = "springBoot" }
 springBootDependencyManagement = { id = 'io.spring.dependency-management', version.ref = "springDependencyManagement" }
 openApiGenerator = { id = "org.openapi.generator", version.ref = "openApiGenerator" } # Make sure to use the latest version available
+piTest = {id = "info.solidsoft.pitest", version.ref = "piTest"}
