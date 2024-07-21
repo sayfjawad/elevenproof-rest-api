@@ -5,7 +5,6 @@ plugins {
     alias libs.plugins.springBoot apply false
     alias libs.plugins.springBootDependencyManagement apply false
     alias libs.plugins.piTest apply false
-
 }
 
 allprojects {
@@ -45,7 +44,10 @@ subprojects {
         targetTests = ['nl.multicode.*']
         mutationThreshold = 85
         outputFormats = ['HTML']
-        jvmArgs = ['--add-opens', 'java.base/java.lang=ALL-UNNAMED']
+        jvmArgs = ['--add-opens', 'java.base/java.lang=ALL-UNNAMED',
+                   '--add-opens', 'java.base/java.util=ALL-UNNAMED',
+                   '--add-opens', 'java.base/java.lang.reflect=ALL-UNNAMED'
+        ]
     }
 }
 
