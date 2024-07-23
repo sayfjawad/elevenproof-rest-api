@@ -26,6 +26,12 @@ validationApi = "2.0.1.Final"
 
 
 [libraries]
+#define modules as dependencies so they can be bundled
+applicationModule = {module = 'nl.multicode.elevenproof:application', version = '1.0-SNAPSHOT'}
+coreModule = {module = 'nl.multicode.elevenproof:core', version = '1.0-SNAPSHOT'}
+generatedModule = {module = 'nl.multicode.elevenproof:generated', version = '1.0-SNAPSHOT'}
+servicesModule = {module = 'nl.multicode.elevenproof:services', version = '1.0-SNAPSHOT'}
+
 assertjCore = { group = "org.assertj", name = "assertj-core", version.ref = "assertjCore" }
 gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 gsonFire = { group = "io.gsonfire", name = "gson-fire", version.ref = "gsonFire" }
@@ -51,6 +57,7 @@ springBootWeb = { group = "org.springframework.boot", name = "spring-boot-starte
 springdocOpenAPIGenerator = { group = "org.springdoc", name = "springdoc-openapi-starter-webmvc-ui", version.ref = "springDoc" }
 swaggerAnnotations = { group = "io.swagger.core.v3", name = "swagger-annotations", version.ref = "swaggerAnnotations" }
 validationApi = { group = "javax.validation", name = "validation-api", version.ref = "validationApi" }
+
 
 [bundles]
 testBundle = ["junit4", "junitJupiterEngine", "junitJupiterParams", "assertjCore", "mockitoCore", "mockitoJunitJupiter"]
