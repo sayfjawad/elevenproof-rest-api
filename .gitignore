@@ -4,4 +4,3 @@
 # Maven build dir
 target/
 /.idea/compiler.xml
-gradle/wrapper/
