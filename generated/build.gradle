@@ -1,6 +1,7 @@
 import org.openapitools.generator.gradle.plugin.tasks.GenerateTask
 
 plugins {
+    id 'java-library'
     alias libs.plugins.openApiGenerator
     alias libs.plugins.springBoot
     alias libs.plugins.springBootDependencyManagement
