@@ -4,9 +4,6 @@ plugins {
 
 }
 
-group = 'nl.multicode.elevenproof'
-version = '1.0-SNAPSHOT'
-
 repositories {
     mavenCentral()
 }

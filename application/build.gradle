@@ -6,9 +6,6 @@ plugins {
     alias(libs.plugins.piTest)
 }
 
-group = 'nl.multicode.elevenproof'
-version = '1.0-SNAPSHOT'
-
 repositories {
     mavenCentral()
 }
