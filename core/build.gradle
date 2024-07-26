@@ -1,5 +1,7 @@
 plugins {
     id 'java'
+    id 'info.solidsoft.pitest' version '1.15.0'
+
 }
 
 group = 'nl.multicode.elevenproof'

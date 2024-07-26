@@ -1,11 +1,10 @@
-// Root build.gradle
-
 plugins {
     id 'java'
     id 'jacoco'
     alias libs.plugins.springBoot apply false
     alias libs.plugins.springBootDependencyManagement apply false
     id 'org.sonarqube' version '4.0.0.2929' apply false
+    id 'info.solidsoft.pitest' version '1.15.0' apply false
 }
 
 allprojects {
@@ -19,6 +18,7 @@ allprojects {
 
     apply plugin: 'java'
     apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'info.solidsoft.pitest.aggregator' // to 'pitestReportAggregate' appear
 
     tasks.withType(JavaCompile) {
         options.encoding = 'UTF-8'
@@ -39,6 +39,28 @@ subprojects {
     apply plugin: "io.spring.dependency-management"
     apply plugin: "jacoco"
     apply plugin: "org.sonarqube"
+    apply plugin: 'info.solidsoft.pitest'
+
+    dependencies {
+        testImplementation libs.junitJupiterEngine
+        testImplementation libs.junitJupiterParams
+        testImplementation libs.assertjCore
+        testImplementation libs.mockitoCore
+        testImplementation libs.mockitoJunitJupiter
+        pitest 'org.pitest:pitest-junit5-plugin:0.15'
+    }
+
+    pitest {
+        outputFormats = ["XML", "HTML"]
+        exportLineCoverage = true
+        timestampedReports = false
+        junit5PluginVersion = '1.2.1'
+        reportAggregator {
+            testStrengthThreshold.set(50)
+            mutationThreshold.set(40)
+            maxSurviving.set(3)
+        }
+    }
 
     jacoco {
         toolVersion = "0.8.12"
@@ -73,14 +95,6 @@ subprojects {
             property "sonar.token", System.getenv("SONAR_TOKEN")
         }
     }
-}
-
-dependencies {
-    testImplementation libs.junitJupiterEngine
-    testImplementation libs.junitJupiterParams
-    testImplementation libs.assertjCore
-    testImplementation libs.mockitoCore
-    testImplementation libs.mockitoJunitJupiter
 }
 
 task allDependencies {

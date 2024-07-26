@@ -3,6 +3,7 @@
 plugins {
     alias(libs.plugins.springBoot)
     alias(libs.plugins.springBootDependencyManagement)
+    alias(libs.plugins.piTest)
 }
 
 group = 'nl.multicode.elevenproof'
