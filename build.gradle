@@ -3,7 +3,7 @@ plugins {
     id 'jacoco'
     alias libs.plugins.springBoot apply false
     alias libs.plugins.springBootDependencyManagement apply false
-    alias libs.plugins.jib
+    alias libs.plugins.jib apply false
     alias libs.plugins.sonarQube apply false
     alias libs.plugins.piTest apply false
 }
