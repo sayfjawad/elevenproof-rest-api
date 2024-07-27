@@ -1,9 +1,7 @@
 plugins {
     alias libs.plugins.springBoot
     alias libs.plugins.springBootDependencyManagement
-    alias libs.plugins.piTest
-    alias libs.plugins.jib
-    alias libs.plugins.sonarQube
+    alias libs.plugins.sonarQube apply false
 }
 
 repositories {

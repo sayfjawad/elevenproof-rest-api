@@ -72,3 +72,4 @@ piTest = { id = "info.solidsoft.pitest", version.ref = "piTest" }
 springBoot = { id = "org.springframework.boot", version.ref = "springBoot" }
 springBootDependencyManagement = { id = "io.spring.dependency-management", version.ref = "springDependencyManagement" }
 jib = { id = 'com.google.cloud.tools.jib', version.ref = "jib" }
+sonarQube = { id = 'org.sonarqube', version = '4.0.0.2929' }
