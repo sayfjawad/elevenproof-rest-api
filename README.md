@@ -52,7 +52,7 @@ DOCKER_HUB_USER={your dockerhub username}
 DOCKER_HUB_PASS={your dockerhub password}
 ``` 
 
-#### Use sonarqube
+#### Use sonarqube (TODO:: FIX ME!)
 Create environment variables containing url/login/password to be able to connect your project to a
 SonarQube/SonarCloud instance. 
 ``` 
