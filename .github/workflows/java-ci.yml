@@ -29,26 +29,16 @@ jobs:
         env:
           JAVA_OPTS: "--add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED"
 
-      #      - name: Run Pitest
-      #        run: ./gradlew pitest
-      #        env:
-      #          JAVA_OPTS: "--add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED"
-
-      #      - name: Upload to SonarQube
-      #        run: ./gradlew build sonar --info
-      #        env:
-      #          SONAR_URL: ${{ secrets.SONAR_URL }}
-      #          SONAR_LOGIN: ${{ secrets.SONAR_LOGIN }}
-      #          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      #          SONAR_PASSWORD: ${{ secrets.SONAR_PASSWORD }}
-
       - name: Set up environment variables
         run: echo "VERSION=$(date +%Y%m%d%H%M%S)-${{ github.sha }}" >> $GITHUB_ENV
+
+      - name: Login to GitHub Container Registry
+        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: Build and Push Docker Image with Jib
         run: |
           IMAGE_ID=ghcr.io/${{ github.repository_owner }}/elevenproof-rest-api:${{ env.VERSION }}
-          ./gradlew jib --image=$IMAGE_ID --warning-mode all
+          ./gradlew jib -Djib.to.image=$IMAGE_ID --warning-mode all
         env:
           JAVA_OPTS: "--add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
