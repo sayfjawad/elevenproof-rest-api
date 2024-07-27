@@ -27,10 +27,10 @@ validationApi = "2.0.1.Final"
 
 [libraries]
 # define modules as dependencies so they can be bundled
-applicationModule = {module = 'nl.multicode.elevenproof:application', version = '1.0-SNAPSHOT'}
-coreModule = {module = 'nl.multicode.elevenproof:core', version = '1.0-SNAPSHOT'}
-generatedModule = {module = 'nl.multicode.elevenproof:generated', version = '1.0-SNAPSHOT'}
-servicesModule = {module = 'nl.multicode.elevenproof:services', version = '1.0-SNAPSHOT'}
+applicationModule = { module = 'nl.multicode.elevenproof:application', version = '1.0-SNAPSHOT' }
+coreModule = { module = 'nl.multicode.elevenproof:core', version = '1.0-SNAPSHOT' }
+generatedModule = { module = 'nl.multicode.elevenproof:generated', version = '1.0-SNAPSHOT' }
+servicesModule = { module = 'nl.multicode.elevenproof:services', version = '1.0-SNAPSHOT' }
 
 # other external dependencies
 gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
@@ -71,3 +71,4 @@ openApiGenerator = { id = "org.openapi.generator", version.ref = "openApiGenerat
 piTest = { id = "info.solidsoft.pitest", version.ref = "piTest" }
 springBoot = { id = "org.springframework.boot", version.ref = "springBoot" }
 springBootDependencyManagement = { id = "io.spring.dependency-management", version.ref = "springDependencyManagement" }
+jib = { id = 'com.google.cloud.tools.jib', version.ref = "jib" }

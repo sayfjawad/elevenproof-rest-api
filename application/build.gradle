@@ -1,9 +1,8 @@
-// application/build.gradle
-
 plugins {
     alias(libs.plugins.springBoot)
     alias(libs.plugins.springBootDependencyManagement)
     alias(libs.plugins.piTest)
+    alias(libs.plugins.jib)
 }
 
 repositories {
@@ -25,6 +24,22 @@ dependencies {
     testImplementation libs.restassured
     testImplementation libs.bundles.testBundle
     testRuntimeOnly libs.junitJupiterEngine
+}
+
+jib {
+    from {
+        image = 'openjdk:17-jdk-alpine'
+    }
+    to {
+        image = 'ghcr.io/sjawad/elevenproof-rest-api/elevenproof-rest-api'
+        tags = ['latest', project.version.toString()]
+    }
+    container {
+        ports = ['8080']
+        environment = [
+                'JAVA_OPTIONS': '-Xms512m -Xmx1024m'
+        ]
+    }
 }
 
 tasks.withType(JavaCompile) {
