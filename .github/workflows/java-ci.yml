@@ -42,3 +42,9 @@ jobs:
         env:
           JAVA_OPTS: "--add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: SonarQube Analysis
+        run: ./gradlew sonarqube
+        env:
+          SONAR_URL: ${{ secrets.SONAR_URL }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
