@@ -19,7 +19,7 @@ allprojects {
 
     apply plugin: 'java'
     apply plugin: 'io.spring.dependency-management'
-    apply plugin: 'info.solidsoft.pitest.aggregator' // to 'pitestReportAggregate' appear
+    apply plugin: 'info.solidsoft.pitest.aggregator'
 
     tasks.withType(JavaCompile) {
         options.encoding = 'UTF-8'
@@ -68,7 +68,7 @@ subprojects {
     }
 
     test {
-        finalizedBy jacocoTestReport // run JaCoCo after tests
+        finalizedBy jacocoTestReport
     }
 
     jacocoTestReport {
@@ -93,6 +93,23 @@ subprojects {
             // Environment variables for SonarQube server connection
             property "sonar.host.url", System.getenv("SONAR_URL")
             property "sonar.login", System.getenv("SONAR_TOKEN")
+        }
+    }
+
+    jib {
+        from {
+            image = 'openjdk:17-jdk-alpine'
+        }
+        to {
+            image = 'ghcr.io/sjawad/elevenproof-rest-api/elevenproof-rest-api'
+            tags = ['latest', project.version.toString()]
+        }
+        container {
+            ports = ['8080']
+            environment = [
+                    'JAVA_OPTIONS': '-Xms512m -Xmx1024m'
+            ]
+            mainClass = 'nl.multicode.elevenproof.Application'
         }
     }
 }
