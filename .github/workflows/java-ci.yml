@@ -38,13 +38,13 @@ jobs:
       - name: Build and Push Docker Image with Jib
         run: |
           IMAGE_ID=ghcr.io/${{ github.repository_owner }}/elevenproof-rest-api:${{ env.VERSION }}
-          ./gradlew jib -Djib.to.image=$IMAGE_ID --warning-mode all
+          ./gradlew :application:jib -Djib.to.image=$IMAGE_ID --warning-mode all
         env:
           JAVA_OPTS: "--add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: SonarQube Analysis
-        run: ./gradlew sonarqube
+        run: ./gradlew sonar --warning-mode all
         env:
           SONAR_URL: ${{ secrets.SONAR_URL }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
