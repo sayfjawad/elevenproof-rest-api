@@ -80,7 +80,7 @@ subprojects {
 
     sonarqube {
         properties {
-            property "sonar.projectKey", "elevenproof-rest-api"
+            property "sonar.projectKey", "sayfjawad_elevenproof-rest-api"
             property "sonar.organization", "ssayfjawad"
             property "sonar.projectName", "Elevenproof REST API"
             property "sonar.projectVersion", "1.0-SNAPSHOT"
