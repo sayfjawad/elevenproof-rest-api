@@ -9,7 +9,7 @@ repositories {
 dependencies {
     implementation project(':core')
 
-    testImplementation libs.restassured
+    testImplementation libs.restassuredSpringMockMvc
     testImplementation libs.bundles.testBundle
     testRuntimeOnly libs.junitJupiterEngine
 }
