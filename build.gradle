@@ -92,7 +92,7 @@ subprojects {
 
             // Environment variables for SonarQube server connection
             property "sonar.host.url", System.getenv("SONAR_URL")
-            property "sonar.login", System.getenv("SONAR_TOKEN")
+            property "sonar.token", System.getenv("SONAR_TOKEN")
         }
     }
 }
