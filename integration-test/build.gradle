@@ -1,34 +1,46 @@
 plugins {
+    id 'java'
     alias libs.plugins.springBoot
     alias libs.plugins.springBootDependencyManagement
-    alias libs.plugins.sonarQube apply false
 }
 
-repositories {
-    mavenCentral()
-}
+group = 'nl.multicode.elevenproof'
+version = '1.0-SNAPSHOT'
+description = 'This module is responsible for running integration tests'
 
 dependencies {
-    implementation project(':core')
-    implementation project(':services')
-    implementation project(':generated')
-
+    implementation project(":generated")
+    implementation libs.modelmapper
     implementation libs.springBootWeb
-    implementation libs.springBootActuator
-    implementation libs.springBootValidation
-    implementation libs.validationApi
-    implementation libs.springdocOpenAPIGenerator
-
-    testImplementation libs.springBootTest
+    testImplementation libs.cucumberJava
+    testImplementation libs.cucumberJunitPlatformEngin
+    testImplementation libs.junitPlatformSuit
+    testImplementation libs.junitJupiter
+    testImplementation libs.restassuredAll
     testImplementation libs.restassured
-    testImplementation libs.bundles.testBundle
-    testRuntimeOnly libs.junitJupiterEngine
+    testImplementation libs.vaadin
 }
 
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
+test {
+    useJUnitPlatform()
+    exclude '**/*CucumberTest.java'
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+    }
+}
+
+tasks.register('integrationTest', Test) {
+    include '**/*CucumberTest.java'
+    useJUnitPlatform()
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+    }
 }
 
 tasks.named('test') {
-    useJUnitPlatform()
+    enabled = false
+}
+
+tasks.named('integrationTest') {
+    enabled = true
 }

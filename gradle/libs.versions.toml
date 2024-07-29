@@ -1,5 +1,6 @@
 [versions]
 assertjCore = "3.23.1"
+cucumber = "7.18.1"
 gson = "2.10.1"
 gsonFire = "1.8.5"
 jacoco = "0.8.12"
@@ -9,6 +10,7 @@ jaxrs = "2.1.1"
 jib = "3.4.3"
 junit4 = "4.13.2"
 junitJupiter = "5.10.3"
+junit5 = "1.10.3"
 lombok = "1.18.24"
 mockitoCore = "5.1.1"
 modelmapper = "2.4.4"
@@ -22,16 +24,11 @@ springBoot = "3.3.1"
 springDependencyManagement = "1.1.6"
 springDoc = "2.6.0"
 swaggerAnnotations = "2.2.22"
+vaadin = "0.0.20131108.vaadin1"
 validationApi = "2.0.1.Final"
 
 
 [libraries]
-# define modules as dependencies so they can be bundled
-applicationModule = { module = 'nl.multicode.elevenproof:application', version = '1.0-SNAPSHOT' }
-coreModule = { module = 'nl.multicode.elevenproof:core', version = '1.0-SNAPSHOT' }
-generatedModule = { module = 'nl.multicode.elevenproof:generated', version = '1.0-SNAPSHOT' }
-servicesModule = { module = 'nl.multicode.elevenproof:services', version = '1.0-SNAPSHOT' }
-
 # other external dependencies
 gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 gsonFire = { group = "io.gsonfire", name = "gson-fire", version.ref = "gsonFire" }
@@ -42,11 +39,17 @@ jaxrs = { group = "javax.ws.rs", name = "javax.ws.rs-api", version.ref = "jaxrs"
 junit4 = { group = "junit", name = "junit", version.ref = "junit4" }
 junitJupiterEngine = { group = "org.junit.jupiter", name = "junit-jupiter-engine", version.ref = "junitJupiter" }
 junitJupiterParams = { group = "org.junit.jupiter", name = "junit-jupiter-params", version.ref = "junitJupiter" }
+junitJupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version.ref = "junitJupiter" }
+junitPlatformSuit = { group = "org.junit.platform", name = "junit-platform-suite", version.ref = "junit5" }
+
 assertjCore = { group = "org.assertj", name = "assertj-core", version.ref = "assertjCore" }
 mockitoCore = { group = "org.mockito", name = "mockito-core", version.ref = "mockitoCore" }
 mockitoJunitJupiter = { group = "org.mockito", name = "mockito-junit-jupiter", version.ref = "mockitoCore" }
-restassured = { group = "io.rest-assured", name = "spring-mock-mvc", version.ref = "restassured" }
-
+restassuredAll = { group = "io.rest-assured", name = "rest-assured-all", version.ref = "restassured" }
+restassured = { group = "io.rest-assured", name = "rest-assured", version.ref = "restassured" }
+restassuredSpringMockMvc = { group = "io.rest-assured", name = "spring-mock-mvc", version.ref = "restassured" }
+cucumberJava = { group = "io.cucumber", name = "cucumber-java", version.ref = "cucumber" }
+cucumberJunitPlatformEngin = { group = "io.cucumber", name = "cucumber-junit-platform-engine", version.ref = "cucumber" }
 lombok = { group = "org.projectlombok", name = "lombok", version.ref = "lombok" }
 modelmapper = { group = "org.modelmapper", name = "modelmapper", version.ref = "modelmapper" }
 okHttp3 = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okHttp3" }
@@ -56,6 +59,7 @@ openapiGeneratorCli = { group = "org.openapitools", name = "openapi-generator-cl
 springdocOpenAPIGenerator = { group = "org.springdoc", name = "springdoc-openapi-starter-webmvc-ui", version.ref = "springDoc" }
 swaggerAnnotations = { group = "io.swagger.core.v3", name = "swagger-annotations", version.ref = "swaggerAnnotations" }
 validationApi = { group = "javax.validation", name = "validation-api", version.ref = "validationApi" }
+vaadin = { group = "com.vaadin.external.google", name= "android-json", version.ref = "vaadin" }
 
 # version automatically set by spring-boot dependency management
 springBootActuator = { group = "org.springframework.boot", name = "spring-boot-starter-actuator" }

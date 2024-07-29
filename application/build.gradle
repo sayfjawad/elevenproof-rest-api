@@ -22,7 +22,7 @@ dependencies {
     implementation libs.springdocOpenAPIGenerator
 
     testImplementation libs.springBootTest
-    testImplementation libs.restassured
+    testImplementation libs.restassuredSpringMockMvc
     testImplementation libs.bundles.testBundle
     testRuntimeOnly libs.junitJupiterEngine
 }

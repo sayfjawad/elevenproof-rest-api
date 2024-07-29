@@ -4,7 +4,11 @@ on:
   push:
     branches:
       - main
+      - gradle
   pull_request:
+    branches:
+      - main
+      - gradle
 
 jobs:
   build-and-push:
