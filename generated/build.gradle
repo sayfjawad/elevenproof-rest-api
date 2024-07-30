@@ -1,0 +1,70 @@
+import org.openapitools.generator.gradle.plugin.tasks.GenerateTask
+
+plugins {
+    id 'java-library'
+    alias libs.plugins.openApiGenerator
+    alias libs.plugins.springBoot
+    alias libs.plugins.springBootDependencyManagement
+    //alias libs.plugins.piTest apply false
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation libs.springBootWeb
+    implementation libs.swaggerAnnotations
+    implementation libs.jacksonDatabindNullable
+    implementation libs.javaxAnnotationApi
+    implementation libs.gson
+    implementation libs.validationApi
+    implementation libs.okHttp3
+    implementation libs.okHttp3LoggingInterceptor
+    implementation libs.okio
+    // Add OkHttp logging interceptor
+    implementation libs.gsonFire
+    implementation libs.jaxrs
+    compileOnly libs.openapiGeneratorCli
+    compileOnly libs.lombok
+    annotationProcessor libs.lombok
+
+}
+
+// Ensure the generated sources are compiled
+sourceSets.main.java.srcDir "${projectDir}/build/generated/src/main/java"
+
+// Ensure the clean task deletes the generated files
+clean {
+    delete "${projectDir}/build/generated"
+}
+// Disable bootJar task
+bootJar {
+    enabled = false
+}
+
+// Enable jar task
+jar {
+    enabled = true
+}
+// Define the generateOpenApi task
+tasks.register('generateOpenApi', GenerateTask) {
+    generatorName = "java"
+    inputSpec = "${projectDir}/src/main/resources/apispecs/api-specs.yaml"
+    outputDir = "${projectDir}/build/generated"
+    modelPackage = "nl.multicode.elevenproof.openapi.model"
+    configOptions = [
+            "dateLibrary": "java8"
+    ]
+    generateApiDocumentation = false
+    generateModelDocumentation = false
+}
+
+// Ensure the openApiGenerate task runs before compileJava
+compileJava.dependsOn generateOpenApi
+
+// Ensure the openApiGenerate task runs before classes
+classes.dependsOn generateOpenApi
+
+// Ensure the generateOpenApi task runs after clean
+generateOpenApi.mustRunAfter clean

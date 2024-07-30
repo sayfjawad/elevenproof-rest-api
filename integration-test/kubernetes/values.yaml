@@ -1,9 +1,0 @@
-env: "PIPELINE"
-config:
-  all:
-    name: "replaced_by_pipeline"
-    labels:
-      app: "replaced_by_pipeline"
-  app:
-    container:
-      image: "replaced_by_pipeline"

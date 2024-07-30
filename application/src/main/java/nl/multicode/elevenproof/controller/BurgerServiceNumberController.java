@@ -4,7 +4,6 @@ import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import nl.multicode.elevenproof.model.BurgerServiceNumberDto;
 import nl.multicode.elevenproof.openapi.model.BurgerServiceNumber;
-import nl.multicode.elevenproof.service.BurgerServiceNumberService;
 import nl.multicode.elevenproof.service.ElevenProofService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,16 +23,19 @@ public class BurgerServiceNumberController implements
     @GetMapping("/generate")
     public ResponseEntity<BurgerServiceNumber> generate() {
 
-        return ResponseEntity.ok(
-                BurgerServiceNumber.builder().number(service.generate().number()).build());
+        BurgerServiceNumber serviceNumber = new BurgerServiceNumber();
+        serviceNumber.setNumber(service.generate().number());
+        return ResponseEntity.ok(serviceNumber);
     }
 
     @GetMapping("/validate/{number}")
     public ResponseEntity<BurgerServiceNumber> validate(
             @Valid @PathVariable("number") String number) {
 
-        return ResponseEntity.ok(
-                BurgerServiceNumber.builder().number(number).isElevenproof(service.isValid(number))
-                        .build());
+        BurgerServiceNumber serviceNumber = new BurgerServiceNumber();
+        serviceNumber.setNumber(number);
+        serviceNumber.setIsElevenproof(service.isValid(number));
+
+        return ResponseEntity.ok(serviceNumber);
     }
 }

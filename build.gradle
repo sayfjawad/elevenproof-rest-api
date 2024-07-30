@@ -1,0 +1,119 @@
+plugins {
+    id 'java'
+    id 'jacoco'
+    alias libs.plugins.springBoot apply false
+    alias libs.plugins.springBootDependencyManagement apply false
+    alias libs.plugins.jib apply false
+    alias libs.plugins.sonarQube apply false
+    alias libs.plugins.piTest apply false
+}
+
+allprojects {
+    group = 'nl.multicode.elevenproof'
+    version = '1.0-SNAPSHOT'
+    sourceCompatibility = JavaVersion.VERSION_17
+
+    repositories {
+        mavenCentral()
+    }
+
+    apply plugin: 'java'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'info.solidsoft.pitest.aggregator'
+
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
+
+    tasks.named('test') {
+        useJUnitPlatform()
+    }
+
+    dependencies {
+        compileOnly libs.lombok
+        annotationProcessor libs.lombok
+    }
+}
+
+subprojects {
+    apply plugin: "java"
+    apply plugin: "io.spring.dependency-management"
+    apply plugin: "jacoco"
+    apply plugin: 'info.solidsoft.pitest'
+    apply plugin: 'org.sonarqube'
+
+    dependencies {
+        testImplementation libs.junitJupiterEngine
+        testImplementation libs.junitJupiterParams
+        testImplementation libs.assertjCore
+        testImplementation libs.mockitoCore
+        testImplementation libs.mockitoJunitJupiter
+        pitest 'org.pitest:pitest-junit5-plugin:0.15'
+    }
+
+    pitest {
+        outputFormats = ["XML", "HTML"]
+        exportLineCoverage = true
+        timestampedReports = false
+        junit5PluginVersion = '1.2.1'
+        reportAggregator {
+            testStrengthThreshold.set(50)
+            mutationThreshold.set(40)
+            maxSurviving.set(3)
+        }
+    }
+
+    jacoco {
+        toolVersion = "0.8.12"
+    }
+
+    test {
+        finalizedBy jacocoTestReport
+    }
+
+    jacocoTestReport {
+        reports {
+            xml.required = true
+            html.required = true
+        }
+    }
+
+    sonarqube {
+        properties {
+            property "sonar.projectKey", "sayfjawad_elevenproof-rest-api"
+            property "sonar.organization", "sayfjawad"
+            property "sonar.projectName", "Elevenproof REST API"
+            property "sonar.projectVersion", "1.0-SNAPSHOT"
+            property "sonar.language", "java"
+            property "sonar.java.coveragePlugin", "jacoco"
+            property "sonar.dynamicAnalysis", "reuseReports"
+            property "sonar.jacoco.reportPaths", "${buildDir}/jacoco/test.exec"
+            property "sonar.coverage.exclusions", "**/test/**, **/src/nl/multicode/elevenproof/model/**, **/src/**/*Dto.java, **/src/nl/multicode/elevenproof/Application.java, **/src/nl/multicode/elevenproof/config/**"
+
+            // Environment variables for SonarQube server connection
+            property "sonar.host.url", System.getenv("SONAR_URL")
+            property "sonar.token", System.getenv("SONAR_TOKEN")
+        }
+    }
+}
+
+task allDependencies {
+    subprojects.each { project ->
+        project.tasks.create(name: "printDependencies", type: DefaultTask) {
+            doLast {
+                println "Dependencies for project ${project.name}:"
+                project.configurations.each { configuration ->
+                    try {
+                        configuration.allDependencies.each { dependency -> println "  ${configuration.name} -> ${dependency.group}:${dependency.name}:${dependency.version}"
+                        }
+                    } catch (Exception e) {
+                        // Handle exceptions if needed
+                    }
+                }
+            }
+        }
+        dependsOn "${project.path}:printDependencies"
+    }
+}
+
+evaluationDependsOn(':generated')

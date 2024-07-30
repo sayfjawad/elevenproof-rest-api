@@ -24,18 +24,32 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Build and execute pitest
-        run: mvn -B package -Ppitest
+      - name: Set up Gradle 8.5
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: '8.5'
 
-      - name: Upload to SonarQube
-        run: mvn -B package sonar:sonar
+      - name: Run Tests and Generate JaCoCo Report
+        run: ./gradlew test jacocoTestReport
         env:
-          SONAR_URL: ${{ secrets.SONAR_URL }}
-          SONAR_LOGIN: ${{ secrets.SONAR_LOGIN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_PASSWORD: ${{ secrets.SONAR_PASSWORD }}
+          JAVA_OPTS: "--add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED"
+
+      - name: Set up environment variables
+        run: echo "VERSION=$(date +%Y%m%d%H%M%S)-${{ github.sha }}" >> $GITHUB_ENV
+
+      - name: Login to GitHub Container Registry
+        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: Build and Push Docker Image with Jib
         run: |
-          IMAGE_ID=ghcr.io/${{ github.repository_owner }}/elevenproof-rest-api:${{ github.sha }}
-          mvn -B package jib:build -Djib.to.image=$IMAGE_ID -Djib.to.auth.username=${{ github.actor }} -Djib.to.auth.password=${{ secrets.GITHUB_TOKEN }}
+          IMAGE_ID=ghcr.io/${{ github.repository_owner }}/elevenproof-rest-api:${{ env.VERSION }}
+          ./gradlew :application:jib -Djib.to.image=$IMAGE_ID --warning-mode all
+        env:
+          JAVA_OPTS: "--add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: SonarQube Analysis
+        run: ./gradlew sonar --warning-mode all --stacktrace
+        env:
+          SONAR_URL: ${{ secrets.SONAR_URL }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

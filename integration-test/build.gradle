@@ -1,0 +1,34 @@
+plugins {
+    alias libs.plugins.springBoot
+    alias libs.plugins.springBootDependencyManagement
+    alias libs.plugins.sonarQube apply false
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':core')
+    implementation project(':services')
+    implementation project(':generated')
+
+    implementation libs.springBootWeb
+    implementation libs.springBootActuator
+    implementation libs.springBootValidation
+    implementation libs.validationApi
+    implementation libs.springdocOpenAPIGenerator
+
+    testImplementation libs.springBootTest
+    testImplementation libs.restassured
+    testImplementation libs.bundles.testBundle
+    testRuntimeOnly libs.junitJupiterEngine
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

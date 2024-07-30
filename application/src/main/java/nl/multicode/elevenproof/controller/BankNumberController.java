@@ -22,17 +22,17 @@ public class BankNumberController implements
     @GetMapping("/generate")
     public ResponseEntity<BankAccountNumber> generate() {
 
-        return ResponseEntity.ok(BankAccountNumber.builder()
-                .number(service.generate().number())
-                .build());
+        final var accountNumber = new BankAccountNumber();
+        accountNumber.setNumber(service.generate().number());
+        return ResponseEntity.ok(accountNumber);
     }
 
     @GetMapping("/validate/{number}")
     public ResponseEntity<BankAccountNumber> validate(@PathVariable("number") String number) {
 
-        return ResponseEntity.ok(BankAccountNumber.builder()
-                .number(number)
-                .isElevenproof(service.isValid(number))
-                .build());
+        final var accountNumber = new BankAccountNumber();
+        accountNumber.setNumber(number);
+        accountNumber.setIsElevenproof(service.isValid(number));
+        return ResponseEntity.ok(accountNumber);
     }
 }
