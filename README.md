@@ -29,7 +29,7 @@ This project uses:
 ```
 Java 17
 Spring Boot 3.x
-Maven
+Gradle
 docker
 kubernetes (k8s) # P.S. docker-desktop has a kubernetes implementation you can use
 helm
@@ -39,7 +39,7 @@ kubectl
 #### Build Application
 
 ```
-mvn clean package
+./gradlew clean build
 ```
 
 #### Use dockerhub.com
@@ -64,7 +64,7 @@ SONAR_PASSWORD=password
 
 After building the project run:
 ```
-$ mvn sonar:sonar
+$ ./gradlew sonar:sonar
 ```
 
 
@@ -78,7 +78,7 @@ Install Docker-Desktop and enable kuberenetes support in settings
 Make sure docker-desktop is running, build the necessary docker image using 'jib'
 ``` 
 $ cd application
-$ mvn jib:dockerBuild
+$ ./gradlew jib
 ```
 go to the integration-test folder
 ```
@@ -98,7 +98,7 @@ your kuberenetes pod should be running.
 Now you can run cucumber tests!
 
 ``` 
-$ mvn clean install -Pintegration-test
+$ ./gradlew clean build -Pintegration-test
 ```
 
 #### Application usage
@@ -107,7 +107,7 @@ Generate BSN or BankAccount:
 buid the application 
 ``` 
 
-$ mvn clean package
+$ ./gradlew clean build
 
 ```
 run the application 
