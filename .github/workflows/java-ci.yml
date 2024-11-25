@@ -24,11 +24,11 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Build, Test, and Upload to SonarCloud
-        run: mvn -B clean verify sonar:sonar \
-          -Dsonar.projectKey=sayfjawad_elevenproof-rest-api \
-          -Dsonar.organization=sayfjawad \
-          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+      - name: Build and Test
+        run: mvn clean verify
+
+      - name: Run SonarCloud Analysis
+        run: mvn sonar:sonar
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
