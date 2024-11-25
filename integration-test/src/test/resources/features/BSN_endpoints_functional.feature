@@ -17,3 +17,5 @@ Feature: BSN number endpoints cucumber-test feature
       | 318777137   | true  |
       | 086063844   | true  |
       | 5567653     | false |
+      | 14480360    | true  |
+      | 014480360    | true  |
