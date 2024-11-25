@@ -26,11 +26,12 @@ jobs:
 
       - name: Build, Test, and Upload to SonarCloud
         run: mvn -B clean verify sonar:sonar \
-          -Dsonar.projectKey=${{ secrets.SONAR_LOGIN }}_elevenproof-rest-api \
-          -Dsonar.organization=${{ secrets.SONAR_LOGIN }} \
+          -Dsonar.projectKey=${{ secrets.SONAR_ORGANIZATION }}_elevenproof-rest-api \
+          -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }} \
           -Dsonar.login=${{ secrets.SONAR_TOKEN }}
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_ORGANIZATION: ${{ secrets.SONAR_ORGANIZATION }}
 
       - name: Build and Push Docker Image with Jib
         run: |
