@@ -60,7 +60,7 @@
       , **/src/nl/multicode/elevenproof/Application.java
       , **/src/nl/multicode/elevenproof/config/**
     </sonar.coverage.exclusions>
-
+    <sonar.exclusions>integration-test/**/*</sonar.exclusions>
     <!-- If you want to connect to a sonarqube server then configure the parameters below in your environment variables -->
     <sonar.login>${env.SONAR_TOKEN}</sonar.login>
     <sonar.projectKey>sayfjawad_elevenproof-rest-api</sonar.projectKey>
