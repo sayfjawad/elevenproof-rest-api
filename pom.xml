@@ -62,11 +62,10 @@
     </sonar.coverage.exclusions>
 
     <!-- If you want to connect to a sonarqube server then configure the parameters below in your environment variables -->
-    <sonar.host.url>${env.SONAR_URL}</sonar.host.url>
-    <sonar.login>${env.SONAR_LOGIN}</sonar.login>
-    <sonar.token>${env.SONAR_TOKEN}</sonar.token>
+    <sonar.login>${env.SONAR_TOKEN}</sonar.login>
     <sonar.projectKey>sayfjawad_elevenproof-rest-api</sonar.projectKey>
     <sonar.organization>sayfjawad</sonar.organization>
+    <sonar.host.url>https://sonarcloud.io</sonar.host.url>
 
     <maven-assembly-plugin.version>3.5.0</maven-assembly-plugin.version>
     <maven-dependency-plugin.version>3.5.0</maven-dependency-plugin.version>
