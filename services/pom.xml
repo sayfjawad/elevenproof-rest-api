@@ -20,7 +20,10 @@
       <groupId>nl.multicode.elevenproof</groupId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
+    <dependency>
+      <artifactId>jacoco-maven-plugin</artifactId>
+      <groupId>org.jacoco</groupId>
+      <version>${jacoco-maven-plugin.version}</version>
+    </dependency>
   </dependencies>
-
-
 </project>
