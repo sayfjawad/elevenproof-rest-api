@@ -254,7 +254,7 @@
     <dependency>
       <artifactId>pitest-maven</artifactId>
       <groupId>org.pitest</groupId>
-      <version>1.11.4</version>
+      <version>${pitest-maven.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
