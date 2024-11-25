@@ -66,6 +66,8 @@
     <sonar.login>${env.SONAR_LOGIN}</sonar.login>
     <sonar.password>${env.SONAR_PASSWORD}</sonar.password>
     <sonar.token>${env.SONAR_TOKEN}</sonar.token>
+    <sonar.projectKey>sayfjawad_elevenproof-rest-api</sonar.projectKey>
+    <sonar.organization>sayfjawad</sonar.organization>
 
     <maven-assembly-plugin.version>3.5.0</maven-assembly-plugin.version>
     <maven-dependency-plugin.version>3.5.0</maven-dependency-plugin.version>
