@@ -9,6 +9,8 @@ public class IntArrayToString implements Function<int[], String> {
     @Override
     public String apply(int[] ints) {
 
-        return Arrays.stream(ints).mapToObj(String::valueOf).collect(Collectors.joining());
+        return Arrays.stream(ints)
+                .mapToObj(String::valueOf)
+                .collect(Collectors.joining());
     }
 }
