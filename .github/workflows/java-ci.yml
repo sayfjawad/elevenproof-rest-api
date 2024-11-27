@@ -39,3 +39,12 @@ jobs:
             -Djib.to.image=$IMAGE_ID \
             -Djib.to.auth.username=${{ github.actor }} \
             -Djib.to.auth.password=${{ secrets.GITHUB_TOKEN }}
+
+      - name: Deploy to Kubernetes
+        env:
+          KUBECONFIG: ${{ secrets.KUBECONFIG }}
+        run: |
+          echo "${{ secrets.KUBECONFIG }}" > kubeconfig
+          export KUBECONFIG=$(pwd)/kubeconfig
+          kubectl set image deployment/elevenproof-api elevenproof-api=ghcr.io/${{ github.repository_owner }}/elevenproof-rest-api:${{ github.sha }}
+          kubectl rollout status deployment/elevenproof-api
