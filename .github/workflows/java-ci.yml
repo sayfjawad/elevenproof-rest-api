@@ -46,5 +46,8 @@ jobs:
         run: |
           echo "${{ secrets.KUBECONFIG }}" > kubeconfig
           export KUBECONFIG=$(pwd)/kubeconfig
-          kubectl set image deployment/elevenproof-api elevenproof-api=ghcr.io/${{ github.repository_owner }}/elevenproof-rest-api:${{ github.sha }}
-          kubectl rollout status deployment/elevenproof-api
+          IMAGE_ID=ghcr.io/sayfjawad/elevenproof-rest-api:${{ github.sha }}
+          kubectl set image deployment/elevenproof-deployment elevenproof=$IMAGE_ID
+          kubectl rollout status deployment/elevenproof-deployment
+
+
