@@ -7,11 +7,11 @@
   <parent>
     <artifactId>elevenproof-rest-api</artifactId>
     <groupId>nl.multicode.elevenproof</groupId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.0.1-SNAPSHOT</version>
   </parent>
 
   <description>This module is responsible for running integration tests</description>
-  <version>1.0-SNAPSHOT</version>
+  <version>0.0.1-SNAPSHOT</version>
   <name>integration-test</name>
   <artifactId>integration-test</artifactId>
 
@@ -35,47 +35,60 @@
     <dependency>
       <artifactId>generated</artifactId>
       <groupId>nl.multicode.elevenproof</groupId>
-      <version>1.0-SNAPSHOT</version>
+      <version>0.0.1-SNAPSHOT</version>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-java -->
     <dependency>
+      <groupId>io.cucumber</groupId>
       <artifactId>cucumber-java</artifactId>
-      <groupId>io.cucumber</groupId>
-      <scope>test</scope>
+      <version>7.20.1</version>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-junit-platform-engine -->
     <dependency>
+      <groupId>io.cucumber</groupId>
       <artifactId>cucumber-junit-platform-engine</artifactId>
-      <groupId>io.cucumber</groupId>
+      <version>7.20.1</version>
       <scope>test</scope>
     </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-suite-api -->
     <dependency>
-      <artifactId>junit-platform-suite</artifactId>
       <groupId>org.junit.platform</groupId>
+      <artifactId>junit-platform-suite-api</artifactId>
+      <version>1.11.4</version>
       <scope>test</scope>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter -->
     <dependency>
-      <artifactId>junit-jupiter</artifactId>
       <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>5.11.4</version>
       <scope>test</scope>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->
     <dependency>
-      <artifactId>rest-assured-all</artifactId>
       <groupId>io.rest-assured</groupId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <artifactId>rest-assured</artifactId>
-      <groupId>io.rest-assured</groupId>
+      <version>5.5.0</version>
       <scope>test</scope>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/org.modelmapper/modelmapper -->
     <dependency>
-      <artifactId>modelmapper</artifactId>
       <groupId>org.modelmapper</groupId>
+      <artifactId>modelmapper</artifactId>
+      <version>3.2.2</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/com.vaadin.external.google/android-json -->
+    <dependency>
+      <groupId>com.vaadin.external.google</groupId>
+      <artifactId>android-json</artifactId>
+      <version>0.0.20131108.vaadin1</version>
     </dependency>
     <dependency>
-      <artifactId>android-json</artifactId>
-      <groupId>com.vaadin.external.google</groupId>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
+      <version>3.27.0</version>
       <scope>test</scope>
-      <version>0.0.20131108.vaadin1</version>
     </dependency>
   </dependencies>
 

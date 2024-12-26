@@ -113,7 +113,7 @@ $ ./gradlew clean build
 run the application 
 ```
 
-$ java -jar application/target/application-1.0-SNAPSHOT.jar
+$ java -jar application/target/application-0.0.1-SNAPSHOT.jar
 
 ```
 test by browser

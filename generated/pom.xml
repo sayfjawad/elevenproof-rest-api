@@ -2,16 +2,17 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns="http://maven.apache.org/POM/4.0.0"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
 
   <parent>
     <artifactId>elevenproof-rest-api</artifactId>
     <groupId>nl.multicode.elevenproof</groupId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.0.1-SNAPSHOT</version>
   </parent>
 
   <artifactId>generated</artifactId>
   <name>generated</name>
-  <version>1.0-SNAPSHOT</version>
+  <version>0.0.1-SNAPSHOT</version>
 
   <build>
     <plugins>
@@ -21,19 +22,18 @@
           <execution>
             <configuration>
               <configOptions>
-                <additionalModelTypeAnnotations>@lombok.Builder @lombok.NoArgsConstructor
-                  @lombok.AllArgsConstructor
-                </additionalModelTypeAnnotations>
+                <additionalModelTypeAnnotations>@lombok.Builder @lombok.NoArgsConstructor @lombok.AllArgsConstructor</additionalModelTypeAnnotations>
                 <dateLibrary>java8-localdatetime</dateLibrary>
                 <sourceFolder>src/gen/java/main</sourceFolder>
+                <!-- Gebruik Jakarta EE voor validation -->
+                <useJakartaEe>true</useJakartaEe>
               </configOptions>
               <generateApis>false</generateApis>
               <generateModelDocumentation>false</generateModelDocumentation>
               <generateSupportingFiles>false</generateSupportingFiles>
               <generatorName>spring</generatorName>
               <inputSpec>${project.basedir}/src/main/resources/apispecs/api-specs.yaml</inputSpec>
-              <modelPackage>nl.multicode.elevenproof.openapi.model
-              </modelPackage>
+              <modelPackage>nl.multicode.elevenproof.openapi.model</modelPackage>
               <output>${project.basedir}/target/generated-sources/</output>
             </configuration>
             <goals>
@@ -46,6 +46,8 @@
         <version>6.5.0</version>
       </plugin>
 
+
+
     </plugins>
   </build>
 
@@ -54,26 +56,32 @@
       <artifactId>spring-boot-starter-web</artifactId>
       <groupId>org.springframework.boot</groupId>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/org.openapitools/jackson-databind-nullable -->
     <dependency>
-      <artifactId>jackson-databind-nullable</artifactId>
       <groupId>org.openapitools</groupId>
+      <artifactId>jackson-databind-nullable</artifactId>
+      <version>0.2.6</version>
     </dependency>
+
+    <!-- https://mvnrepository.com/artifact/io.swagger.core.v3/swagger-annotations -->
     <dependency>
-      <artifactId>swagger-annotations</artifactId>
       <groupId>io.swagger.core.v3</groupId>
+      <artifactId>swagger-annotations</artifactId>
+      <version>2.2.27</version>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/jakarta.validation/jakarta.validation-api -->
     <dependency>
-      <artifactId>javax.annotation-api</artifactId>
-      <groupId>javax.annotation</groupId>
+      <groupId>jakarta.validation</groupId>
+      <artifactId>jakarta.validation-api</artifactId>
+      <version>3.1.0</version>
     </dependency>
+
+    <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
     <dependency>
-      <artifactId>gson</artifactId>
       <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
+      <version>2.11.0</version>
     </dependency>
-    <dependency>
-      <artifactId>validation-api</artifactId>
-      <groupId>javax.validation</groupId>
-    </dependency>
+
   </dependencies>
-  <modelVersion>4.0.0</modelVersion>
 </project>
