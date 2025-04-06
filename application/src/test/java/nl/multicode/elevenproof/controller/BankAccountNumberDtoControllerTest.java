@@ -20,10 +20,8 @@ class BankAccountNumberDtoControllerTest {
 
     @Mock
     BankAccountNumberService service;
-
     @InjectMocks
     BankNumberController controller;
-
 
     @Test
     @DisplayName("Given a request to generate is passed to the controller\n"
@@ -32,7 +30,6 @@ class BankAccountNumberDtoControllerTest {
     void testGetBsn_bsn_generate_is_called() {
 
         when(service.generate()).thenReturn(mock(BankAccountNumberDto.class));
-
         assertThat(controller.generate().getStatusCode()).isEqualTo(HttpStatusCode.valueOf(200));
         verify(service).generate();
     }
@@ -45,9 +42,7 @@ class BankAccountNumberDtoControllerTest {
 
         final var bsn = "123456789";
         when(service.isValid(bsn)).thenReturn(true);
-
         controller.validate(bsn).getBody();
-
         verify(service).isValid(bsn);
     }
 }

@@ -371,6 +371,34 @@
             <groupId>org.pitest</groupId>
             <version>${pitest-maven.version}</version>
           </plugin>
+          <plugin>
+            <groupId>com.diffplug.spotless</groupId>
+            <artifactId>spotless-maven-plugin</artifactId>
+            <version>2.44.3</version> <!-- or the latest version -->
+            <executions>
+              <!-- Runs Spotless when you do a Maven build/verify -->
+              <execution>
+                <id>spotless-apply</id>
+                <phase>verify</phase>
+                <goals>
+                  <!-- "check" fails the build if formatting is out of date.
+                       "apply" actually fixes the issues automatically. -->
+                  <goal>check</goal>
+                  <goal>apply</goal>
+                </goals>
+                <configuration>
+                  <java>
+                    <!-- Use Google's Java format rules (you can also use Eclipse, Prettier, etc.) -->
+                    <googleJavaFormat/>
+
+                    <!-- Remove unused imports -->
+                    <removeUnusedImports>true</removeUnusedImports>
+                  </java>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+
         </plugins>
 
       </build>

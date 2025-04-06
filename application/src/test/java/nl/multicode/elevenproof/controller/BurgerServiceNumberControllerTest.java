@@ -20,7 +20,6 @@ class BurgerServiceNumberControllerTest {
 
     @Mock
     BurgerServiceNumberService service;
-
     @InjectMocks
     BurgerServiceNumberController controller;
 
@@ -31,7 +30,6 @@ class BurgerServiceNumberControllerTest {
     void testGetBsn_bsn_generator_is_called() {
 
         when(service.generate()).thenReturn(mock(BurgerServiceNumberDto.class));
-
         assertThat(controller.generate().getStatusCode()).isEqualTo(HttpStatusCode.valueOf(200));
         verify(service).generate();
     }
@@ -44,9 +42,7 @@ class BurgerServiceNumberControllerTest {
 
         final var bsn = "123456789";
         when(service.isValid(bsn)).thenReturn(true);
-
         controller.validate(bsn).getBody();
-
         verify(service).isValid(bsn);
     }
 }

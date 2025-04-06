@@ -15,14 +15,11 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-
 @WebMvcTest(BurgerServiceNumberController.class)
 class BurgerServiceNumberControllerRestTest {
 
     @MockBean
     private ElevenProofService<BurgerServiceNumberDto> service;
-
-
     @Autowired
     private MockMvc mockMvc;
 
@@ -37,7 +34,6 @@ class BurgerServiceNumberControllerRestTest {
 
         final var mockResponse = new BurgerServiceNumberDto("123456789");
         when(service.generate()).thenReturn(mockResponse);
-
         RestAssuredMockMvc.given()
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .when()
@@ -52,7 +48,6 @@ class BurgerServiceNumberControllerRestTest {
 
         String testNumber = "987654321";
         when(service.isValid(testNumber)).thenReturn(true);
-
         RestAssuredMockMvc.given()
                 .contentType(ContentType.JSON)
                 .when()
