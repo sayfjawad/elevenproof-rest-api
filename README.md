@@ -39,7 +39,7 @@ kubectl
 #### Build Application
 
 ```
-./gradlew clean build
+./mvn clean install
 ```
 
 #### Use dockerhub.com
