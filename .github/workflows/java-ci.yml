@@ -18,10 +18,10 @@ jobs:
       - name: Check Out Repo
         uses: actions/checkout@v2
 
-      - name: Set up JDK 17
+      - name: Set up JDK 21
         uses: actions/setup-java@v2
         with:
-          java-version: '17'
+          java-version: '21'
           distribution: 'temurin'
 
       - name: Build and Test
@@ -40,14 +40,12 @@ jobs:
             -Djib.to.auth.username=${{ github.actor }} \
             -Djib.to.auth.password=${{ secrets.GITHUB_TOKEN }}
 
-      - name: Deploy to Kubernetes
-        env:
-          KUBECONFIG: ${{ secrets.KUBECONFIG }}
-        run: |
-          echo "${{ secrets.KUBECONFIG }}" > kubeconfig
-          export KUBECONFIG=$(pwd)/kubeconfig
-          IMAGE_ID=ghcr.io/sayfjawad/elevenproof-rest-api:${{ github.sha }}
-          kubectl set image deployment/elevenproof-deployment elevenproof=$IMAGE_ID
-          kubectl rollout status deployment/elevenproof-deployment
-
-
+#      - name: Deploy to Kubernetes
+#        env:
+#          KUBECONFIG: ${{ secrets.KUBECONFIG }}
+#        run: |
+#          echo "${{ secrets.KUBECONFIG }}" > kubeconfig
+#          export KUBECONFIG=$(pwd)/kubeconfig
+#          IMAGE_ID=ghcr.io/sayfjawad/elevenproof-rest-api:${{ github.sha }}
+#          kubectl set image deployment/elevenproof-deployment elevenproof=$IMAGE_ID
+#          kubectl rollout status deployment/elevenproof-deployment
