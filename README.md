@@ -8,14 +8,14 @@ Dutch) (BSN Burger Service Nummer, Bank Account number, etc...)
 This example uses the Dutch implementation of the eleven proof for the social security number
 equivalent 'BSN - Burger Service Nummer'.
 
-| BSN number | 0 | 5 | 6 | 7 | 0 | 4 | 0 | 3 | 0 | 5 |
+| BSN number | 2  | 5  | 3  | 0  | 4  | 7  | 1  | 4  | 6  |
 
-|             | #1 | #2 | #3 | #4 | #5 | #6 | #7 | #8 | #9 |       |     |        |   |
-|-------------|----|----|----|----|----|----|----|----|----|-------|-----|--------|---|
-| Number      | 2  | 5  | 3  | 0  | 4  | 7  | 1  | 4  | 6  |       |     |        |   |
-|             | x  | x  | x  | x  | x  | x  | x  | x  | x  |       |     |        |   |
-| Multipliers | 9  | 8  | 7  | 6  | 5  | 4  | 3  | 2  | -1 |       |     |        |   |
-| result      | 18 | 40 | 21 | 0  | 20 | 28 | 3  | 8  | -6 | Total | 132 | % 11 = | 0 |
+|                     | #1 | #2 | #3 | #4 | #5 | #6 | #7 | #8 | #9 |       |     |        |   |
+|---------------------|----|----|----|----|----|----|----|----|----|-------|-----|--------|---|
+| BSN Digits          | 2  | 5  | 3  | 0  | 4  | 7  | 1  | 4  | 6  |       |     |        |   |
+|                     | x  | x  | x  | x  | x  | x  | x  | x  | x  |       |     |        |   |
+| BSN Multipliers     | 9  | 8  | 7  | 6  | 5  | 4  | 3  | 2  | -1 |       |     |        |   |
+| Eleven proof result | 18 | 40 | 21 | 0  | 20 | 28 | 3  | 8  | -6 | Total | 132 | % 11 = | 0 |
 
 #### Application information
 

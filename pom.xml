@@ -59,12 +59,12 @@
       , **/src/nl/multicode/elevenproof/Application.java
       , **/src/nl/multicode/elevenproof/config/**
     </sonar.coverage.exclusions>
-
+    <sonar.exclusions>integration-test/**/*</sonar.exclusions>
     <!-- If you want to connect to a sonarqube server then configure the parameters below in your environment variables -->
-    <sonar.host.url>${env.SONAR_URL}</sonar.host.url>
-    <sonar.login>${env.SONAR_LOGIN}</sonar.login>
-    <sonar.password>${env.SONAR_PASSWORD}</sonar.password>
-    <sonar.token>${env.SONAR_TOKEN}</sonar.token>
+    <sonar.login>${env.SONAR_TOKEN}</sonar.login>
+    <sonar.projectKey>sayfjawad_elevenproof-rest-api</sonar.projectKey>
+    <sonar.organization>sayfjawad</sonar.organization>
+    <sonar.host.url>https://sonarcloud.io</sonar.host.url>
 
     <maven-assembly-plugin.version>3.7.1</maven-assembly-plugin.version>
     <maven-dependency-plugin.version>3.8.1</maven-dependency-plugin.version>
@@ -253,6 +253,7 @@
     <dependency>
       <artifactId>pitest-maven</artifactId>
       <groupId>org.pitest</groupId>
+      <version>${pitest-maven.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -272,6 +273,11 @@
       <groupId>org.projectlombok</groupId>
       <scope>provided</scope>
       <version>${lombok.version}</version>
+    </dependency>
+    <dependency>
+      <artifactId>jacoco-maven-plugin</artifactId>
+      <groupId>org.jacoco</groupId>
+      <version>${jacoco-maven-plugin.version}</version>
     </dependency>
   </dependencies>
 

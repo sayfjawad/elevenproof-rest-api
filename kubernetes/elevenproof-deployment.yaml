@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: elevenproof-deployment
+  labels:
+    app: elevenproof
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: elevenproof
+  template:
+    metadata:
+      labels:
+        app: elevenproof
+    spec:
+      containers:
+      - name: elevenproof
+        image: sayf4all/elevenproof-rest-api:latest
+        ports:
+        - containerPort: 8080

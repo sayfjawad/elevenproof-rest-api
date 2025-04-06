@@ -1,4 +1,4 @@
-name: Build and Push to GHCR
+name: Build, Test, Push to GHCR and deploy
 
 on:
   push:
@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      contents: read
+      contents: write
       packages: write
 
     steps:
@@ -24,18 +24,30 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Build and execute pitest
-        run: mvn -B package -Ppitest
+      - name: Build and Test
+        run: mvn clean verify
 
-      - name: Upload to SonarQube
-        run: mvn -B package sonar:sonar
+      - name: Run SonarCloud Analysis
+        run: mvn sonar:sonar
         env:
-          SONAR_URL: ${{ secrets.SONAR_URL }}
-          SONAR_LOGIN: ${{ secrets.SONAR_LOGIN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_PASSWORD: ${{ secrets.SONAR_PASSWORD }}
 
       - name: Build and Push Docker Image with Jib
         run: |
           IMAGE_ID=ghcr.io/${{ github.repository_owner }}/elevenproof-rest-api:${{ github.sha }}
-          mvn -B package jib:build -Djib.to.image=$IMAGE_ID -Djib.to.auth.username=${{ github.actor }} -Djib.to.auth.password=${{ secrets.GITHUB_TOKEN }}
+          mvn -B package jib:build \
+            -Djib.to.image=$IMAGE_ID \
+            -Djib.to.auth.username=${{ github.actor }} \
+            -Djib.to.auth.password=${{ secrets.GITHUB_TOKEN }}
+
+      - name: Deploy to Kubernetes
+        env:
+          KUBECONFIG: ${{ secrets.KUBECONFIG }}
+        run: |
+          echo "${{ secrets.KUBECONFIG }}" > kubeconfig
+          export KUBECONFIG=$(pwd)/kubeconfig
+          IMAGE_ID=ghcr.io/sayfjawad/elevenproof-rest-api:${{ github.sha }}
+          kubectl set image deployment/elevenproof-deployment elevenproof=$IMAGE_ID
+          kubectl rollout status deployment/elevenproof-deployment
+
+
