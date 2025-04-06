@@ -48,7 +48,6 @@
     <dependency>
       <artifactId>jacoco-maven-plugin</artifactId>
       <groupId>org.jacoco</groupId>
-      <version>${jacoco-maven-plugin.version}</version>
     </dependency>
   </dependencies>
 </project>

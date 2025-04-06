@@ -27,7 +27,7 @@ Maintainer: Sayf jawad ([sayf@multicode.nl](mailto:sayf@multicode.nl))
 This project uses:
 
 ```
-Java 17
+Java 21
 Spring Boot 3.x
 Gradle
 docker
@@ -39,7 +39,7 @@ kubectl
 #### Build Application
 
 ```
-./gradlew clean build
+./mvn clean install
 ```
 
 #### Use dockerhub.com
@@ -64,7 +64,7 @@ SONAR_PASSWORD=password
 
 After building the project run:
 ```
-$ ./gradlew sonar:sonar
+$ mvn verify sonar:sonar
 ```
 
 
@@ -78,7 +78,7 @@ Install Docker-Desktop and enable kuberenetes support in settings
 Make sure docker-desktop is running, build the necessary docker image using 'jib'
 ``` 
 $ cd application
-$ ./gradlew jib
+$ ./mvn jib
 ```
 go to the integration-test folder
 ```
@@ -98,7 +98,7 @@ your kuberenetes pod should be running.
 Now you can run cucumber tests!
 
 ``` 
-$ ./gradlew clean build -Pintegration-test
+$ mvn clean install -Pintegration-test
 ```
 
 #### Application usage
@@ -107,7 +107,7 @@ Generate BSN or BankAccount:
 buid the application 
 ``` 
 
-$ ./gradlew clean build
+$ mvn clean install
 
 ```
 run the application 
