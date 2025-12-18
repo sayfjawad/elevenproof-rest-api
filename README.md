@@ -130,9 +130,8 @@ test by command line
 $ curl -X 'GET' 'http://localhost:8080/api/bsn/generate' -H 'accept: */*'
 $ curl -X 'GET' 'http://localhost:8080/api/bsn/validate/052863785' -H 'accept: */*'
 
-#BANK
+# BANK
 $ curl -X 'GET' 'http://localhost:8080/api/bank/generate' -H 'accept: */*'
-$ curl -X 'GET' 'http://localhost:8080/api/bank/validate/0810660385' -H 'accept: */*'
 
 ```
 

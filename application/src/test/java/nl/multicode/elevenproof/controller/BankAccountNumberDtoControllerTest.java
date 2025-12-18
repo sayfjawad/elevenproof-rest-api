@@ -37,17 +37,5 @@ class BankAccountNumberDtoControllerTest {
         verify(service).generate();
     }
 
-    @Test
-    @DisplayName("Given a request to validate is passed to the controller\n"
-            + "Then the service is called to validate the proof number\n"
-            + "And the controller returns the validated response for that number\n")
-    void testValidateBankAccountNumber_number_validation() {
-
-        final var bsn = "123456789";
-        when(service.isValid(bsn)).thenReturn(true);
-
-        controller.validate(bsn).getBody();
-
-        verify(service).isValid(bsn);
-    }
+    // Validation endpoint for BANK has been removed; no validation test required.
 }
