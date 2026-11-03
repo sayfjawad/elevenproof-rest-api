@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 import lombok.SneakyThrows;
 import nl.multicode.elevenproof.openapi.model.BankAccountNumber;
-import nl.multicode.elevenproof.openapi.model.BurgerServiceNumber;
+import nl.multicode.elevenproof.openapi.model.CitizenServiceNumber;
 import org.apache.http.HttpStatus;
 
 
@@ -70,7 +70,7 @@ public class StepDefinitions {
         switch (elevenproof) {
             case "BSN": {
                 final var number = objectMapper.readValue(response.getBody().asByteArray(),
-                        BurgerServiceNumber.class);
+                        CitizenServiceNumber.class);
                 assertThat(number.getNumber()).hasSize(9);
                 break;
             }
@@ -94,7 +94,7 @@ public class StepDefinitions {
         switch (elevenproof) {
             case "BSN": {
                 final var number = objectMapper.readValue(response.getBody().asByteArray(),
-                        BurgerServiceNumber.class);
+                        CitizenServiceNumber.class);
                 assertThat(number.getIsElevenproof()).isEqualTo(valid);
                 break;
             }

@@ -16,6 +16,28 @@ spec:
     spec:
       containers:
       - name: elevenproof
-        image: sayf4all/elevenproof-rest-api:latest
+        # CI overrides this tag with the git sha after every push to main
+        # (see .github/workflows/java-ci.yml), so "latest" here is only the
+        # placeholder used for the very first `kubectl apply`.
+        image: ghcr.io/sayfjawad/elevenproof-rest-api:latest
         ports:
         - containerPort: 8080
+        readinessProbe:
+          httpGet:
+            path: /appinfo/health/liveness
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /appinfo/health/liveness
+            port: 8080
+          initialDelaySeconds: 20
+          periodSeconds: 20
+        resources:
+          requests:
+            cpu: 100m
+            memory: 256Mi
+          limits:
+            cpu: 500m
+            memory: 512Mi

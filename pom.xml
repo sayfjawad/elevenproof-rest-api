@@ -16,10 +16,8 @@
   <packaging>pom</packaging>
 
   <modules>
-    <module>core</module>
     <module>application</module>
     <module>integration-test</module>
-    <module>services</module>
     <module>generated</module>
   </modules>
 
@@ -28,6 +26,7 @@
 
     <!-- Supporting frameworks -->
     <lombok.version>1.18.38</lombok.version>
+    <elevenproof-lib.version>1.1</elevenproof-lib.version>
 
     <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
     <maven-surefire-plugin.version>3.5.3</maven-surefire-plugin.version>
@@ -87,6 +86,11 @@
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
         <version>${jacoco-maven-plugin.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>nl.multicode.elevenproof</groupId>
+        <artifactId>services</artifactId>
+        <version>${elevenproof-lib.version}</version>
       </dependency>
       <dependency>
         <artifactId>junit-jupiter-engine</artifactId>

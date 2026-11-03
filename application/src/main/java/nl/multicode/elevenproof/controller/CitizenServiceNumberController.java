@@ -1,8 +1,8 @@
 package nl.multicode.elevenproof.controller;
 
 import lombok.RequiredArgsConstructor;
-import nl.multicode.elevenproof.model.BurgerServiceNumberDto;
-import nl.multicode.elevenproof.openapi.model.BurgerServiceNumber;
+import nl.multicode.elevenproof.model.CitizenServiceNumberDto;
+import nl.multicode.elevenproof.openapi.model.CitizenServiceNumber;
 import nl.multicode.elevenproof.service.ElevenProofService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,24 +13,24 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/bsn")
 @RestController
 @RequiredArgsConstructor
-public class BurgerServiceNumberController implements
-        ElevenproofController<ResponseEntity<BurgerServiceNumber>> {
+public class CitizenServiceNumberController implements
+        ElevenproofController<ResponseEntity<CitizenServiceNumber>> {
 
-    private final ElevenProofService<BurgerServiceNumberDto> service;
+    private final ElevenProofService<CitizenServiceNumberDto> service;
 
     @GetMapping("/generate")
-    public ResponseEntity<BurgerServiceNumber> generate() {
+    public ResponseEntity<CitizenServiceNumber> generate() {
 
         return ResponseEntity.ok(
-                BurgerServiceNumber.builder().number(service.generate().number()).build());
+                CitizenServiceNumber.builder().number(service.generate().number()).build());
     }
 
     @GetMapping("/validate/{number}")
-    public ResponseEntity<BurgerServiceNumber> validate(
+    public ResponseEntity<CitizenServiceNumber> validate(
             @PathVariable("number") String number) {
 
         return ResponseEntity.ok(
-                BurgerServiceNumber.builder().number(number).isElevenproof(service.isValid(number))
+                CitizenServiceNumber.builder().number(number).isElevenproof(service.isValid(number))
                         .build());
     }
 }

@@ -5,7 +5,7 @@ import static org.mockito.Mockito.when;
 
 import io.restassured.http.ContentType;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
-import nl.multicode.elevenproof.model.BurgerServiceNumberDto;
+import nl.multicode.elevenproof.model.CitizenServiceNumberDto;
 import nl.multicode.elevenproof.service.ElevenProofService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,11 +15,11 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-@WebMvcTest(BurgerServiceNumberController.class)
-class BurgerServiceNumberControllerRestTest {
+@WebMvcTest(CitizenServiceNumberController.class)
+class CitizenServiceNumberControllerRestTest {
 
     @MockBean
-    private ElevenProofService<BurgerServiceNumberDto> service;
+    private ElevenProofService<CitizenServiceNumberDto> service;
     @Autowired
     private MockMvc mockMvc;
 
@@ -32,7 +32,7 @@ class BurgerServiceNumberControllerRestTest {
     @Test
     void testGenerate() {
 
-        final var mockResponse = new BurgerServiceNumberDto("123456789");
+        final var mockResponse = new CitizenServiceNumberDto("123456789");
         when(service.generate()).thenReturn(mockResponse);
         RestAssuredMockMvc.given()
                 .accept(MediaType.APPLICATION_JSON_VALUE)
