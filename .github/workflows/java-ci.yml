@@ -27,11 +27,6 @@ jobs:
       - name: Build and Test
         run: mvn clean verify
 
-      - name: Run SonarCloud Analysis
-        run: mvn sonar:sonar
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
       - name: Build and Push Docker Image with Jib
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |

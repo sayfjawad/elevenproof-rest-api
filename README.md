@@ -76,22 +76,6 @@ The cluster itself needs, once:
   `kubernetes/cluster-setup/cluster-issuer.yaml`, for the Let's Encrypt certificate
 - a DNS A/AAAA record for `eleven.multicode.nl` pointing at the cluster's ingress IP
 
-#### Use sonarqube
-Create environment variables containing url/login/password to be able to connect your project to a
-SonarQube/SonarCloud instance. 
-``` 
-SONAR_URL=http://sonar.host.com
-SONAR_LOGIN=login
-SONAR_PASSWORD=password
-``` 
-
-
-After building the project run:
-```
-$ mvn verify sonar:sonar
-```
-
-
 #### Integration testing using kubernetes
 Running automated tests to ensure functional expectations are met and prevent regression
 
