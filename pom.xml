@@ -16,10 +16,8 @@
   <packaging>pom</packaging>
 
   <modules>
-    <module>core</module>
     <module>application</module>
     <module>integration-test</module>
-    <module>services</module>
     <module>generated</module>
   </modules>
 
@@ -28,6 +26,7 @@
 
     <!-- Supporting frameworks -->
     <lombok.version>1.18.38</lombok.version>
+    <elevenproof-lib.version>1.1.0</elevenproof-lib.version>
 
     <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
     <maven-surefire-plugin.version>3.5.3</maven-surefire-plugin.version>
@@ -35,9 +34,9 @@
     <maven.compiler.target>21</maven.compiler.target>
 
     <!-- Unit testing dependencies versions-->
-    <mockito-core.version>5.17.0</mockito-core.version>
-    <assertj-core.version>3.27.3</assertj-core.version>
-    <junit-jupiter.version>5.12.1</junit-jupiter.version>
+    <mockito-core.version>5.24.0</mockito-core.version>
+    <assertj-core.version>3.27.7</assertj-core.version>
+    <junit-jupiter.version>5.14.4</junit-jupiter.version>
     <junit-platform-surefire-provider.version>${javax.annotation-api.version}</junit-platform-surefire-provider.version>
 
     <!-- PiTest settings -->
@@ -48,23 +47,6 @@
 
     <!-- JaCoCo Properties -->
     <jacoco-maven-plugin.version>0.8.13</jacoco-maven-plugin.version>
-    <sonar.language>java</sonar.language>
-    <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
-    <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
-    <sonar.jacoco.reportPath>${project.build.directory}/jacoco.exec</sonar.jacoco.reportPath>
-    <sonar.coverage.exclusions>
-      **/test/**/*
-      , **/src/nl/multicode/elevenproof/model/**
-      , **/src/**/*Dto.java
-      , **/src/nl/multicode/elevenproof/Application.java
-      , **/src/nl/multicode/elevenproof/config/**
-    </sonar.coverage.exclusions>
-    <sonar.exclusions>integration-test/**/*</sonar.exclusions>
-    <!-- If you want to connect to a sonarqube server then configure the parameters below in your environment variables -->
-    <sonar.login>${env.SONAR_TOKEN}</sonar.login>
-    <sonar.projectKey>sayfjawad_elevenproof-rest-api</sonar.projectKey>
-    <sonar.organization>sayfjawad</sonar.organization>
-    <sonar.host.url>https://sonarcloud.io</sonar.host.url>
 
     <maven-assembly-plugin.version>3.7.1</maven-assembly-plugin.version>
     <maven-dependency-plugin.version>3.8.1</maven-dependency-plugin.version>
@@ -87,6 +69,11 @@
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
         <version>${jacoco-maven-plugin.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>nl.multicode.elevenproof</groupId>
+        <artifactId>services</artifactId>
+        <version>${elevenproof-lib.version}</version>
       </dependency>
       <dependency>
         <artifactId>junit-jupiter-engine</artifactId>

@@ -3,14 +3,14 @@ package nl.multicode.elevenproof.config;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.servers.Server;
 import nl.multicode.elevenproof.generate.BankAccountNumberGenerator;
-import nl.multicode.elevenproof.generate.BurgerServiceNummerGenerator;
+import nl.multicode.elevenproof.generate.CitizenServiceNumberGenerator;
 import nl.multicode.elevenproof.generate.supplier.FixedLengthStringRandomNumbersSupplier;
 import nl.multicode.elevenproof.map.IntArrayToString;
 import nl.multicode.elevenproof.map.StringToIntArray;
 import nl.multicode.elevenproof.service.BankAccountNumberService;
-import nl.multicode.elevenproof.service.BurgerServiceNumberService;
+import nl.multicode.elevenproof.service.CitizenServiceNumberService;
 import nl.multicode.elevenproof.validate.BankAccountNumberElevenProof;
-import nl.multicode.elevenproof.validate.BurgerServiceNumberProof;
+import nl.multicode.elevenproof.validate.CitizenServiceNumberElevenProof;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -21,8 +21,7 @@ public class AppConfig {
     public OpenAPI customOpenAPI() {
 
         final var openapi = new OpenAPI();
-        openapi.addServersItem(new Server().url("https://elevenproof.multicode.nl"));
-        openapi.addServersItem(new Server().url("http://elevenproof.multicode.nl"));
+        openapi.addServersItem(new Server().url("https://eleven.multicode.nl"));
         openapi.addServersItem(new Server().url("http://localhost:8080"));
         return openapi;
     }
@@ -40,21 +39,21 @@ public class AppConfig {
     }
 
     @Bean
-    public BurgerServiceNummerGenerator getBurgerServiceNummerGenerator(
+    public CitizenServiceNumberGenerator getCitizenServiceNumberGenerator(
             IntArrayToString intArrayToString,
-            BurgerServiceNumberProof burgerServiceNumberProof) {
+            CitizenServiceNumberElevenProof citizenServiceNumberElevenProof) {
 
-        return new BurgerServiceNummerGenerator(
+        return new CitizenServiceNumberGenerator(
                 new FixedLengthStringRandomNumbersSupplier(
-                        BurgerServiceNummerGenerator.BSN_DIGITS_LENGTH),
+                        CitizenServiceNumberGenerator.BSN_DIGITS_LENGTH),
                 intArrayToString,
-                burgerServiceNumberProof);
+                citizenServiceNumberElevenProof);
     }
 
     @Bean
-    public BurgerServiceNumberProof getBsnElevenProof() {
+    public CitizenServiceNumberElevenProof getCitizenServiceNumberElevenProof() {
 
-        return new BurgerServiceNumberProof();
+        return new CitizenServiceNumberElevenProof();
     }
 
     @Bean
@@ -76,12 +75,12 @@ public class AppConfig {
     }
 
     @Bean
-    public BurgerServiceNumberService getBurgerServiceNumberService(
-            BurgerServiceNummerGenerator generator,
-            BurgerServiceNumberProof elevenProof,
+    public CitizenServiceNumberService getCitizenServiceNumberService(
+            CitizenServiceNumberGenerator generator,
+            CitizenServiceNumberElevenProof elevenProof,
             StringToIntArray stringToIntArray) {
 
-        return new BurgerServiceNumberService(generator, elevenProof, stringToIntArray);
+        return new CitizenServiceNumberService(generator, elevenProof, stringToIntArray);
     }
 
     @Bean

@@ -22,6 +22,18 @@ equivalent 'BSN - Burger Service Nummer'.
 Name: elevenproof-api
 Maintainer: Sayf jawad ([sayf@multicode.nl](mailto:sayf@multicode.nl))
 
+#### Architecture
+
+This repository is the Spring Boot REST API only. The eleven-proof generation and validation
+logic itself lives in a separate library,
+[eleven-proof-lib](https://github.com/sayfjawad/eleven-proof-lib), published to Maven Central
+as `nl.multicode.elevenproof:services`. This `application` module just wires that library's
+services up to HTTP controllers and a Swagger UI.
+
+Production is deployed on a k3s cluster, reachable at
+[https://eleven.multicode.nl](https://eleven.multicode.nl), behind Traefik (k3s's built-in
+ingress controller) with a cert-manager-issued TLS certificate.
+
 #### Requirements
 
 This project uses:
@@ -42,31 +54,27 @@ kubectl
 ./mvn clean install
 ```
 
-#### Use dockerhub.com
+#### CI/CD: build, push and deploy
 
-Create environment variables containing login/password to be able to register your container
-images to dockerhub.com
+On every push to `main`, `.github/workflows/java-ci.yml` builds and tests the project, builds a
+Docker image with [Jib](https://github.com/GoogleContainerTools/jib) (no Dockerfile needed) and
+pushes it to GHCR as `ghcr.io/sayfjawad/elevenproof-rest-api:<git-sha>`, then applies the
+manifests in `kubernetes/` to the k3s cluster and rolls out the new image.
 
-``` 
-DOCKER_HUB_USER={your dockerhub username}
-DOCKER_HUB_PASS={your dockerhub password}
-``` 
+This requires one repository secret in GitHub Actions settings:
 
-#### Use sonarqube
-Create environment variables containing url/login/password to be able to connect your project to a
-SonarQube/SonarCloud instance. 
-``` 
-SONAR_URL=http://sonar.host.com
-SONAR_LOGIN=login
-SONAR_PASSWORD=password
-``` 
-
-
-After building the project run:
 ```
-$ mvn verify sonar:sonar
+KUBECONFIG = <contents of the kubeconfig file for the target k3s cluster>
 ```
 
+(`GITHUB_TOKEN` for pushing to GHCR is provided automatically by GitHub Actions — no extra
+secret needed for that part.)
+
+The cluster itself needs, once:
+- Traefik as ingress controller (ships with k3s by default — nothing to install)
+- [cert-manager](https://cert-manager.io/) plus the `ClusterIssuer` in
+  `kubernetes/cluster-setup/cluster-issuer.yaml`, for the Let's Encrypt certificate
+- a DNS A/AAAA record for `eleven.multicode.nl` pointing at the cluster's ingress IP
 
 #### Integration testing using kubernetes
 Running automated tests to ensure functional expectations are met and prevent regression
@@ -122,6 +130,9 @@ test by browser
 http://localhost:8080/api/swagger-ui/index.html
 
 ```
+
+In production, the same Swagger UI is available at
+https://eleven.multicode.nl/api/swagger-ui/index.html.
 test by command line
 ```
 

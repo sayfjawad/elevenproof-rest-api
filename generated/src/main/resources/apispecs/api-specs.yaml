@@ -3,10 +3,8 @@ info:
   title: OpenAPI definition
   version: v0
 servers:
-  - url: https://elevenproof.multicode.nl
+  - url: https://eleven.multicode.nl
     description: Primary server URL
-  - url: http://elevenproof.multicode.nl
-    description: Fallback server URL
   - url: http://localhost:8080
     description: Localhost server url
 paths:
@@ -25,7 +23,7 @@ paths:
   /api/bsn/validate/{number}:
     get:
       tags:
-        - burger-service-number-controller
+        - citizen-service-number-controller
       operationId: validate
       parameters:
         - name: number
@@ -43,7 +41,7 @@ paths:
   /api/bsn/generate:
     get:
       tags:
-        - burger-service-number-controller
+        - citizen-service-number-controller
       operationId: generate
       responses:
         '200':
@@ -95,7 +93,7 @@ components:
           type: object
           additionalProperties:
             type: object
-    BurgerServiceNumber:
+    CitizenServiceNumber:
       type: object
       properties:
         number:
