@@ -27,29 +27,15 @@ jobs:
       - name: Build and Test
         run: mvn clean verify
 
+      # Deploy is GitOps (Flux, in-cluster) from here on: this step only builds and pushes the
+      # image. Flux's image-automation-controller watches GHCR for new main-<run_number> tags
+      # and commits the update into github.com/sayfjawad/multicode-infra itself — no cluster
+      # access needed from this workflow at all.
       - name: Build and Push Docker Image with Jib
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
-          IMAGE_ID=ghcr.io/${{ github.repository_owner }}/elevenproof-rest-api:${{ github.sha }}
           mvn -B package jib:build \
-            -Djib.to.image=$IMAGE_ID \
+            -Djib.to.image=ghcr.io/${{ github.repository_owner }}/elevenproof-rest-api:${{ github.sha }} \
+            -Djib.to.tags=main-${{ github.run_number }} \
             -Djib.to.auth.username=${{ github.actor }} \
             -Djib.to.auth.password=${{ secrets.GITHUB_TOKEN }}
-
-      - name: Set up kubectl
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        uses: azure/setup-kubectl@v4
-
-      - name: Deploy to Kubernetes
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        env:
-          KUBECONFIG_CONTENTS: ${{ secrets.KUBECONFIG }}
-        run: |
-          echo "$KUBECONFIG_CONTENTS" > kubeconfig
-          export KUBECONFIG=$(pwd)/kubeconfig
-          IMAGE_ID=ghcr.io/${{ github.repository_owner }}/elevenproof-rest-api:${{ github.sha }}
-          kubectl apply -f kubernetes/elevenproof-deployment.yaml
-          kubectl apply -f kubernetes/elevenproof-service.yaml
-          kubectl apply -f kubernetes/elevenproof-ingress.yaml
-          kubectl set image deployment/elevenproof-deployment elevenproof=$IMAGE_ID
-          kubectl rollout status deployment/elevenproof-deployment
