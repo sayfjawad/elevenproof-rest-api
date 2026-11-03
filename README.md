@@ -30,9 +30,13 @@ logic itself lives in a separate library,
 as `nl.multicode.elevenproof:services`. This `application` module just wires that library's
 services up to HTTP controllers and a Swagger UI.
 
-Production is deployed on a k3s cluster, reachable at
-[https://eleven.multicode.nl](https://eleven.multicode.nl), behind Traefik (k3s's built-in
-ingress controller) with a cert-manager-issued TLS certificate.
+Production runs on the `elevenproof` namespace of the `k3s-multicode` cluster (pod on node
+`c4130`, no in-cluster Service/Ingress — reached via `hostPort`), fronted by an nginx reverse
+proxy + Let's Encrypt certificate on the edge VPS, reachable at
+[https://eleven.multicode.nl](https://eleven.multicode.nl). The desired state (Deployment,
+image-automation) lives in
+[multicode-infra](https://github.com/sayfjawad/multicode-infra/tree/main/k8s/namespaces/elevenproof),
+applied by Flux (GitOps) — not from this repo's CI.
 
 #### Requirements
 
@@ -54,27 +58,23 @@ kubectl
 ./mvn clean install
 ```
 
-#### CI/CD: build, push and deploy
+#### CI/CD: build, push and deploy (GitOps)
 
-On every push to `main`, `.github/workflows/java-ci.yml` builds and tests the project, builds a
-Docker image with [Jib](https://github.com/GoogleContainerTools/jib) (no Dockerfile needed) and
-pushes it to GHCR as `ghcr.io/sayfjawad/elevenproof-rest-api:<git-sha>`, then applies the
-manifests in `kubernetes/` to the k3s cluster and rolls out the new image.
+On every push to `main`, `.github/workflows/java-ci.yml` builds and tests the project, then builds
+a Docker image with [Jib](https://github.com/GoogleContainerTools/jib) (no Dockerfile needed) and
+pushes it to GHCR tagged both `<git-sha>` and `main-<run-number>`. That's where this repo's CI
+stops — it never touches the cluster.
 
-This requires one repository secret in GitHub Actions settings:
+From there it's pull-based GitOps, entirely in
+[multicode-infra](https://github.com/sayfjawad/multicode-infra):
+- Flux's `image-reflector-controller` watches GHCR for new `main-<N>` tags.
+- `image-automation-controller` commits the new tag into
+  `k8s/namespaces/elevenproof/elevenproof-rest-api.yaml` in that repo.
+- Flux's normal reconciliation (already running in-cluster) applies it.
 
-```
-KUBECONFIG = <contents of the kubeconfig file for the target k3s cluster>
-```
-
-(`GITHUB_TOKEN` for pushing to GHCR is provided automatically by GitHub Actions — no extra
-secret needed for that part.)
-
-The cluster itself needs, once:
-- Traefik as ingress controller (ships with k3s by default — nothing to install)
-- [cert-manager](https://cert-manager.io/) plus the `ClusterIssuer` in
-  `kubernetes/cluster-setup/cluster-issuer.yaml`, for the Let's Encrypt certificate
-- a DNS A/AAAA record for `eleven.multicode.nl` pointing at the cluster's ingress IP
+No `KUBECONFIG` secret, no cluster credentials of any kind in this repo's CI — that was the whole
+point of moving to GitOps (a GitHub-hosted runner can't reach the cluster's private network
+anyway).
 
 #### Integration testing using kubernetes
 Running automated tests to ensure functional expectations are met and prevent regression
